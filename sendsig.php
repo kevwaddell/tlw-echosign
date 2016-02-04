@@ -1,0 +1,33 @@
+<?php 
+include_once('classes/PHPMailer/PHPMailerAutoload.php');
+include_once('inc/pre-function.php');
+include_once('inc/current_pg_function.php');
+
+$raw_data = file_get_contents($_POST[cref].'/data.txt');
+$data = unserialize($raw_data);
+$dateTime = gmdate('g:ia, jS F, Y');
+//pre($data);
+
+//Email functions to send to client, proclaim and IT
+include_once('inc/send-proclaim-attachment-email.php');
+include_once('inc/send-client-attachemt-email.php');
+
+
+if ( sendProclaimEmail() ) {
+	
+	$data[signed] = time(); 
+	$new_data = file_put_contents($data[ref] .'/data.txt', serialize($data));
+	
+	if ($new_data && sendClientPDFEmail()) {
+	header("Location: ". $scheme . $host ."/sent/?sent=1&cref=".$data[ref]);
+	}
+
+	
+} else {
+//echo "Proclaim Mailer Error: " . pre($mail->ErrorInfo);	
+
+header("Location: ". $scheme . $host ."/sent/?sent=0&cref=".$data[ref]);
+}
+
+
+?>

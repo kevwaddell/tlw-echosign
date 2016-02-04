@@ -1,0 +1,35 @@
+<?php
+include_once('inc/pre-function.php');
+include_once('inc/current_pg_function.php');
+include_once('classes/PHPMailer/PHPMailerAutoload.php');
+include_once('inc/send-client-email.php');
+
+$unsigned_logs_raw = file_get_contents('logs/unsigned.txt');
+$unsigned_logs = unserialize($unsigned_logs_raw);
+
+	if (!empty($unsigned_logs)) {
+	$now = time();
+	//pre($unsigned_logs);
+		
+		foreach ($unsigned_logs as $k => $ul) {
+		date_default_timezone_set('Europe/London');
+		$datePlus2Days = strtotime("+2 days", $ul['sent']);
+		
+		//pre(gmdate('jS F, Y, g:ia', $ul['sent']));
+		
+			if ($datePlus2Days < $now) {
+			$raw_data = file_get_contents($ul['ref'].'/data.txt');	
+			$data = unserialize($raw_data);
+				if ( sendClientEmail() ) {
+				$unsigned_logs[$k]['sent'] = time();
+				$new_logs = file_put_contents('logs/unsigned.txt', serialize($unsigned_logs));	
+				}
+				
+			} //if 2 days gone
+		
+		} // foreach unsigned log
+			
+	} else {
+	exit;	
+	}
+?>

@@ -1,0 +1,1 @@
+a:3:{i:0;a:4:{s:10:"check-date";i:1454454190;s:5:"Nmsgs";i:4;s:6:"Unread";i:2;s:7:"Deleted";i:0;}i:1;a:4:{s:10:"check-date";i:1454454493;s:5:"Nmsgs";i:4;s:6:"Unread";i:1;s:7:"Deleted";i:0;}i:2;a:4:{s:10:"check-date";i:1454537460;s:5:"Nmsgs";i:4;s:6:"Unread";i:1;s:7:"Deleted";i:0;}}

@@ -1,0 +1,590 @@
+/* Bootstrap  */
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
+
+pre {
+	display: none;
+}
+
+@font-face {
+  font-family: 'Journal';
+  src: url('journal.eot');
+  src: url('journal.eot?#iefix') format('embedded-opentype'),
+       url('journal.woff') format('woff'),
+       url('journal.ttf') format('truetype'),
+       url('journal.svg#JournalRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}	
+
+body {
+background-color: #565656;	
+background-image: url("../img/bg-icon-logo.png");
+background-attachment: fixed;
+background-repeat: no-repeat;
+background-position: right bottom;
+background-size: contain;
+}
+
+.color-strip {
+height: 30px;
+overflow: auto;
+border-bottom: 4px solid white;
+}
+
+.bar {
+height: 100%;
+width: 20%;
+float: left;
+border-left: 4px solid white;	
+}
+
+.bg-tlw-red {
+background-color: #CC015A;	
+color: white;
+}
+
+.bg-tlw-mdred {
+background-color: #7A103F;
+color: white;
+}
+
+.bg-purple {
+background-color: #A677B4;
+border-left: none;	
+}
+
+.bg-green {
+background-color: #ACD15C;	
+}
+
+.bg-pink {
+background-color:  #EA5677;	
+}
+
+.bg-orange {
+background-color: #FBAD4F;	
+}
+
+.bg-blue {
+background-color: #2D7EA9;	
+}
+
+.bg-dkgray {
+background-color: #565656;	
+color: white;
+}
+
+.bg-gray {
+background-color: #908e8e;	
+color: white;
+}
+
+.bg-ltgray {
+background-color: #D7D7D7;
+}
+
+.txt-gray {
+color: #918E8E;	
+}
+
+.txt-dkgray {
+color: #565656;	
+}
+.txt-tlw-red {
+color: #CC015A;	
+}
+.txt-tlw-midred {
+color: #7A103F;	
+}
+
+.btn i {
+line-height: 1.428;	
+}
+
+.btn-lg i {
+line-height: 1.33333;	
+}
+
+header.messages {
+margin-top: 10px;	
+}
+
+header.letter-toolbar {
+margin-top: 10px;
+margin-bottom: 10px;	
+}
+
+header.messages h1,
+header.messages h2 {
+margin-top: 0px;	
+}
+
+header.messages ol {
+margin-bottom: 0px;	
+}
+
+#letter-steps {
+display: inline-block;	
+margin-left: 0px;
+}
+
+header.messages {
+margin-top: 10px;	
+}
+
+header.letter-toolbar {
+margin-top: 10px;
+margin-bottom: 10px;	
+}
+
+.modal .modal-body p:last-child {
+margin-bottom: 0px;	
+}
+
+.modal-header {
+border-radius: 4px 4px 0px 0px;	
+}
+
+.modal-header h4 i {
+line-height: 1.428em;	
+}
+
+.modal-header .close {
+line-height: 1.428em;	
+}
+
+.modal-footer {
+border-radius: 0px 0px 4px 4px;	
+}
+
+.list-group .label {
+margin-right: 10px;	
+}
+
+.thumb-viewer {
+text-align: center;
+margin-bottom: 10px;
+}
+
+.thumb-viewer img {
+background-color: white;
+margin: 10px;	
+box-shadow: 5px 5px 10px 0px rgba(50, 50, 50, 0.75);
+}
+
+span.block {
+	display: block;
+}
+
+.block {
+display: block;	
+}
+
+.border-bot-4px {
+	border-bottom: 4px solid white;
+}
+
+.lg-txt {
+font-size: 1.2em;	
+}
+
+.lite {
+font-weight: 300;	
+}
+
+.jumbotron {
+	background-color: white;
+	background-image: url("../img/bg-icon-logo.png");
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-size: contain;
+	color: #666;
+	margin-bottom: 0px;
+	padding-top: 10px;
+	
+}
+
+.jumbotron h1 {
+	text-indent: -9999px;
+	height: 80px;
+	background-image: url("../img/tlw-logo-wide.svg");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: contain;
+	margin-bottom: 10px;
+	margin-top: 0px;
+}
+
+.jumbotron h2 {
+	margin-top: 0px;
+	font-size: 1.6em;
+}
+
+.jumbotron p {
+font-size: 0.85em;	
+}
+
+.fp-well {
+margin-top: -30px;
+box-shadow: 0px 0px 20px 0px rgba(50, 50, 50, 0.75);	
+border: 4px solid white;
+-moz-border-radius: 12px;
+-webkit-border-radius: 12px;
+border-radius: 12px;
+}
+
+.caps {
+text-transform: uppercase;	
+}
+
+.no-doc-well {
+margin-bottom: 0px;
+border: none;	
+}
+
+.no-doc-well h1 {
+margin-top: 0px;	
+}
+
+.well p:last-child {
+margin-bottom: 0px;	
+}
+
+.no-doc-well i.glyphicon {
+display: inline-block;
+width: 108px;
+height: 108px;
+-moz-border-radius: 100%;
+-webkit-border-radius: 100%;
+border-radius: 100%;
+background-color: #565656;
+line-height: 100px;
+font-size: 55px;
+color: white;	
+margin-bottom: 10px;
+border: 4px solid white;
+box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.75);	
+text-align: left;
+padding-left: 27px;
+}
+
+.no-doc-well a:link, .no-doc-well a:active, .no-doc-well a:visited {
+background-color: #CC015A;	
+color: white;	
+}
+
+.no-doc-well a:hover {
+background-color: #7A103F;
+}
+
+.no-doc-well p {
+font-size: 1.2em;	
+}
+
+.panel-heading h3, .alert h3 {
+margin-top: 0px;
+}
+
+.panel-heading h3 {
+margin-bottom: 0px;
+font-size: 1em;	
+}
+
+.letter-address {	
+font-weight: bold;
+margin-bottom: 20px;	
+}
+
+.letter-address p {
+margin-bottom: 0px;	
+}
+
+.main-content {
+padding-bottom: 20px;	
+}
+
+.letter-text {
+font-size: 0.8em;	
+height: 300px;
+overflow: auto;
+border: 1px solid #ccc;
+padding: 15px;
+}
+
+.letter-logo-wide {
+height: 100px;
+background-image: url("../img/tlw-logo-wide.svg");
+background-repeat: no-repeat;
+background-position: center center;
+background-size: contain;
+margin-top: -30px;
+margin-bottom: 10px;
+}
+
+.letter-logo {
+overflow: hidden;
+margin-bottom: 20px;
+padding-bottom: 10px;	
+border-bottom: 1px solid #ccc;
+font-size: 12px;
+}
+
+.logo {
+text-align: center;	
+}
+
+.logo img {
+width: 60%;
+height: auto;	
+}
+
+.letter-outer {
+background-color: #ffffff;
+padding: 20px;
+}
+
+.tlw-signature {
+padding-top: 20px;
+padding-bottom: 20px;	
+}
+
+.tlw-signature p {
+font-size: 0.8em;
+margin: 0px;	
+}
+
+.tlw-signature img {
+border-bottom: 2px dotted #000;	
+}
+
+.tlw-signature p.signed {
+font-family: "Journal",Georgia,Times,serif;	
+font-size: 4em;
+line-height: 1em;
+color: #145394;
+}
+
+.client-signature img {
+border-bottom: 2px dotted #000;
+}
+
+.client-signature p {
+font-size: 0.8em;	
+}
+
+.client-signature p span {
+padding-left: 10px;
+padding-right: 10px;
+display: block;
+font-family: "Journal",Georgia,Times,serif;	
+font-size: 4em;	
+line-height: 1em;
+color: #133352;
+border-bottom: 2px dotted #000;
+}
+
+.signature-details {
+padding-bottom: 20px;
+margin-bottom: 20px;
+border-bottom: 1px solid #ccc;	
+}
+
+.signature-details p {
+margin-bottom: 0px;	
+font-size: 0.8em;
+}
+
+	
+.sig-area {
+width: 294px;
+margin: auto; 	
+}
+
+.no-border {
+border: none;	
+}
+.navbar-brand {
+padding: 0px 0px 4px 10px;	
+}
+.navbar-brand img {
+height: 110%;	
+}
+
+.app-info {
+color: white;
+padding-bottom: 20px;	
+}
+
+.app-info small {
+display: block;
+text-align: center;
+}
+
+.modal-body p.lead {
+font-size: 0.9em;	
+}
+
+.modal-footer, .modal-header {
+padding: 8px;	
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+	select, textarea, input {
+	font-size: 16px;
+	}
+	
+	select:focus,
+	textarea:focus,
+	input:focus {
+    font-size: 16px;
+    background: #eee;
+  }
+}
+
+@media (min-width: 768px) {
+
+	pre.debug {
+		display: block;
+		position: fixed;
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		padding: 40px;
+		width: 800px;
+		overflow: auto;
+		color: lime;
+		background-color: rgba(100, 100, 100, 0.9);
+		z-index: 2000;
+		-moz-border-radius: 0px;
+		-webkit-border-radius: 0px;
+		border-radius: 0px;
+		border: none;
+	}
+	
+	header.messages {
+	margin-top: 30px;	
+	}
+	
+	header.letter-toolbar {
+	margin-top: 30px;
+	margin-bottom: 30px;	
+	}
+	
+	.thumb-viewer {
+	margin-bottom: 20px;
+	}
+		
+	.lg-txt {
+	font-size: 2em;	
+	}
+	
+	.jumbotron {
+	padding-top: 40px;	
+	}
+	
+	.jumbotron h1 {
+	height: 120px;
+	margin-bottom: 0px;
+	}
+	
+	.jumbotron h2 {
+	font-size: 2.4em;
+	}
+	
+	.jumbotron p {
+	font-size: 1.4em;	
+	}
+	
+	.fp-well {
+	margin-top: -40px;
+	}
+	
+	.panel-heading h3 {
+	font-size: 1.2em;	
+	}
+	
+	.letter-address {	
+		font-weight: bold;
+		margin-bottom: 20px;	
+	}
+	
+	.letter-address p {
+	margin-bottom: 0px;	
+	}
+	
+	.main-content {
+	padding-bottom: 40px;	
+	}
+	
+	.letter-text {
+	font-size: 1.2em;
+	height: auto;	
+	border: none;
+	padding: 0px;
+	}
+
+	
+	.letter-logo-wide {
+
+	}
+	
+	.letter-logo {
+	margin-bottom: 40px;
+	}
+	
+	.logo {
+	float: left;
+	text-align: left;
+	}
+	
+	.logo img {
+	width: 300px;
+	}
+	
+	.letter-outer {
+	padding: 60px;
+	}
+	
+	.tlw-signature {
+	padding-bottom: 30px;	
+	}
+	
+	.tlw-signature p {
+	font-size: 1.2em;	
+	}
+	
+	.client-signature p {
+	font-size: 1.2em;	
+	}
+	
+	.client-signature p span {
+	display: inline-block;
+	}
+	
+	.signature-details {
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+	}
+	
+	.signature-details p {
+	font-size: 1.2em;	
+	}
+
+	.navbar-brand {
+	padding: 0px 0px 4px 10px;	
+	}
+	.navbar-brand img {
+	height: 110%;	
+	}
+	
+	.modal-body p.lead {
+	font-size: 1em;	
+	}
+	
+	.modal-footer, .modal-header {
+	padding: 15px;	
+	}
+
+}
+
