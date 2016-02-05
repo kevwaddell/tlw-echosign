@@ -22,15 +22,20 @@ $unsigned = false;
 $noref = true;	
 //pre($unsigned_data);
 
-	foreach ($unsigned_data as $ud) {
-		
-		if ($cref == $ud['ref']) {
-		$ref = $ud['ref'];
-		$tkn = $ud['tkn'];
-		$fname = $ud['firstname'];
-		$unsigned = true;
-		$noref = false;
-		}	
+
+	if ($unsigned_data) {
+
+		foreach ($unsigned_data as $ud) {
+			
+			if ($cref == $ud['ref']) {
+			$ref = $ud['ref'];
+			$tkn = $ud['tkn'];
+			$fname = $ud['firstname'];
+			$unsigned = true;
+			$noref = false;
+			}	
+		}
+	
 	}
 	
 	if (!$unsigned) {
