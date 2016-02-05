@@ -38,7 +38,7 @@ $noref = true;
 	
 	}
 	
-	if (!$unsigned) {
+	if (!$unsigned && !$noref ) {
 	$raw_signed_data = file_get_contents('logs/sent_data.txt');
 	$signed_data = unserialize($raw_signed_data);	
 	//pre($signed_data);
