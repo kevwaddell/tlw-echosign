@@ -3,9 +3,9 @@ AuthName "TLW Logs"
 #Home file
 #AuthUserFile /Users/kevinwaddell/Sites/tlw-esign/logs/.htpasswd
 #Home imac file
-AuthUserFile /Applications/AMPPS/www/tlw-esign/logs/.htpasswd
+#AuthUserFile /Applications/AMPPS/www/tlw-esign/logs/.htpasswd
 #Work file
-#AuthUserFile /Applications/AMPPS/www/tlw-echosign/logs/.htpasswd
+AuthUserFile /Applications/AMPPS/www/tlw-echosign/logs/.htpasswd
 require valid-user
 
 <Files ~ "\.txt">
