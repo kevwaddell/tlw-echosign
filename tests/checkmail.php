@@ -1,8 +1,8 @@
 <?php
 set_time_limit(4000);
 
-include_once('inc/pre-function.php');
-include_once('classes/PHPMailer/PHPMailerAutoload.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/inc/pre-function.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/classes/PHPMailer/PHPMailerAutoload.php');
 
 function curPageURL() {
  	$pageURL = 'http';

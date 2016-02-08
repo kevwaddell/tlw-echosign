@@ -1,8 +1,8 @@
 <?php
-include_once('inc/pre-function.php');
-include_once('inc/current_pg_function.php');
-include_once('classes/PHPMailer/PHPMailerAutoload.php');
-include_once('inc/send-client-email.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/inc/pre-function.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/inc/current_pg_function.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/classes/PHPMailer/PHPMailerAutoload.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/inc/send-client-email.php');
 
 $unsigned_logs_raw = file_get_contents('logs/unsigned.txt');
 $unsigned_logs = unserialize($unsigned_logs_raw);

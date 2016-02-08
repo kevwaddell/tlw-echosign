@@ -1,10 +1,10 @@
 <?php
-include_once('inc/pre-function.php');
-include_once('inc/current_pg_function.php');
-include_once('inc/file-copy-functions.php');
-include_once('classes/PHPMailer/PHPMailerAutoload.php');
-include_once('inc/send-IT-attachment-email.php');
-include_once('inc/gs-function.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/inc/pre-function.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/inc/current_pg_function.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/inc/file-copy-functions.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/classes/PHPMailer/PHPMailerAutoload.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/inc/send-IT-attachment-email.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/inc/gs-function.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -69,7 +69,7 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 </head>
 <body>
 	
-	<?php include_once('inc/html/col-strip.php'); ?>
+	<?php include_once($_SERVER[DOCUMENT_ROOT].'/inc/html/col-strip.php'); ?>
 	
 	<header class="messages">
 		
