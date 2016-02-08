@@ -67,7 +67,7 @@ if ($inbox){
 		rsort($emails);
 		
 		if (file_exists('logs/email-logs.txt')) {
-		$email_logs_raw = file_get_contents('logs/email-logs.txt'); 
+		$email_logs_raw = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/email-logs.txt'); 
 		$email_logs = unserialize($email_logs_raw);
 		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
 		file_put_contents('logs/email-logs.txt', serialize($email_logs)); 	
@@ -78,7 +78,7 @@ if ($inbox){
 		}
 		
 		if (file_exists('logs/unsigned.txt')) {
-		$unsigned_logs_raw = file_get_contents('logs/unsigned.txt');
+		$unsigned_logs_raw = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/unsigned.txt');
 		$unsigned_logs = unserialize($unsigned_logs_raw);
 		} else {
 		$unsigned_logs = array();
@@ -204,7 +204,7 @@ if ($inbox){
 									file_put_contents('logs/unsigned.txt', serialize($unsigned_logs));
 									
 									if (file_exists('logs/email-error-logs.txt')) {
-									$raw_error_logs = file_get_contents('logs/email-error-logs.txt');
+									$raw_error_logs = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/email-error-logs.txt');
 									$error_logs = unserialize($raw_error_logs);		
 									$error_logs[] = $mail->ErrorInfo;	
 									file_put_contents('logs/email-error-logs.txt', serialize($error_logs));
@@ -237,7 +237,7 @@ imap_close($inbox);
 	//echo "<br> --> connection to server failed...<br>";
 	
 	if (file_exists('logs/imap-error-logs.txt')) {
-	$raw_imap_error_logs = file_get_contents('logs/imap-error-logs.txt');
+	$raw_imap_error_logs = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/imap-error-logs.txt');
 	$imap_error_logs = unserialize($raw_imap_error_logs);		
 	$imap_error_logs[] = imap_errors();	
 	file_put_contents('logs/imap-error-logs.txt', serialize($imap_error_logs));

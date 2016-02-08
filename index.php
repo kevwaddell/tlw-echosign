@@ -1,7 +1,7 @@
 <?php 
 include_once($_SERVER[DOCUMENT_ROOT].'/inc/current_pg_function.php');
 include_once($_SERVER[DOCUMENT_ROOT].'/inc/pre-function.php');
-//pre($_SERVER);
+//pre($host);
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,7 @@ include_once($_SERVER[DOCUMENT_ROOT].'/inc/pre-function.php');
 $cref = $_POST['cref'];
 $errors = array();
 $messages = array();
-$raw_unsigned_data = file_get_contents('logs/unsigned.txt');
+$raw_unsigned_data = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/unsigned.txt');
 $unsigned_data = unserialize($raw_unsigned_data);	
 $unsigned = false;	
 $noref = true;	
@@ -40,7 +40,7 @@ $noref = true;
 	}
 	
 	if (!$unsigned && !$noref ) {
-	$raw_signed_data = file_get_contents('logs/sent_data.txt');
+	$raw_signed_data = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/sent_data.txt');
 	$signed_data = unserialize($raw_signed_data);	
 	//pre($signed_data);
 		foreach ($signed_data as $k => $sd) {

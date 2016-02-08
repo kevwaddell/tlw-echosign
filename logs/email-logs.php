@@ -1,6 +1,6 @@
 <?php
-include_once('../inc/pre-function.php');
-include_once('../inc/current_pg_function.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/inc/pre-function.php');
+include_once($_SERVER[DOCUMENT_ROOT].'/inc/current_pg_function.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,7 +24,7 @@ $imap_error_logs = unserialize($raw_imap_error_logs);
 </head>
 <body>
 	
-	<?php include_once('../inc/html/col-strip.php'); ?>
+	<?php include_once($_SERVER[DOCUMENT_ROOT].'/inc/html/col-strip.php'); ?>
 	
 	<header class="messages">
 		

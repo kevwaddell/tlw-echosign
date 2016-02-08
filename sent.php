@@ -42,14 +42,14 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 		$signed_data[$data[ref]] = array('ref' => $data['ref'], 'tkn' => $data['tkn'], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
 		file_put_contents('logs/sent_data.txt', serialize($signed_data));
 		} else {
-		$raw_signed_data = file_get_contents('logs/sent_data.txt');	
+		$raw_signed_data = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/sent_data.txt');	
 		$signed_data = unserialize($raw_signed_data);
 		$signed_data[$data[ref]] = array('ref' => $data[ref], 'tkn' => $data[tkn], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
 		file_put_contents('logs/sent_data.txt', serialize($signed_data));
 		}
 		
 		if (file_exists('logs/unsigned.txt')) {
-		$raw_unsigned_data = file_get_contents('logs/unsigned.txt');
+		$raw_unsigned_data = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/unsigned.txt');
 		$unsigned_data = unserialize($raw_unsigned_data);	
 			foreach ($unsigned_data as $k => $ud) {
 				if ($ud['ref'] == $_GET['cref']) {

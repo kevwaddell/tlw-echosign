@@ -8,7 +8,7 @@ if ( isset($_GET['cref']) ) {
 	$raw_data = file_get_contents($cref.'/data.txt');
 
 	$data = unserialize($raw_data);
-	$unsigned_logs_raw = file_get_contents('logs/unsigned.txt');
+	$unsigned_logs_raw = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/unsigned.txt');
 	$unsigned_logs = unserialize($unsigned_logs_raw);
 	
 	include_once($_SERVER[DOCUMENT_ROOT].'/inc/current_pg_function.php');
