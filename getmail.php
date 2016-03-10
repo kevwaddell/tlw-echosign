@@ -1,24 +1,8 @@
 <?php
 set_time_limit(4000);
-
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
-
-function curPageURL() {
- 	$pageURL = 'http';
- 	if ($_SERVER['HTTPS'] == "on") {$pageURL .= "s";}
- 	$pageURL .= "://";
- 	if ($_SERVER['SERVER_PORT'] != "80") {
- 		$pageURL .= $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
- 	} else {
- 		$pageURL .= $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
- 	}
- 	
- 	return $pageURL;
-}
-$url_array = parse_url(curPageURL());
-$host = $url_array[host];
-$scheme = $url_array[scheme]."://";
 
 function getFileExtension($fileName){
    $parts=explode(".",$fileName);
@@ -36,7 +20,7 @@ $password = "TLW_kevin21";
 if ($host == "tlw-echosign.dev") {
 	$imapPath = "{192.168.12.9:143/imap4/notls/novalidate-cert/user=esign}";	
 } else {
-	$imapPath = "{nsgateway.tlwsolicitors.co.uk:143/imap4/notls/novalidate-cert/user=esign}";	
+	$imapPath = "{nsgateway.tlwsolicitors.co.uk:143/imap4/notls/novalidate-cert/user=esign}INBOX";	
 }
 $username = "esign@tlwsolicitors.co.uk";
 $password = "document5";
