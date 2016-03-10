@@ -7,7 +7,7 @@ $mail = new PHPMailer(true); // the true param means it will throw exceptions on
 
 $mail->IsSMTP(); // telling the class to use SMTP
 
-pre($mail);
+echo "<p>---------- THIS IS A MAIL SENDING TEST ----------*<p>\n";
 
 try {
 	if ($host == "tlw-echosign.dev") {
