@@ -18,8 +18,6 @@ $password = "document5";
 
 $inbox = imap_open($imapPath, $username, $password, NULL, 1, array('DISABLE_AUTHENTICATOR' => 'GSSAPI'));
 
-pre($inbox);
-
 if ($inbox){
 	
 	echo "<br> --> connection successful....<br>";
