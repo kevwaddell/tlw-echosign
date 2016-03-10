@@ -62,7 +62,11 @@ function zip_files($data) {
 if(file_exists('../logs/sent_data.txt')) {
 $raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.txt');	
 $data = unserialize($raw_data);	
+
+if (!empty($data)) {
 zip_files($data);	
+}
+	
 } else {
 exit;	
 }	
