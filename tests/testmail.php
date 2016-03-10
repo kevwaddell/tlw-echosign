@@ -1,14 +1,15 @@
 <?php
-include_once($_SERVER[DOCUMENT_ROOT].'/inc/current_pg_function.php'); 
-include_once($_SERVER[DOCUMENT_ROOT].'/inc/pre-function.php');
-include_once($_SERVER[DOCUMENT_ROOT].'/classes/PHPMailer/PHPMailerAutoload.php');
+//include_once($_SERVER[DOCUMENT_ROOT].'/inc/current_pg_function.php'); 
+//include_once($_SERVER[DOCUMENT_ROOT].'/inc/pre-function.php');
+//include_once($_SERVER[DOCUMENT_ROOT].'/classes/PHPMailer/PHPMailerAutoload.php');
 
-$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
+//$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
 
-$mail->IsSMTP(); // telling the class to use SMTP
+//$mail->IsSMTP(); // telling the class to use SMTP
 
 echo "<p>---------- THIS IS A MAIL SENDING TEST ----------*<p>\n";
 
+/*
 try {
 	if ($host == "tlw-echosign.dev") {
 	$mail->Host = 'tlwserv02.tlwsolicitors.local';
@@ -41,5 +42,6 @@ try {
   echo "<p>Other PHP Error<p>\n";
   echo $e->getMessage(); //Boring error messages from anything else!
 }
+*/
     
 ?>
