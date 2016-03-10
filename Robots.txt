@@ -1,0 +1,30 @@
+User-Agent: *
+Disallow: /admin
+Disallow: /assets
+Disallow: /cgi-bin
+Disallow: /classes
+Disallow: /inc
+Disallow: /logs
+Disallow: /signed
+Disallow: /temps
+Disallow: /checkunsigned/
+Disallow: /getmail/
+Disallow: /sendmail/
+Disallow: /sendsig/
+Disallow: /sent/
+
+User-Agent: Googlebot
+Disallow: /admin
+Disallow: /assets
+Disallow: /cgi-bin
+Disallow: /classes
+Disallow: /inc
+Disallow: /logs
+Disallow: /signed
+Disallow: /temps
+Disallow: /checkunsigned/
+Disallow: /getmail/
+Disallow: /sendmail/
+Disallow: /sendsig/
+Disallow: /sent/
+
