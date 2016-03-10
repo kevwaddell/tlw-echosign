@@ -6,7 +6,7 @@ include_once($_SERVER[DOCUMENT_ROOT].'/classes/PHPMailer/PHPMailerAutoload.php')
 $mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
 
 $mail->IsSMTP(); // telling the class to use SMTP
-echo '<pre class="debug">';print_r($mail);echo '</pre>';
+pre($host);
 echo "<p>---------- THIS IS A MAIL SENDING TEST ----------*<p>\n";
 
 /*
