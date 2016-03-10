@@ -23,7 +23,7 @@ if ($inbox){
 	echo "<br> --> connection successful....<br>";
 	
 	/* grab emails */
-	$emails = imap_search($inbox,'UNSEEN');
+	$emails = imap_search($inbox,'ALL');
 	
 	if($emails) {
 		$emails_counter = 0;
