@@ -1,7 +1,7 @@
 <?php
-include_once($_SERVER[DOCUMENT_ROOT].'/inc/current_pg_function.php');
-include_once($_SERVER[DOCUMENT_ROOT].'/inc/pre-function.php');
-include_once($_SERVER[DOCUMENT_ROOT].'/inc/doc_reader.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/doc_reader.php');
 
 $raw_data = file_get_contents('data.txt');
 $data = unserialize($raw_data);
@@ -27,7 +27,7 @@ $doc = parseWord($file);
 
 	<main class="main-content letter-main">
 		
-	<?php include_once($_SERVER[DOCUMENT_ROOT].'/inc/html/col-strip.php');?>
+	<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/col-strip.php');?>
 	
 	<div class="container">
 		<div class="row">
@@ -35,11 +35,11 @@ $doc = parseWord($file);
 			
 		<?php if (isset($_GET['tkn']) && $_GET['tkn'] == $data[tkn]) { ?>	
 	
-		<?php include_once($_SERVER[DOCUMENT_ROOT].'/inc/html/letter-steps-btns.php');?>
+		<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-steps-btns.php');?>
 		
 			<div class="letter-outer">
 				
-				<?php include_once($_SERVER[DOCUMENT_ROOT].'/inc/html/letter-logo.php');?>	
+				<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-logo.php');?>	
 				
 				<?php if (isset($_POST['output'])) { ?>
 				<?php ob_start() ; ?>
@@ -78,12 +78,12 @@ $doc = parseWord($file);
 				<?php 
 					$html = ob_get_contents();
 					ob_end_clean(); 
-					include_once($_SERVER[DOCUMENT_ROOT].'/inc/gs-function.php');
+					include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gs-function.php');
 					include("../classes/mpdf/mpdf.php");
 					$stylesheet = file_get_contents('../assets/css/pdf-styles.css');
 					$mpdf=new mPDF('default', 'A4', '8', 'san-serif', '12', '12', '65', '45', '10', '10', 'P');
-					include_once($_SERVER[DOCUMENT_ROOT].'/inc/pdf-parts/pdf-header.php');
-					include_once($_SERVER[DOCUMENT_ROOT].'/inc/pdf-parts/pdf-footer.php');
+					include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pdf-parts/pdf-header.php');
+					include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pdf-parts/pdf-footer.php');
 					$mpdf->WriteHTML($stylesheet,1);
 					$mpdf->WriteHTML($html);
 					$mpdf->Output($data[ref].'.pdf', 'F');
@@ -121,9 +121,9 @@ $doc = parseWord($file);
 
 			<?php } else { ?>
 			
-			<?php include_once($_SERVER[DOCUMENT_ROOT].'/inc/html/letter-disabled-btns.php');?>
+			<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-disabled-btns.php');?>
 			
-			<?php include_once($_SERVER[DOCUMENT_ROOT].'/inc/html/letter-disabled-message.php');?>
+			<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-disabled-message.php');?>
 			
 			<?php } ?>
 			
@@ -141,17 +141,17 @@ $doc = parseWord($file);
 
 <?php if (!isset($_POST['output'])) {?>
 
-<?php include_once($_SERVER[DOCUMENT_ROOT].'/inc/html/letter-modal-sigpad.php');?>
+<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-modal-sigpad.php');?>
 
 <?php } ?>
 
 <?php if (isset($_GET['tkn']) && $_GET['tkn'] == $data[tkn]) { ?>
 
-<?php include_once($_SERVER[DOCUMENT_ROOT].'/inc/html/letter-modal-step1.php');?>
-<?php include_once($_SERVER[DOCUMENT_ROOT].'/inc/html/letter-modal-step2.php');?>
-<?php include_once($_SERVER[DOCUMENT_ROOT].'/inc/html/letter-modal-step3.php');?>
-<?php include_once($_SERVER[DOCUMENT_ROOT].'/inc/html/letter-modal-step4.php');?>
-<?php include_once($_SERVER[DOCUMENT_ROOT].'/inc/html/letter-modal-step5.php');?>
+<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-modal-step1.php');?>
+<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-modal-step2.php');?>
+<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-modal-step3.php');?>
+<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-modal-step4.php');?>
+<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-modal-step5.php');?>
 
 <?php } ?>
 </body>

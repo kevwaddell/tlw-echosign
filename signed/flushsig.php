@@ -1,8 +1,8 @@
 <?php
-include_once($_SERVER[DOCUMENT_ROOT].'/inc/pre-function.php');
-include_once($_SERVER[DOCUMENT_ROOT].'/inc/current_pg_function.php');
-include_once($_SERVER[DOCUMENT_ROOT].'/classes/PHPMailer/PHPMailerAutoload.php'); 
-include_once($_SERVER[DOCUMENT_ROOT].'/inc/send-IT-zip-email.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php'); 
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-IT-zip-email.php');
  
 function zip_files($data) {
 	
@@ -60,7 +60,7 @@ function zip_files($data) {
 }
 
 if(file_exists('../logs/sent_data.txt')) {
-$raw_data = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/sent_data.txt');	
+$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.txt');	
 $data = unserialize($raw_data);	
 zip_files($data);	
 } else {

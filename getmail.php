@@ -1,17 +1,17 @@
 <?php
 set_time_limit(4000);
 
-include_once($_SERVER[DOCUMENT_ROOT].'/inc/pre-function.php');
-include_once($_SERVER[DOCUMENT_ROOT].'/classes/PHPMailer/PHPMailerAutoload.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
 
 function curPageURL() {
  	$pageURL = 'http';
- 	if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+ 	if ($_SERVER['HTTPS'] == "on") {$pageURL .= "s";}
  	$pageURL .= "://";
- 	if ($_SERVER["SERVER_PORT"] != "80") {
- 		$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+ 	if ($_SERVER['SERVER_PORT'] != "80") {
+ 		$pageURL .= $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
  	} else {
- 		$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+ 		$pageURL .= $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
  	}
  	
  	return $pageURL;
@@ -67,7 +67,7 @@ if ($inbox){
 		rsort($emails);
 		
 		if (file_exists('logs/email-logs.txt')) {
-		$email_logs_raw = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/email-logs.txt'); 
+		$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs.txt'); 
 		$email_logs = unserialize($email_logs_raw);
 		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
 		file_put_contents('logs/email-logs.txt', serialize($email_logs)); 	
@@ -78,7 +78,7 @@ if ($inbox){
 		}
 		
 		if (file_exists('logs/unsigned.txt')) {
-		$unsigned_logs_raw = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/unsigned.txt');
+		$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.txt');
 		$unsigned_logs = unserialize($unsigned_logs_raw);
 		} else {
 		$unsigned_logs = array();
@@ -189,7 +189,7 @@ if ($inbox){
   							
 							if ($result == "OK") {
 	
-								include_once($_SERVER[DOCUMENT_ROOT].'/inc/send-client-email.php');
+								include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-client-email.php');
 								
 								if (sendClientEmail()) {
 								$data['sent'] = time();
@@ -204,7 +204,7 @@ if ($inbox){
 									file_put_contents('logs/unsigned.txt', serialize($unsigned_logs));
 									
 									if (file_exists('logs/email-error-logs.txt')) {
-									$raw_error_logs = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/email-error-logs.txt');
+									$raw_error_logs = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs.txt');
 									$error_logs = unserialize($raw_error_logs);		
 									$error_logs[] = $mail->ErrorInfo;	
 									file_put_contents('logs/email-error-logs.txt', serialize($error_logs));
@@ -237,7 +237,7 @@ imap_close($inbox);
 	//echo "<br> --> connection to server failed...<br>";
 	
 	if (file_exists('logs/imap-error-logs.txt')) {
-	$raw_imap_error_logs = file_get_contents($_SERVER[DOCUMENT_ROOT].'/logs/imap-error-logs.txt');
+	$raw_imap_error_logs = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs.txt');
 	$imap_error_logs = unserialize($raw_imap_error_logs);		
 	$imap_error_logs[] = imap_errors();	
 	file_put_contents('logs/imap-error-logs.txt', serialize($imap_error_logs));
