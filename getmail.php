@@ -16,8 +16,12 @@ if ($host == "tlw-echosign.dev") {
 $username = "esign@tlwsolicitors.co.uk";
 $password = "document5";
 
-$inbox = imap_open($imapPath, $username, $password, NULL, 1);
+$inbox = imap_open($imapPath, $username, $password, NULL, 1, array('DISABLE_AUTHENTICATOR' => 'GSSAPI'));
 
-pre($inbox);
+pre(imap_errors());
+pre(imap_alerts());
+
+imap_close($inbox);
+
 
 ?>
