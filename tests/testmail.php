@@ -28,7 +28,6 @@ try {
   $mail->Subject = 'Mailer test with TLW server';
   $mail->AltBody = 'If this works. Wey hey!!!!'; // optional - MsgHTML will create an alternate automatically
   $mail->MsgHTML("<p>Yes baby it worked.</p>");
-  $mail->Send();
   
   if ($mail->Send()) {
 	echo "<p>Message Sent OK</p>\n";  
