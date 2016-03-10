@@ -1,12 +1,12 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php'); 
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
-//include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
 
-//$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
-//$mail->IsSMTP(); // telling the class to use SMTP
+$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
+$mail->IsSMTP(); // telling the class to use SMTP
 
-pre($_SERVER['DOCUMENT_ROOT']);
+pre($mail);
 echo "<p>---------- THIS IS A MAIL SENDING TEST ----------*<p>\n";
 
 /*
