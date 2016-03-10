@@ -13,6 +13,8 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <link rel="stylesheet" href="<?php echo $scheme; ?><?php echo $host; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php
+$imap_error_logs = false;
+
 if (file_exists('email-logs.txt')) {
 $raw_email_data = file_get_contents('email-logs.txt');	
 $email_data = unserialize($raw_email_data);	
