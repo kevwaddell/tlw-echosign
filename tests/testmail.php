@@ -6,10 +6,9 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php
 $mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
 $mail->IsSMTP(); // telling the class to use SMTP
 
-pre($mail);
-echo "<p>---------- THIS IS A MAIL SENDING TEST ----------*<p>\n";
+//pre($mail);
+echo "<p>*---------- THIS IS A MAIL SENDING TEST ----------*<p>\n";
 
-/*
 try {
 	if ($host == "tlw-echosign.dev") {
 	$mail->Host = 'tlwserv02.tlwsolicitors.local';
@@ -36,12 +35,11 @@ try {
   }
   
 } catch (phpmailerException $e) {
-	echo "<p>PHP Mailer Error<p>\n";
+	echo "<p>*---------- PHP Mailer Error ----------*<p>\n";
   echo $e->errorMessage(); //Pretty error messages from PHPMailer
 } catch (Exception $e) {
-  echo "<p>Other PHP Error<p>\n";
+  echo "<p>*---------- Other PHP Error ----------*<p>\n";
   echo $e->getMessage(); //Boring error messages from anything else!
 }
-*/
     
 ?>
