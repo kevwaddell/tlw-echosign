@@ -23,4 +23,6 @@ $password = "document5";
 
 $inbox = imap_open($imapPath, $username, $password, NULL, 1, array('DISABLE_AUTHENTICATOR' => 'GSSAPI'));
 
+echo '<pre class="debug">';print_r($inbox);echo '</pre>';
+
 ?>
