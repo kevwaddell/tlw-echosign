@@ -6,7 +6,7 @@ include_once($_SERVER[DOCUMENT_ROOT].'/inc/pre-function.php');
 //$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
 
 //$mail->IsSMTP(); // telling the class to use SMTP
-pre($host);
+pre($url_array);
 echo "<p>---------- THIS IS A MAIL SENDING TEST ----------*<p>\n";
 
 /*
