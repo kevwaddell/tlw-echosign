@@ -29,11 +29,16 @@ try {
   $mail->AltBody = 'If this works. Wey hey!!!!'; // optional - MsgHTML will create an alternate automatically
   $mail->MsgHTML("<p>Yes baby it worked.</p>");
   $mail->Send();
-  echo "Message Sent OK<p></p>\n";
+  
+  if ($mail->Send()) {
+	echo "<p>Message Sent OK</p>\n";  
+  }
   
 } catch (phpmailerException $e) {
+	echo "<p>PHP Mailer Error<p>\n";
   echo $e->errorMessage(); //Pretty error messages from PHPMailer
 } catch (Exception $e) {
+  echo "<p>Other PHP Error<p>\n";
   echo $e->getMessage(); //Boring error messages from anything else!
 }
     
