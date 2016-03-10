@@ -20,6 +20,24 @@ $inbox = imap_open($imapPath, $username, $password, NULL, 1, array('DISABLE_AUTH
 
 pre($inbox);
 
+if ($inbox){
+	
+	echo "<br> --> connection successful....<br>";
+	
+	/* grab emails */
+	$emails = imap_search($inbox,'UNSEEN');
+	
+	if($emails) {
+		$emails_counter = 0;
+		$check = imap_mailboxmsginfo($inbox);
+		
+		echo "Total Messages: " . $check->Nmsgs . "<br />\n";
+		echo "Unread Messages: " . $check->Unread . "<br />\n";
+		echo "Deleted Messages: " . $check->Deleted . "<br />\n";
+	}
+
+}
+
 imap_close($inbox);
 
 
