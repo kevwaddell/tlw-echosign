@@ -1,7 +1,7 @@
 <?php
-include_once('/inc/current_pg_function.php'); 
-include_once('/inc/pre-function.php');
-include_once('/classes/PHPMailer/PHPMailerAutoload.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php'); 
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
 
 //$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
 
