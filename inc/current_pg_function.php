@@ -12,6 +12,6 @@ function curPageURL() {
  	return $pageURL;
 }
 $url_array = parse_url(curPageURL());
-$host = $url_array[host];
-$scheme = $url_array[scheme]."://";
+$host = $url_array['host'];
+$scheme = $url_array['scheme']."://";
 ?>
