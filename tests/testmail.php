@@ -1,7 +1,8 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php'); 
-include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
-include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
+define('DOC_ROOT_PATH', $_SERVER['DOCUMENT_ROOT'].'/');
+include_once(DOC_ROOT_PATH.'../inc/current_pg_function.php'); 
+include_once(DOC_ROOT_PATH.'/inc/pre-function.php');
+include_once(DOC_ROOT_PATH.'/classes/PHPMailer/PHPMailerAutoload.php');
 
 //$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
 //$mail->IsSMTP(); // telling the class to use SMTP
