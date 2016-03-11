@@ -128,7 +128,7 @@ $unsigned_data = unserialize($raw_unsigned_data);
 						</table>
 					</div>
 					<?php } else { ?>
-					<div class="alert alert-success text-center">
+					<div class="alert alert-info text-center">
 						<h3>Nothing to sign</h3>
 						<p>There are no unsigned documents at the moment.</p>
 					</div>
