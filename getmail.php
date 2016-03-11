@@ -32,6 +32,8 @@ if ($inbox){
 		$emails_counter = 0;
 		$check = imap_mailboxmsginfo($inbox);
 		
+		pre($check);
+		
 		//echo "Total Messages: " . $check['Nmsgs'] . "<br />\n";
 		//echo "Unread Messages: " . $check['Unread'] . "<br />\n";
 		//echo "Deleted Messages: " . $check['Deleted'] . "<br />\n";
