@@ -7,7 +7,7 @@ function sendClientEmail() {
 								
 	$body = file_get_contents($scheme.$host.'/temps/client-email-notify.php?cref='.$data['ref']);
 	
-	pre($scheme);
+	pre($host);
 	
 	$mail = new PHPMailer();
 	
