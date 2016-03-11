@@ -76,18 +76,18 @@ if ($inbox){
 			exit;	
 			}
 			/* get information specific to this email */
-			$overview = imap_fetch_overview($inbox,$email_number,0);
+			$overview = imap_fetch_overview($inbox, $email_number, 0);
 			$message = imap_fetchbody($inbox,$email_number,2);
 			$structure = imap_fetchstructure($inbox,$email_number);
-			$seen_msg = $overview['seen'];
+			//$seen_msg = $overview->seen;
 			
-			pre($structure);
+			pre($structure->parts);
 			
 			$attachments = array();
 			
-			if(isset($structure['parts']) && count($structure['parts'])) {
+			if(isset($structure->parts) && count($structure->parts)) {
 	         
-	         for($i = 0; $i < count($structure['parts']); $i++) {
+	         for($i = 0; $i < count($structure->parts); $i++) {
 	           $attachments[$i] = array('is_attachment' => false,'filename' => '','name' => '','attachment' => '');
 	
 	           if($structure['parts'][$i]['ifdparameters']) {
