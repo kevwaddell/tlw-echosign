@@ -31,7 +31,7 @@ if ( isset($_GET['cref']) ) {
 			} 
 			
 		} else {
-		header("Location: ". $referer ."?cref=".$cref."&sent=0");	
+		//header("Location: ". $referer ."?cref=".$cref."&sent=0");	
 		}
 	} else {
 		header("Location: ". $referer ."?cref=".$cref."&sent=0");	
