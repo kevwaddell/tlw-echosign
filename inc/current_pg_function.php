@@ -19,5 +19,10 @@ function curPageURL() {
 $url_array = parse_url(curPageURL());
 $host = $url_array['host'];
 $scheme = $url_array['scheme']."://";
+if ($host == 'tlw-esign.dev') {
 define(SITEROOT, $scheme . $host);
+} else {
+define(SITEROOT, $scheme .'tlwesign:TLW5olicit0r5@'. $host);	
+}
+
 ?>
