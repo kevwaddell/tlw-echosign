@@ -14,7 +14,6 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 	//pre($unsigned_logs);
 		
 		foreach ($unsigned_logs as $k => $ul) {
-		date_default_timezone_set('Europe/London');
 		$datePlus2Days = strtotime("+2 days", $ul['sent']);
 		
 		//pre(gmdate('jS F, Y, g:ia', $ul['sent']));

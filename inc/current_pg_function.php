@@ -20,4 +20,5 @@ $url_array = parse_url(curPageURL());
 $host = $url_array['host'];
 $scheme = $url_array['scheme']."://";
 DEFINE('SITEROOT', $scheme . $host);
+date_default_timezone_set('Europe/London');
 ?>
