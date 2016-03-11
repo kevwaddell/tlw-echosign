@@ -28,7 +28,7 @@ header("Location: ". SITEROOT ."/");
 	if (sendITEmail()) {
 		
 		if (is_dir( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] )) {
-		rcopy( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] , $_SERVER['DOCUMENT_ROOT'].'/'.'signed/'. $_GET['cref'] );	
+		rcopy( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] , $_SERVER['DOCUMENT_ROOT'].'/signed/'. $_GET['cref'] );	
 		} 
 		
 		if (is_dir ( $_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'] ))  {
