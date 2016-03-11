@@ -32,21 +32,21 @@ if ($inbox){
 		$emails_counter = 0;
 		$check = imap_mailboxmsginfo($inbox);
 		
-		//echo "Total Messages: " . $check->Nmsgs . "<br />\n";
-		//echo "Unread Messages: " . $check->Unread . "<br />\n";
-		//echo "Deleted Messages: " . $check->Deleted . "<br />\n";
+		//echo "Total Messages: " . $check['Nmsgs'] . "<br />\n";
+		//echo "Unread Messages: " . $check['Unread'] . "<br />\n";
+		//echo "Deleted Messages: " . $check['Deleted'] . "<br />\n";
 		
 		rsort($emails);
 		// Check if Email logs for current date extists
 		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
 		$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log'); 
 		$email_logs = unserialize($email_logs_raw);
-		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
+		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check['Nmsgs'], 'Unread' => $check['Unread'], 'Deleted' => $check['Deleted'] );
 		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log', serialize($email_logs)); 	
 		} else {
 		//If file does not exist create it
 		$email_logs = array();
-		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
+		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check['Nmsgs'], 'Unread' => $check['Unread'], 'Deleted' => $check['Deleted'] );
 		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log', serialize($email_logs));
 		}
 		
@@ -77,51 +77,51 @@ if ($inbox){
 			$overview = imap_fetch_overview($inbox,$email_number,0);
 			$message = imap_fetchbody($inbox,$email_number,2);
 			$structure = imap_fetchstructure($inbox,$email_number);
-			$seen_msg = $overview->seen;
+			$seen_msg = $overview['seen'];
 			
-			pre($overview);
+			pre($structure);
 			
 			$attachments = array();
 			
-			if(isset($structure->parts) && count($structure->parts)) {
+			if(isset($structure['parts']) && count($structure['parts'])) {
 	         
-	         for($i = 0; $i < count($structure->parts); $i++) {
+	         for($i = 0; $i < count($structure['parts']); $i++) {
 	           $attachments[$i] = array('is_attachment' => false,'filename' => '','name' => '','attachment' => '');
 	
-	           if($structure->parts[$i]->ifdparameters) {
-	             foreach($structure->parts[$i]->dparameters as $object) {
-	               if(strtolower($object->attribute) == 'filename') {
+	           if($structure['parts'][$i]['ifdparameters']) {
+	             foreach($structure['parts'][$i]['ifdparameters'] as $object) {
+	               if(strtolower($object['attribute']) == 'filename') {
 	                 $attachments[$i]['is_attachment'] = true;
-	                 $attachments[$i]['filename'] = $object->value;
+	                 $attachments[$i]['filename'] = $object['value'];
 	               }
 	             }
 	           }
 	
-	           if($structure->parts[$i]->ifparameters) {
-	             foreach($structure->parts[$i]->parameters as $object) {
-	               if(strtolower($object->attribute) == 'name') {
+	           if($structure['parts'][$i]['ifdparameters']) {
+	             foreach($structure['parts'][$i]['parameters'] as $object) {
+	               if(strtolower($object['attribute']) == 'name') {
 	                 $attachments[$i]['is_attachment'] = true;
-	                 $attachments[$i]['name'] = $object->value;
+	                 $attachments[$i]['name'] = $object['value'];
 	               }
 	             }
 	           }
 	
 	           if($attachments[$i]['is_attachment']) {
 	             $attachments[$i]['attachment'] = imap_fetchbody($inbox, $email_number, $i+1);
-	             if($structure->parts[$i]->encoding == 3) { // 3 = BASE64
+	             if($structure['parts'][$i]['encoding'] == 3) { // 3 = BASE64
 	               $attachments[$i]['attachment'] = base64_decode($attachments[$i]['attachment']);
 	             }
-	             elseif($structure->parts[$i]->encoding == 4) { // 4 = QUOTED-PRINTABLE
+	             elseif($structure['parts'][$i]['encoding'] == 4) { // 4 = QUOTED-PRINTABLE
 	               $attachments[$i]['attachment'] = quoted_printable_decode($attachments[$i]['attachment']);
 	             }
 	           }             
-	         } // for($i = 0; $i < count($structure->parts); $i++)
-	       } // if(isset($structure->parts) && count($structure->parts))
+	         } // for($i = 0; $i < count($structure['parts']); $i++)
+	       } // if(isset($structure['parts']) && count($structure['parts']))
 	       
 	       // 
 	       foreach ($overview as $ov) {
-			$seen_msg = $ov->seen;
-			$subject = $ov->subject;
+			$seen_msg = $ov['seen'];
+			$subject = $ov['subject'];
 			$subject_parts = explode('&', $subject);
 			$client_ref = strtolower($subject_parts[0]);
 			$client_name = strtolower($subject_parts[1]);
@@ -189,11 +189,11 @@ if ($inbox){
 									if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log')) {
 									$raw_error_logs = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log');
 									$error_logs = unserialize($raw_error_logs);		
-									$error_logs[] = $mail->ErrorInfo;	
+									$error_logs[] = $mail['ErrorInfo'];	
 									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log', serialize($error_logs));
 									} else {
 									$error_logs = array();
-									$error_logs[] = $mail->ErrorInfo;
+									$error_logs[] = $mail['ErrorInfo'];
 									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log', serialize($error_logs));	
 									}
 								}// If client email sent
