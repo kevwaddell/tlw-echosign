@@ -17,6 +17,8 @@ $username = "esign@tlwsolicitors.co.uk";
 $password = "document5";
 
 $inbox = imap_open($imapPath, $username, $password, NULL, 1, array('DISABLE_AUTHENTICATOR' => 'GSSAPI'));
+$log_date = date('Y-m-d', time());
+$prev_log_date = date('Y-m-d', strtotime($log_date.'- 1 day'));
 
 if ($inbox){
 	
@@ -26,6 +28,7 @@ if ($inbox){
 	$emails = imap_search($inbox,'ALL');
 	
 	if($emails) {
+
 		$emails_counter = 0;
 		$check = imap_mailboxmsginfo($inbox);
 		
@@ -34,24 +37,34 @@ if ($inbox){
 		//echo "Deleted Messages: " . $check->Deleted . "<br />\n";
 		
 		rsort($emails);
-		
-		if (file_exists('logs/email-logs.log')) {
-		$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs.log'); 
+		// Check if Email logs for current date extists
+		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
+		$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log'); 
 		$email_logs = unserialize($email_logs_raw);
 		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs.log', serialize($email_logs)); 	
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log', serialize($email_logs)); 	
 		} else {
+		//If file does not exist create it
 		$email_logs = array();
 		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs.log', serialize($email_logs));
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log', serialize($email_logs));
 		}
 		
-		if (file_exists('logs/unsigned.log')) {
-		$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log');
+		// Check if Unsigned logs for current date extists
+		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {
+		$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
 		$unsigned_logs = unserialize($unsigned_logs_raw);
 		} else {
-		$unsigned_logs = array();
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log', serialize($unsigned_logs));
+		//If file does not exist create it check yesterdays logs and add to todays logs
+			$unsigned_logs = array();
+			
+			if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log')) {
+			$prev_unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log');
+			$unsigned_logs = unserialize($prev_unsigned_logs_raw);	
+			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	; 	
+			} else {
+			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	
+			}
 		}
 		
 		/* for every email... */
@@ -164,24 +177,24 @@ if ($inbox){
 								if (sendClientEmail()) {
 								$data['sent'] = time();
 								$unsigned_logs[] = $data;
-								file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log', serialize($unsigned_logs));
+								file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
 									
 								imap_setflag_full($inbox, $email_number, "\\Seen \\Flagged", ST_UID);
 								} else {
 									
 									$data['sent'] = NULL;
 									$unsigned_logs[] = $data;
-									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log', serialize($unsigned_logs));
+									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
 									
-									if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs.log')) {
-									$raw_error_logs = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs.log');
+									if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log')) {
+									$raw_error_logs = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log');
 									$error_logs = unserialize($raw_error_logs);		
 									$error_logs[] = $mail->ErrorInfo;	
-									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs.log', serialize($error_logs));
+									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log', serialize($error_logs));
 									} else {
 									$error_logs = array();
 									$error_logs[] = $mail->ErrorInfo;
-									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs.log', serialize($error_logs));	
+									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log', serialize($error_logs));	
 									}
 								}// If client email sent
 								
@@ -203,15 +216,15 @@ imap_close($inbox);
 
 } else {
 	
-	if (file_exists('logs/imap-error-logs.log')) {
-	$raw_imap_error_logs = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs.log');
+	if (file_exists('logs/imap-error-logs-'.$log_date.'.log')) {
+	$raw_imap_error_logs = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs-'.$log_date.'.log');
 	$imap_error_logs = unserialize($raw_imap_error_logs);		
 	$imap_error_logs[] = imap_errors();	
-	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs.log', serialize($imap_error_logs));
+	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs-'.$log_date.'.log', serialize($imap_error_logs));
 	} else {
 	$imap_error_logs = array();
 	$imap_error_logs[] = imap_errors();
-	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs.log', serialize($imap_error_logs));	
+	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs-'.$log_date.'.log', serialize($imap_error_logs));	
 	}
 
 }

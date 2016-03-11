@@ -15,13 +15,14 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <?php
 $imap_error_logs = false;
 $email_data = false;
+$log_date = date('Y-m-d', time());
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs.log')) {
-$raw_email_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs.log');	
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
+$raw_email_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log');	
 $email_data = unserialize($raw_email_data);	
 }
-if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs.log')) {
-$raw_imap_error_logs = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs.log');	
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs-'.$log_date.'.log')) {
+$raw_imap_error_logs = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs-'.$log_date.'.log');	
 $imap_error_logs = unserialize($raw_imap_error_logs);	
 }		
 ?>

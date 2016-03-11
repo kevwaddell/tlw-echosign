@@ -14,9 +14,10 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php
 $sent_data = false;
+$log_date = date('Y-m-d', time());
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.log')) {
-$raw_sent_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.log');	
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log')) {
+$raw_sent_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log');	
 $sent_data = unserialize($raw_sent_data);	
 }	
 ?>

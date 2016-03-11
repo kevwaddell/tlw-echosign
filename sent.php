@@ -16,6 +16,8 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gs-function.php');
 <link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php 
+$log_date = date('Y-m-d', time());
+
 if ( !isset($_GET['sent']) ) {
 header("Location: ". SITEROOT ."/");	
 } else if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
@@ -36,24 +38,24 @@ header("Location: ". SITEROOT ."/");
 		$data = unserialize($raw_data);		
 		}
 		
-		if ( !file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.log') ) {
+		if ( !file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log') ) {
 		$signed_data = array();
 		$signed_data[$data['ref']] = array('ref' => $data['ref'], 'tkn' => $data['tkn'], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.log', serialize($signed_data));
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log', serialize($signed_data));
 		} else {
-		$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.log');	
+		$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log');	
 		$signed_data = unserialize($raw_signed_data);
 		$signed_data[$data['ref']] = array('ref' => $data['ref'], 'tkn' => $data['tkn'], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.log', serialize($signed_data));
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log', serialize($signed_data));
 		}
 		
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log')) {
-		$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log');
+		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {
+		$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
 		$unsigned_data = unserialize($raw_unsigned_data);	
 			foreach ($unsigned_data as $k => $ud) {
 				if ($ud['ref'] == $_GET['cref']) {
 				unset($unsigned_data[$k]);
-				file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log', serialize($unsigned_data));
+				file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_data));
 				}	
 			}
 		}

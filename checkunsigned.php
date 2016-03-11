@@ -3,9 +3,10 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-client-email.php');
+$log_date = date('Y-m-d', time());
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log')) {
-$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log');
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {
+$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
 $unsigned_logs = unserialize($unsigned_logs_raw);	
 	
 	if (!empty($unsigned_logs)) {
@@ -23,7 +24,7 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 			$data = unserialize($raw_data);
 				if ( sendClientEmail() ) {
 				$unsigned_logs[$k]['sent'] = time();
-				$new_logs = file_put_contents('logs/unsigned.log', serialize($unsigned_logs));	
+				$new_logs = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	
 				}
 				
 			} //if 2 days gone

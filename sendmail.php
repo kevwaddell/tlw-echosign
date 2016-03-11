@@ -1,5 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
+$log_date = date('Y-m-d', time());
 
 if ( isset($_GET['cref']) ) {
 	$cref = $_GET['cref'];
@@ -10,7 +11,7 @@ if ( isset($_GET['cref']) ) {
 	if ( is_dir($cref) ) {
 	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$cref.'/data.txt');
 		$data = unserialize($raw_data);
-		$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log');
+		$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
 		$unsigned_logs = unserialize($unsigned_logs_raw);
 		
 		include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
@@ -22,7 +23,7 @@ if ( isset($_GET['cref']) ) {
 			foreach($unsigned_logs as $k => $log) {
 				if ($log['ref'] == $cref) {
 				$unsigned_logs[$k]['sent'] = time();
-				$new_logs = file_put_contents('logs/unsigned.log', serialize($unsigned_logs));	
+				$new_logs = file_put_contents('logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	
 				}	
 			}	
 			

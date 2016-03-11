@@ -12,12 +12,17 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 <title>TLW Solicitors | Secure Sign</title>
 <link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-
+<?php 
+	$log_date = date('Y-m-d', time()); 
+	$prev_log_date = date('Y-m-d', strtotime($log_date.'- 1 day'));
+	//pre($prev_log_date);
+?>
 <?php if (isset($_POST['cref'])) {
 $cref = $_POST['cref'];
+$log_date = $_POST['date'];
 $errors = array();
 $messages = array();
-$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log');
+$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
 $unsigned_data = unserialize($raw_unsigned_data);	
 $unsigned = false;	
 $noref = true;	
@@ -135,6 +140,7 @@ $noref = true;
 						<form method="post" action="">
 							<div class="form-group">
 								<input type="text" name="cref" class="form-control input-lg text-center" placeholder="Enter your reference" maxlength="6">
+								<input type="hidden" name="date" value="<?php echo $log_date; ?>">
 							</div>
 							<button class="btn btn-default btn-lg btn-block caps"><i class="glyphicon glyphicon-search pull-left"></i>Find</button>
 						</form>
