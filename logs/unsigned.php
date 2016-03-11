@@ -13,8 +13,8 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php
-if (file_exists('unsigned.log')) {
-$raw_unsigned_data = file_get_contents('unsigned.log');	
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log')) {
+$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log');	
 $unsigned_data = unserialize($raw_unsigned_data);	
 }	
 ?>
