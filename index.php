@@ -45,7 +45,7 @@ $unsigned_data = unserialize($raw_unsigned_data);
 	}
 	
 	if (!$unsigned && !$noref ) {
-	$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.txt');
+	$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log');
 	$signed_data = unserialize($raw_signed_data);	
 	//pre($signed_data);
 		foreach ($signed_data as $k => $sd) {
