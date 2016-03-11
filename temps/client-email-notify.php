@@ -1,27 +1,14 @@
 <?php 
-function curPageURL() {
- $pageURL = 'http';
- if ($_SERVER['HTTPS'] == "on") {$pageURL .= "s";}
- $pageURL .= "://";
- if ($_SERVER['SERVER_PORT'] != "80") {
-  $pageURL .= $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
- } else {
-  $pageURL .= $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
- }
- return $pageURL;
-}
-$url_array = parse_url(curPageURL());
-$host = $url_array[host];
-$scheme = $url_array[scheme]."://";
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 
 if ( isset($_GET['cref']) ) {
 $cref = $_GET['cref'];	
 //echo '<pre>';print_r($cref);echo '</pre>';
 $raw_data = file_get_contents($scheme.$host.'/'.$cref.'/data.txt');
 $data = unserialize($raw_data);	
-$name = " ".$data[firstname]." ";
-$cref = $data[ref];
-$token = $data[tkn];
+$name = " ".$data['firstname']." ";
+$cref = $data['ref'];
+$token = $data['tkn'];
 } else {
 $name = "TLW client";	
 $token = "null";
