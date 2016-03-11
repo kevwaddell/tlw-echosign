@@ -4,10 +4,8 @@ function sendClientEmail() {
 	global $scheme;
 	global $host;
 	global $data;
-	
-	$site_root = $scheme . $host;
 								
-	$body = file_get_contents($site_root.'/temps/client-email-notify.php?cref='.$data['ref']);
+	$body = file_get_contents(SITEROOT.'/temps/client-email-notify.php?cref='.$data['ref']);
 	
 	pre($body);
 	
