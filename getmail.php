@@ -81,7 +81,11 @@ if ($inbox){
 			$structure = imap_fetchstructure($inbox,$email_number);
 			//$seen_msg = $overview->seen;
 			
+<<<<<<< HEAD
 			pre($structure->parts);
+=======
+			//echo '<pre>';print_r($overview);echo '</pre>';
+>>>>>>> parent of 364f38d... Fix getmail.php
 			
 			$attachments = array();
 			
