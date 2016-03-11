@@ -79,7 +79,7 @@ if ($inbox){
 			$structure = imap_fetchstructure($inbox,$email_number);
 			$seen_msg = $overview->seen;
 			
-			//echo '<pre>';print_r($overview);echo '</pre>';
+			pre($overview);
 			
 			$attachments = array();
 			
