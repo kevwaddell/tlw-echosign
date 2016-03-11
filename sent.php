@@ -21,40 +21,40 @@ header("Location: ". SITEROOT ."/");
 }
 if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 	
-	if (is_dir ( $_GET['cref'] ))  {
-	$raw_data = file_get_contents($_GET['cref'].'/data.txt');
+	if (is_dir ( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] ))  {
+	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'].'/data.txt');
 	$data = unserialize($raw_data);		
 	}
 	
 	if (sendITEmail()) {
 		
-		if (is_dir ( $_GET['cref'] )) {
-		rcopy( $_GET['cref'] , 'signed/'. $_GET['cref'] );	
+		if (is_dir ( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] )) {
+		rcopy( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] , $_SERVER['DOCUMENT_ROOT'].'/'.'signed/'. $_GET['cref'] );	
 		} 
 		
-		if (is_dir ( 'signed/'.$_GET['cref'] ))  {
-		$raw_data = file_get_contents('signed/'.$_GET['cref'].'/data.txt');
+		if (is_dir ( $_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'] ))  {
+		$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'].'/data.txt');
 		$data = unserialize($raw_data);		
 		}
 		
-		if (!file_exists('logs/sent_data.txt')) {
+		if (!file_exists($_SERVER['DOCUMENT_ROOT']'/logs/sent_data.log')) {
 		$signed_data = array();
 		$signed_data[$data['ref']] = array('ref' => $data['ref'], 'tkn' => $data['tkn'], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
-		file_put_contents('logs/sent_data.txt', serialize($signed_data));
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.log', serialize($signed_data));
 		} else {
-		$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.txt');	
+		$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.log');	
 		$signed_data = unserialize($raw_signed_data);
 		$signed_data[$data['ref']] = array('ref' => $data['ref'], 'tkn' => $data['tkn'], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
-		file_put_contents('logs/sent_data.txt', serialize($signed_data));
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.log', serialize($signed_data));
 		}
 		
-		if (file_exists('logs/unsigned.log')) {
+		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log')) {
 		$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log');
 		$unsigned_data = unserialize($raw_unsigned_data);	
 			foreach ($unsigned_data as $k => $ud) {
 				if ($ud['ref'] == $_GET['cref']) {
 				unset($unsigned_data[$k]);
-				file_put_contents('logs/unsigned.log', serialize($unsigned_data));
+				file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log', serialize($unsigned_data));
 				}	
 			}
 		}
@@ -62,7 +62,7 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 	
 //echo '<pre>';print_r($data);echo '</pre>';
 } else if ( isset($_GET['sent']) && $_GET['sent'] == 0 ) {
-	$raw_data = file_get_contents($_GET['cref'].'/data.txt');
+	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'].'/data.txt');
 	$data = unserialize($raw_data);		
 }
 ?>
@@ -113,10 +113,10 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 
-				<?php if ( is_dir( 'signed/'.$_GET['cref'] ) ) { 
+				<?php if ( is_dir( $_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'] ) ) { 
 					
-					if ( file_exists('signed/'.$_GET['cref'].'/'.$_GET['cref'].'.pdf') ) {
-					$total_pgs = getNumPagesPdf('signed/'.$_GET['cref'].'/'.$_GET['cref'].'.pdf');
+					if ( file_exists($_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'].'/'.$_GET['cref'].'.pdf') ) {
+					$total_pgs = getNumPagesPdf($_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'].'/'.$_GET['cref'].'.pdf');
 					$thumbs = array();
 						for ($i = 1; $i <= $total_pgs; $i++) {
 						$thumbs[] = $_GET['cref'] .'_'. $i .'.jpg';
