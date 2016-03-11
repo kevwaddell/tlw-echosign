@@ -16,7 +16,9 @@ if ( isset($_GET['cref']) ) {
 		include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 		include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
 		include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-client-email.php');
-	
+		
+		pre($scheme);
+		
 		if ( sendClientEmail() ) {
 			
 			foreach($unsigned_logs as $k => $log) {
