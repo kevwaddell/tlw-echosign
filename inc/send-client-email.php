@@ -7,7 +7,7 @@ function sendClientEmail() {
 								
 	$body = file_get_contents(SITEROOT.'/temps/client-email-notify.php?cref='.$data['ref']);
 	
-	pre($body);
+	pre(SITEROOT);
 	
 	$mail = new PHPMailer();
 	
