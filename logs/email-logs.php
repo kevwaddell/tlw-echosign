@@ -14,6 +14,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php
 $imap_error_logs = false;
+$email_data = false;
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs.log')) {
 $raw_email_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs.log');	
