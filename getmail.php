@@ -43,12 +43,12 @@ if ($inbox){
 		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
 		$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log'); 
 		$email_logs = unserialize($email_logs_raw);
-		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check['Nmsgs'], 'Unread' => $check['Unread'], 'Deleted' => $check['Deleted'] );
+		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
 		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log', serialize($email_logs)); 	
 		} else {
 		//If file does not exist create it
 		$email_logs = array();
-		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check['Nmsgs'], 'Unread' => $check['Unread'], 'Deleted' => $check['Deleted'] );
+		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
 		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log', serialize($email_logs));
 		}
 		
