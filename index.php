@@ -15,6 +15,8 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 <?php 
 	$log_date = date('Y-m-d', time()); 
 	$prev_log_date = date('Y-m-d', strtotime($log_date.'- 1 day'));
+	$unsigned = false;	
+	$noref = true;	
 	//pre($prev_log_date);
 ?>
 <?php if (isset($_POST['cref'])) {
@@ -24,8 +26,6 @@ $errors = array();
 $messages = array();
 $raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
 $unsigned_data = unserialize($raw_unsigned_data);	
-$unsigned = false;	
-$noref = true;	
 //pre($unsigned_data);
 
 
