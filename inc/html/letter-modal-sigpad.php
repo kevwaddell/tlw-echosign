@@ -10,7 +10,7 @@
 			<form method="post" action="" class="sigPad">
 				
 				<input type="hidden" name="signDate" value="<?php echo gmdate('g:ia, jS F, Y'); ?>">
-				<input type="hidden" name="cref" value="<?php echo $data[ref]; ?>">
+				<input type="hidden" name="cref" value="<?php echo $data['ref']; ?>">
 				
 				<div class="form-group">
 					<label for="name" class="text-center">Enter your full name:</label>

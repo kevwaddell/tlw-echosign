@@ -5,7 +5,7 @@ function sendClientPDFEmail() {
 	global $data;
 	global $dateTime;
 
-	$body = file_get_contents($scheme.$host.'/temps/client-email-pdf.php?cref='.$data[ref]);
+	$body = file_get_contents(SITEROOT.'/temps/client-email-pdf.php?cref='.$data['ref']);
 	
 	$pdfmail = new PHPMailer();
 	//SMTP settings
@@ -21,11 +21,11 @@ function sendClientPDFEmail() {
 	} else {
 	$pdfmail->SMTPOptions = array ('ssl' => array('verify_peer'  => false, 'verify_peer_name'  => false, 'allow_self_signed' => true));
 	$pdfmail->SMTPAuth   = true;  
-	if ($host == "tlw-echosign.dev") {
-	$pdfmail->Host = 'tlwserv02.tlwsolicitors.local';
-	} else {
-	$pdfmail->Host = 'nsgateway.tlwsolicitors.co.uk';
-	}
+		if ($host == "tlw-echosign.dev") {
+		$pdfmail->Host = 'tlwserv02.tlwsolicitors.local';
+		} else {
+		$pdfmail->Host = 'nsgateway.tlwsolicitors.co.uk';
+		}
 	$pdfmail->Username = 'esign';
 	$pdfmail->Password = 'document5';                         
 	$pdfmail->Port = 25; 	      

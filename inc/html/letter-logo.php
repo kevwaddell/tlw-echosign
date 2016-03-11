@@ -1,6 +1,6 @@
 <div class="letter-logo">
 	<div class="logo">
-		<img src="<?php echo $scheme; ?><?php echo $host; ?>/assets/img/TLW_logo.png" alt="TLW_logo">
+		<img src="<?php echo SITEROOT; ?>/assets/img/TLW_logo.png" alt="TLW_logo">
 	</div>
 	<div class="address pull-right hidden-xs">
 	<p>9 Hedley Court<br>

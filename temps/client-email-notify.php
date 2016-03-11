@@ -4,7 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 if ( isset($_GET['cref']) ) {
 $cref = $_GET['cref'];	
 //echo '<pre>';print_r($cref);echo '</pre>';
-$raw_data = file_get_contents($scheme.$host.'/'.$cref.'/data.txt');
+$raw_data = file_get_contents(SITEROOT.'/'.$cref.'/data.txt');
 $data = unserialize($raw_data);	
 $name = " ".$data['firstname']." ";
 $cref = $data['ref'];
@@ -36,14 +36,14 @@ $token = "null";
 		</div>
 		
 		<div class="header" style="border-bottom: 1px solid #908e8e; margin: 0px 40px; text-align: center;">
-			<img src="<?php echo $scheme; ?><?php echo $host; ?>/assets/img/tlw-logo-wide.gif" alt="TLW Solicitors" />		
+			<img src="<?php echo SITEROOT; ?>/assets/img/tlw-logo-wide.gif" alt="TLW Solicitors" />		
 		</div>
 		
 		<div class="content" style="padding: 20px 40px; font-size: 16px; line-height: 20px; min-height: 100px;">
 			<p>Dear <?php echo $name; ?></p>
 			<h2 align="center" style="color: #ca156e;">Your TLW Solicitors Client Agreement is ready to sign</h2>
 			<p align="center">Please go to the following link and follow the instructions.</p>
-			<p align="center"><a href="<?php echo $scheme; ?><?php echo $host; ?><?php echo (!$cref) ? "/" : "/".$cref."/sign/?tkn=".$token; ?>">View document</a></p>
+			<p align="center"><a href="<?php echo SITEROOT; ?><?php echo (!$cref) ? "/" : "/".$cref."/sign/?tkn=".$token; ?>">View document</a></p>
 			<p align="center">If you have any problems with viewing your client agreement please contact us as soon as possible.</p>
 			<p align="center"><strong>Email us on <a href="mailto: info@tlwsolicitors.co.uk" style="color: #ca156e;">info@tlwsolicitors.co.uk</a> or call us on 0191 293 1500</strong></p>
 		</div>

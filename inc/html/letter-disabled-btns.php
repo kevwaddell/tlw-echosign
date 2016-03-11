@@ -3,7 +3,7 @@
 		
 		<div class="col-md-3">
 			<div class="btn-toolbar" role="toolbar" aria-label="...">
-				<a href="<?php echo $scheme; ?><?php echo $host; ?>/" class="btn btn-default"><i class="glyphicon glyphicon-home"></i> Home</a>
+				<a href="<?php echo SITEROOT; ?>/" class="btn btn-default"><i class="glyphicon glyphicon-home"></i> Home</a>
 			</div>
 		</div>
 		

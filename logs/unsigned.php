@@ -10,7 +10,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <meta name="robots" content="noindex,nofollow">
 <title>TLW Solicitors | Unsigned Document logs</title>
-<link rel="stylesheet" href="<?php echo $scheme; ?><?php echo $host; ?>/assets/css/global-css.css">
+<link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php
 if (file_exists('unsigned.log')) {
@@ -38,16 +38,16 @@ $unsigned_data = unserialize($raw_unsigned_data);
 				        <span class="icon-bar"></span>
 				      </button>
 				      <a class="navbar-brand" href="/">
-					      <img alt="TLW Solicitors Esign" src="<?php echo $scheme; ?><?php echo $host; ?>/assets/img/tlw-logo-wide.svg">
+					      <img alt="TLW Solicitors Esign" src="<?php echo SITEROOT; ?>/assets/img/tlw-logo-wide.svg">
 					   </a>
 				    </div>
 				
 				    <!-- Collect the nav links, forms, and other content for toggling -->
 				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				      <ul class="nav navbar-nav navbar-right">
-					    <li><a href="<?php echo $scheme; ?><?php echo $host; ?>/logs/email-logs/">Email Logs</a></li>
-				        <li class="active"><a href="<?php echo $scheme; ?><?php echo $host; ?>/logs/unsigned/">Unsigned Documents</a></li>
-				        <li><a href="<?php echo $scheme; ?><?php echo $host; ?>/logs/sent-data/">Signed documents</a></li>
+					    <li><a href="<?php echo SITEROOT; ?>/logs/email-logs/">Email Logs</a></li>
+				        <li class="active"><a href="<?php echo SITEROOT; ?>/logs/unsigned/">Unsigned Documents</a></li>
+				        <li><a href="<?php echo SITEROOT; ?>/logs/sent-data/">Signed documents</a></li>
 				      </ul>
 					</div><!-- /.navbar-collapse -->
 				   
@@ -109,8 +109,8 @@ $unsigned_data = unserialize($raw_unsigned_data);
 								
 								?>
 								<tr>
-									<td style="vertical-align: middle;"><?php echo $data[ref]; ?></td>
-									<td class="text-center" style="vertical-align: middle;"><?php echo $data[tkn]; ?></td>
+									<td style="vertical-align: middle;"><?php echo $data['ref']; ?></td>
+									<td class="text-center" style="vertical-align: middle;"><?php echo $data['tkn']; ?></td>
 									<td class="text-center" style="vertical-align: middle;">
 										<?php if ($data['sent']) { ?>
 										<?php echo gmdate('jS F, Y @ g:ia', $data['sent']); ?>
@@ -119,7 +119,7 @@ $unsigned_data = unserialize($raw_unsigned_data);
 										<?php } ?>
 									</td>
 									<td class="text-center" style="vertical-align: middle;">
-									<a href="<?php echo $scheme; ?><?php echo $host; ?>/sendmail/?cref=<?php echo $data[ref]; ?>" title="Re-send email" class="btn btn-<?php echo ($data['sent']) ? 'success ':'danger '; ?>btn-block">Re-send email</a>	
+									<a href="<?php echo SITEROOT; ?>/sendmail/?cref=<?php echo $data['ref']; ?>" title="Re-send email" class="btn btn-<?php echo ($data['sent']) ? 'success ':'danger '; ?>btn-block">Re-send email</a>	
 									</td>
 								</tr>
 								<?php } ?>	
@@ -149,5 +149,5 @@ $unsigned_data = unserialize($raw_unsigned_data);
 </body>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="<?php echo $scheme; ?><?php echo $host; ?>/assets/js/app.js"></script>
+<script src="<?php echo SITEROOT; ?>/assets/js/app.js"></script>
 </html>

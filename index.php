@@ -10,7 +10,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <title>TLW Solicitors | Secure Sign</title>
-<link rel="stylesheet" href="<?php echo $scheme; ?><?php echo $host; ?>/assets/css/global-css.css">
+<link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
 <?php if (isset($_POST['cref'])) {
@@ -109,7 +109,7 @@ $noref = true;
 								<span><?php echo $er; ?></span><br>
 								<?php } ?>
 						</div>
-						<a href="<?php echo $scheme; ?><?php echo $host; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-repeat pull-left"></i>Please try again</a>
+						<a href="<?php echo SITEROOT; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-repeat pull-left"></i>Please try again</a>
 						<?php } ?>
 						
 						<?php if (!empty($messages)) { ?>
@@ -119,16 +119,16 @@ $noref = true;
 							<?php echo $ms; ?>
 							<?php } ?>
 						</div>
-						<a href="<?php echo $scheme; ?><?php echo $host; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-refresh pull-left"></i>Continue</a>
+						<a href="<?php echo SITEROOT; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-refresh pull-left"></i>Continue</a>
 						<?php } ?>
 						
 						<?php if ($unsigned) { ?>
 						<div class="alert alert-success text-center">
 							<h3>Welcome <?php echo $fname; ?></h3>
 							<p>Your agreement is ready to be signed.</p><br>
-							<a href="<?php echo $scheme; ?><?php echo $host; ?>/<?php echo $ref; ?>/sign/?tkn=<?php echo $tkn; ?>" class="btn btn-success btn-lg btn-block caps">View Aggreement</a>
+							<a href="<?php echo SITEROOT; ?>/<?php echo $ref; ?>/sign/?tkn=<?php echo $tkn; ?>" class="btn btn-success btn-lg btn-block caps">View Aggreement</a>
 						</div>
-						<a href="<?php echo $scheme; ?><?php echo $host; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-remove-sign pull-left"></i>Cancel</a>
+						<a href="<?php echo SITEROOT; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-remove-sign pull-left"></i>Cancel</a>
 						<?php } ?>
 						
 						<?php if (!isset($_POST['cref'])) { ?>

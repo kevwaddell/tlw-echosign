@@ -10,7 +10,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <meta name="robots" content="noindex,nofollow">
 <title>TLW Solicitors | Sent client documents</title>
-<link rel="stylesheet" href="<?php echo $scheme; ?><?php echo $host; ?>/assets/css/global-css.css">
+<link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php
 if (file_exists('sent_data.log')) {
@@ -38,16 +38,16 @@ $sent_data = unserialize($raw_sent_data);
 				        <span class="icon-bar"></span>
 				      </button>
 				       <a class="navbar-brand" href="/">
-					      <img alt="TLW Solicitors Esign" src="<?php echo $scheme; ?><?php echo $host; ?>/assets/img/tlw-logo-wide.svg">
+					      <img alt="TLW Solicitors Esign" src="<?php echo SITEROOT; ?>/assets/img/tlw-logo-wide.svg">
 					   </a>
 				    </div>
 				
 				    <!-- Collect the nav links, forms, and other content for toggling -->
 				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				      <ul class="nav navbar-nav navbar-right">
-					    <li><a href="<?php echo $scheme; ?><?php echo $host; ?>/logs/email-logs/">Email Logs</a></li>
-				        <li><a href="<?php echo $scheme; ?><?php echo $host; ?>/logs/unsigned/">Unsigned Documents</a></li>
-				        <li class="active"><a href="<?php echo $scheme; ?><?php echo $host; ?>/logs/sent-data/">Signed documents</a></li>
+					    <li><a href="<?php echo SITEROOT; ?>/logs/email-logs/">Email Logs</a></li>
+				        <li><a href="<?php echo SITEROOT; ?>/logs/unsigned/">Unsigned Documents</a></li>
+				        <li class="active"><a href="<?php echo SITEROOT; ?>/logs/sent-data/">Signed documents</a></li>
 				      </ul>
 					</div><!-- /.navbar-collapse -->
 				   
@@ -80,7 +80,7 @@ $sent_data = unserialize($raw_sent_data);
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<p class="lead">The document data you requested for client ref <strong><?php echo $_GET['cref']; ?></strong> is ready do download</p>
 							<p style="margin-top: 10px;">
-								<a href="<?php echo $scheme; ?><?php echo $host; ?>/signed/<?php echo $_GET['tkn']; ?>@<?php echo $_GET['cref']; ?>.zip" class="btn btn-success btn-lg" target="_blank;"><i class="glyphicon glyphicon-share"></i> Download Zip</a>&nbsp;&nbsp;&nbsp;<a href="<?php echo $scheme; ?><?php echo $host; ?>/logs/sent-data/" class="btn btn-default btn-lg" target="_blank;"><i class="glyphicon glyphicon-remove"></i> Cancel</a>
+								<a href="<?php echo SITEROOT; ?>/signed/<?php echo $_GET['tkn']; ?>@<?php echo $_GET['cref']; ?>.zip" class="btn btn-success btn-lg" target="_blank;"><i class="glyphicon glyphicon-share"></i> Download Zip</a>&nbsp;&nbsp;&nbsp;<a href="<?php echo SITEROOT; ?>/logs/sent-data/" class="btn btn-default btn-lg" target="_blank;"><i class="glyphicon glyphicon-remove"></i> Cancel</a>
 								</p>
 						</div>		
 					<?php } ?>
@@ -98,7 +98,7 @@ $sent_data = unserialize($raw_sent_data);
 							<p class="lead">All data for client ref <strong><?php echo $_GET['cref']; ?></strong> has been removed.</p>
 							<p>A back-up copy of the data has been sent to <strong>webmaster@tlwsolicitors.co.uk</strong></p>
 							<p style="margin-top: 10px;">
-								<a href="<?php echo $scheme; ?><?php echo $host; ?>/logs/sent-data/" class="btn btn-success" target="_blank;"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
+								<a href="<?php echo SITEROOT; ?>/logs/sent-data/" class="btn btn-success" target="_blank;"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
 							</p>
 						</div>		
 					<?php } ?>
@@ -109,7 +109,7 @@ $sent_data = unserialize($raw_sent_data);
 							<p class="lead">Data for client ref <strong><?php echo $_GET['cref']; ?></strong> cannot be removed.</p>
 							<p>Please contact <strong><a href="mailto:webmaster@tlwsolicitors.co.uk">webmaster@tlwsolicitors.co.uk</a></strong> to remove this data.</p>
 							<p style="margin-top: 10px;">
-								<a href="<?php echo $scheme; ?><?php echo $host; ?>/logs/sent-data/" class="btn btn-danger" target="_blank;"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
+								<a href="<?php echo SITEROOT; ?>/logs/sent-data/" class="btn btn-danger" target="_blank;"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
 							</p>
 						</div>		
 					<?php } ?>
@@ -137,8 +137,8 @@ $sent_data = unserialize($raw_sent_data);
 									<td class="text-center" style="vertical-align: middle;"><?php echo $data['ref']; ?></td>
 									<td class="text-center" style="vertical-align: middle;">
 										<div class="btn-group btn-group-lg" role="toolbar">
-											<a href="<?php echo $scheme; ?><?php echo $host; ?>/signed/rmvzip/?tkn=<?php echo $data['tkn']; ?>&cref=<?php echo $data['ref']; ?>" title="Delete" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i><span class="sr-only">Delete</span></a>			
-											<a href="<?php echo $scheme; ?><?php echo $host; ?>/signed/dwnldzip/?tkn=<?php echo $data['tkn']; ?>&cref=<?php echo $data['ref']; ?>" title="Download" class="btn btn-default"><i class="glyphicon glyphicon-save"></i><span class="sr-only">Download</span></a>
+											<a href="<?php echo SITEROOT; ?>/signed/rmvzip/?tkn=<?php echo $data['tkn']; ?>&cref=<?php echo $data['ref']; ?>" title="Delete" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i><span class="sr-only">Delete</span></a>			
+											<a href="<?php echo SITEROOT; ?>/signed/dwnldzip/?tkn=<?php echo $data['tkn']; ?>&cref=<?php echo $data['ref']; ?>" title="Download" class="btn btn-default"><i class="glyphicon glyphicon-save"></i><span class="sr-only">Download</span></a>
 										</div>
 										</td>
 								</tr>
@@ -169,5 +169,5 @@ $sent_data = unserialize($raw_sent_data);
 </body>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="<?php echo $scheme; ?><?php echo $host; ?>/assets/js/app.js"></script>
+<script src="<?php echo SITEROOT; ?>/assets/js/app.js"></script>
 </html>

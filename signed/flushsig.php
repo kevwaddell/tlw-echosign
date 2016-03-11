@@ -9,9 +9,9 @@ function zip_files($data) {
 	$now = time();
 	
 	foreach ($data as $k => $d) {
-	$ref = $d[ref];
-	$tkn = $d[tkn];
-	$rdate = $d[rdate];
+	$ref = $d['ref'];
+	$tkn = $d['tkn'];
+	$rdate = $d['rdate'];
 					
 		if ( file_exists($tkn.".zip") && $rdate < $now ) {
 			

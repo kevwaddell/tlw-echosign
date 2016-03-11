@@ -19,8 +19,8 @@ $doc = parseWord($file);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <title>TLW | PHP Tests</title>
-<link rel="stylesheet" href="<?php echo $scheme; ?><?php echo $host; ?>/assets/css/signaturepad.css">
-<link rel="stylesheet" href="<?php echo $scheme; ?><?php echo $host; ?>/assets/css/global-css.css">
+<link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/signaturepad.css">
+<link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
@@ -33,7 +33,7 @@ $doc = parseWord($file);
 		<div class="row">
 		<div id="letter" class="col-md-10 col-md-offset-1">
 			
-		<?php if (isset($_GET['tkn']) && $_GET['tkn'] == $data[tkn]) { ?>	
+		<?php if (isset($_GET['tkn']) && $_GET['tkn'] == $data['tkn']) { ?>	
 	
 		<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-steps-btns.php');?>
 		
@@ -50,7 +50,7 @@ $doc = parseWord($file);
 				</div>
 				
 				<div class="tlw-signature">
-					<p>Signed: <img src="<?php echo $scheme; ?><?php echo $host; ?>/assets/img/TLW_signature.png" style="vertical-align: bottom;" alt="TLW_signature" width="300"></p>
+					<p>Signed: <img src="<?php echo SITEROOT; ?>/assets/img/TLW_signature.png" style="vertical-align: bottom;" alt="TLW_signature" width="300"></p>
 				</div>
 				<?php if ( isset($_POST['output']) ) { ?>
 				<div class="client-signature">
@@ -63,7 +63,7 @@ $doc = parseWord($file);
 					imagepng($img, 'signature.png');
 					imagedestroy($img);
 					?>
-					<p>Your signature: <img src="<?php echo $scheme; ?><?php echo $host; ?>/<?php echo $data[ref]; ?>/signature.png" style="vertical-align: bottom;" alt="signature" width="300"></p><?php } else { ?>
+					<p>Your signature: <img src="<?php echo SITEROOT; ?>/<?php echo $data['ref']; ?>/signature.png" style="vertical-align: bottom;" alt="signature" width="300"></p><?php } else { ?>
 					<p class="signature">Your signature: <span><?php echo ($_POST['name']); ?></span></p>
 				<?php } ?>
 				</div>
@@ -86,31 +86,31 @@ $doc = parseWord($file);
 					include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pdf-parts/pdf-footer.php');
 					$mpdf->WriteHTML($stylesheet,1);
 					$mpdf->WriteHTML($html);
-					$mpdf->Output($data[ref].'.pdf', 'F');
-					if ( file_exists($data[ref].'.pdf') ) {
-						$total_pgs = getNumPagesPdf($data[ref].'.pdf');
+					$mpdf->Output($data['ref'].'.pdf', 'F');
+					if ( file_exists($data['ref'].'.pdf') ) {
+						$total_pgs = getNumPagesPdf($data['ref'].'.pdf');
 						
 						if ($total_pgs > 1) {
 							for($i = 1; $i <= $total_pgs; $i++) {
-							convert_pdf($data[ref], $i, $i);	
+							convert_pdf($data['ref'], $i, $i);	
 							}
 						} else {
-						convert_pdf($data[ref], 1, 1);	
+						convert_pdf($data['ref'], 1, 1);	
 						}
 					}
 					
 					echo $html;
 					
 					if (isset($_POST['name'])) {
-						$data[fullname] = ucwords($_POST['name']);
+						$data['fullname'] = ucwords($_POST['name']);
 						file_put_contents('data.txt', serialize($data));
 						//echo '<pre>';print_r($data);echo '</pre>';
 					}
 				?>
-				<form method="post" action="<?php echo $scheme; ?><?php echo $host; ?>/sendsig/">
+				<form method="post" action="<?php echo SITEROOT; ?>/sendsig/">
 			    	<button id="confirm-sig" type="submit" class="btn btn-success btn-lg btn-block caps">Confirm and send<i class="glyphicon glyphicon-ok pull-left"></i> </button>
 					<a href="" class="btn btn-danger btn-lg btn-block caps">Re-sign<i class="glyphicon glyphicon-refresh pull-left"></i></a>
-					<input type="hidden" value="<?php echo $data[ref]; ?>" name="cref">
+					<input type="hidden" value="<?php echo $data['ref']; ?>" name="cref">
 				</form>
 				<?php } else { ?>
 				<button type="button" class="btn btn-primary btn-block btn-lg caps" data-toggle="modal" data-target="#sigFormModal">Click here to sign&nbsp;&nbsp;<i class="glyphicon glyphicon-pencil pull-left"></i></button>
@@ -145,7 +145,7 @@ $doc = parseWord($file);
 
 <?php } ?>
 
-<?php if (isset($_GET['tkn']) && $_GET['tkn'] == $data[tkn]) { ?>
+<?php if (isset($_GET['tkn']) && $_GET['tkn'] == $data['tkn']) { ?>
 
 <?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-modal-step1.php');?>
 <?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-modal-step2.php');?>
@@ -155,10 +155,10 @@ $doc = parseWord($file);
 
 <?php } ?>
 </body>
-	<?php if (isset($_GET['tkn']) && $_GET['tkn'] == $data[tkn]) { ?>
+	<?php if (isset($_GET['tkn']) && $_GET['tkn'] == $data['tkn']) { ?>
 	
-	<script src="<?php echo $scheme; ?><?php echo $host; ?>/assets/js/jquery.signaturepad.js"></script>
-	<script src="<?php echo $scheme; ?><?php echo $host; ?>/assets/js/json2.min.js"></script>
+	<script src="<?php echo SITEROOT; ?>/assets/js/jquery.signaturepad.js"></script>
+	<script src="<?php echo SITEROOT; ?>/assets/js/json2.min.js"></script>
 	
 		<?php if (isset($_POST['name']) && $_POST['name'] != "") { ?>
 		<script>
@@ -187,6 +187,6 @@ $doc = parseWord($file);
   <?php } ?>
   
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="<?php echo $scheme; ?><?php echo $host; ?>/assets/js/app.js"></script>
+<script src="<?php echo SITEROOT; ?>/assets/js/app.js"></script>
 
 </html>

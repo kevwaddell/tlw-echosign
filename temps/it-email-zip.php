@@ -1,22 +1,8 @@
 <?php
-function curPageURL() {
- 	$pageURL = 'http';
- 	if ($_SERVER['HTTPS'] == "on") {$pageURL .= "s";}
- 	$pageURL .= "://";
- 	if ($_SERVER['SERVER_PORT'] != "80") {
- 		$pageURL .= $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
- 	} else {
- 		$pageURL .= $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
- 	}
- 	
- 	return $pageURL;
-}
-$url_array = parse_url(curPageURL());
-$host = $url_array[host];
-$scheme = $url_array[scheme]."://";
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 
-if ( isset($_GET[cref]) ) {
-$cref = $_GET[cref];
+if ( isset($_GET['cref']) ) {
+$cref = $_GET['cref'];
 $remove_date = date('g:ia, jS F, Y');
 ?>
 <html>
@@ -41,7 +27,7 @@ $remove_date = date('g:ia, jS F, Y');
 		</div>
 		
 		<div class="header" style="border-bottom: 1px solid #908e8e; margin: 0px 40px; text-align: center;">
-			<img src="<?php echo $scheme; ?><?php echo $host; ?>/assets/img/tlw-logo-wide.gif" alt="TLW Solicitors" />		
+			<img src="<?php echo SITEROOT; ?>/assets/img/tlw-logo-wide.gif" alt="TLW Solicitors" />		
 		</div>
 		
 		<div class="content" style="padding: 20px 40px; font-size: 16px; min-height: 100px;">

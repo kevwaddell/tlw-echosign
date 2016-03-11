@@ -3,7 +3,7 @@
 		
 		<div class="col-xs-2">
 			<div class="btn-toolbar" role="toolbar" aria-label="...">
-				<a href="<?php echo $scheme; ?><?php echo $host; ?>/" class="btn btn-default"><i class="glyphicon glyphicon-remove-sign"></i> Cancel</a>
+				<a href="<?php echo SITEROOT; ?>/" class="btn btn-default"><i class="glyphicon glyphicon-remove-sign"></i> Cancel</a>
 			</div>
 		</div>
 		

@@ -38,7 +38,7 @@ if ( isset($_GET['cref']) ) {
 	}
 
 } else {
-header("Location: ". $scheme . $host ."/");	
+header("Location: ". SITEROOT ."/");	
 }
 
 ?>

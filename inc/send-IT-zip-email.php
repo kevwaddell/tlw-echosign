@@ -2,13 +2,13 @@
 function sendZipEmail($d) {
 	global $scheme;
 	global $host;
-	$ref = $d[ref];
-	$tkn = $d[tkn];
+	$ref = $d['ref'];
+	$tkn = $d['tkn'];
 	
-	$body = file_get_contents($scheme.$host.'/temps/it-email-zip.php?cref='.$ref);
+	$body = file_get_contents(SITEROOT.'/temps/it-email-zip.php?cref='.$ref);
 	
 	//SMTP settings
-	$mail = new PHPMailer;
+	$mail = new PHPMailer();
 	$mail->isSMTP();
 	if ($host == 'tlw-esign.dev') {
 	include_once('gmail-smtp.php');	

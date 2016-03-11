@@ -5,10 +5,10 @@ function sendITEmail() {
 	global $data;
 	global $dateTime;
 	
-	$body = file_get_contents($scheme.$host.'/temps/it-email-attachment.php?cref='.$data[ref]);
+	$body = file_get_contents(SITEROOT.'/temps/it-email-attachment.php?cref='.$data['ref']);
 	
 	//SMTP settings
-	$mail = new PHPMailer;
+	$mail = new PHPMailer();
 	$mail->isSMTP();
 	if ($host == 'tlw-esign.dev') {
 	include_once('gmail-smtp.php');	
@@ -21,7 +21,7 @@ function sendITEmail() {
 	$mail->AddAddress($address, "Webmaster");	
 	$mail->Subject = "A document agreement has been signed on TLW Esign website!!!";
 	$mail->MsgHTML($body);
-	$mail->AddAttachment($data[ref]."/".$data[ref].".pdf");
+	$mail->AddAttachment($data['ref']."/".$data['ref'].".pdf");
 	$send = $mail->Send();
 	//$send = true;
 	

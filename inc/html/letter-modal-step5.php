@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
 	  
-	  <p class="text-center lead">Once you have completed the signing process you will be sent a copy  of the agreement in PDF format to the email address you supplied us.<br><strong class="txt-tlw-red"><?php echo $data[email]; ?></strong></p>
+	  <p class="text-center lead">Once you have completed the signing process you will be sent a copy  of the agreement in PDF format to the email address you supplied us.<br><strong class="txt-tlw-red"><?php echo $data['email']; ?></strong></p>
 
       </div>
       <div class="modal-footer bg-dkgray">
