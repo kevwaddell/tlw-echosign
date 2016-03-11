@@ -39,11 +39,11 @@ if ($inbox){
 		$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs.log'); 
 		$email_logs = unserialize($email_logs_raw);
 		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
-		file_put_contents('logs/email-logs.log', serialize($email_logs)); 	
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs.log', serialize($email_logs)); 	
 		} else {
 		$email_logs = array();
 		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
-		file_put_contents('logs/email-logs.log', serialize($email_logs));
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs.log', serialize($email_logs));
 		}
 		
 		if (file_exists('logs/unsigned.log')) {
@@ -51,7 +51,7 @@ if ($inbox){
 		$unsigned_logs = unserialize($unsigned_logs_raw);
 		} else {
 		$unsigned_logs = array();
-		file_put_contents('logs/unsigned.log', serialize($unsigned_logs));
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log', serialize($unsigned_logs));
 		}
 		
 		/* for every email... */
@@ -136,22 +136,22 @@ if ($inbox){
 							);
 	
 						    //Check if the directory exists if not create it and add data files
-						    if ( !is_dir($doc_dir) ) {
+						    if ( !is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir) ) {
 							$dir = mkdir($client_ref, 0755);
 							
 								if ($dir == 1) {
-								$php_temp = file_get_contents('temps/letter-tmp.php');  
-						        $new_doc = file_put_contents($doc_dir .'/'. $doc_name, $contents); 
-						        $new_html = file_put_contents($doc_dir .'/'.'sign.php', $php_temp);
-						        $new_data = file_put_contents($doc_dir .'/data.txt', serialize($data));
+								$php_temp = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temps/letter-tmp.php');  
+						        $new_doc = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
+						        $new_html = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'.'sign.php', $php_temp);
+						        $new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));
 								}
 							
 					        $result = "OK";
 					        } else {
-						      	$php_temp = file_get_contents('temps/letter-tmp.php');  
-						        $new_doc = file_put_contents($doc_dir .'/'. $doc_name, $contents); 
-						        $new_html = file_put_contents($doc_dir .'/'.'sign.php', $php_temp);
-						        $new_data = file_put_contents($doc_dir .'/data.txt', serialize($data));  
+						      	$php_temp = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temps/letter-tmp.php');  
+						        $new_doc = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
+						        $new_html = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'.'sign.php', $php_temp);
+						        $new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));  
 						        $result = "OK";
 					        }
 					        
@@ -164,24 +164,24 @@ if ($inbox){
 								if (sendClientEmail()) {
 								$data['sent'] = time();
 								$unsigned_logs[] = $data;
-								file_put_contents('logs/unsigned.log', serialize($unsigned_logs));
+								file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log', serialize($unsigned_logs));
 									
 								imap_setflag_full($inbox, $email_number, "\\Seen \\Flagged", ST_UID);
 								} else {
 									
 									$data['sent'] = NULL;
 									$unsigned_logs[] = $data;
-									file_put_contents('logs/unsigned.log', serialize($unsigned_logs));
+									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log', serialize($unsigned_logs));
 									
-									if (file_exists('logs/email-error-logs.log')) {
+									if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs.log')) {
 									$raw_error_logs = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs.log');
 									$error_logs = unserialize($raw_error_logs);		
 									$error_logs[] = $mail->ErrorInfo;	
-									file_put_contents('logs/email-error-logs.log', serialize($error_logs));
+									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs.log', serialize($error_logs));
 									} else {
 									$error_logs = array();
 									$error_logs[] = $mail->ErrorInfo;
-									file_put_contents('logs/email-error-logs.log', serialize($error_logs));	
+									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs.log', serialize($error_logs));	
 									}
 								}// If client email sent
 								
@@ -207,11 +207,11 @@ imap_close($inbox);
 	$raw_imap_error_logs = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs.log');
 	$imap_error_logs = unserialize($raw_imap_error_logs);		
 	$imap_error_logs[] = imap_errors();	
-	file_put_contents('logs/imap-error-logs.log', serialize($imap_error_logs));
+	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs.log', serialize($imap_error_logs));
 	} else {
 	$imap_error_logs = array();
 	$imap_error_logs[] = imap_errors();
-	file_put_contents('logs/imap-error-logs.log', serialize($imap_error_logs));	
+	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/imap-error-logs.log', serialize($imap_error_logs));	
 	}
 
 }
