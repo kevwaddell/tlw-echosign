@@ -80,17 +80,9 @@ if ($inbox){
 			$message = imap_fetchbody($inbox,$email_number,2);
 			$structure = imap_fetchstructure($inbox,$email_number);
 			//$seen_msg = $overview->seen;
-			
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 			pre($structure->parts);
-=======
-			//echo '<pre>';print_r($overview);echo '</pre>';
->>>>>>> parent of 364f38d... Fix getmail.php
-=======
-			//echo '<pre>';print_r($overview);echo '</pre>';
->>>>>>> parent of 364f38d... Fix getmail.php
-			
+
 			$attachments = array();
 			
 			if(isset($structure->parts) && count($structure->parts)) {
