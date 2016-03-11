@@ -16,29 +16,29 @@ if ( isset($_GET['cref']) ) {
 		include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 		include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
 		include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-client-email.php');
-		
+	
 		if ( sendClientEmail() ) {
 			
 			foreach($unsigned_logs as $k => $log) {
 				if ($log['ref'] == $cref) {
 				$unsigned_logs[$k]['sent'] = time();
-				//$new_logs = file_put_contents('logs/unsigned.log', serialize($unsigned_logs));	
+				$new_logs = file_put_contents('logs/unsigned.log', serialize($unsigned_logs));	
 				}	
 			}	
 			
 			if ($new_logs) {
-			//header("Location: ". $referer ."?cref=".$cref."&sent=1");
+			header("Location: ". $referer ."?cref=".$cref."&sent=1");
 			} 
 			
 		} else {
-		//header("Location: ". $referer ."?cref=".$cref."&sent=0");	
+		header("Location: ". $referer ."?cref=".$cref."&sent=0");	
 		}
 	} else {
-		//header("Location: ". $referer ."?cref=".$cref."&sent=0");	
+		header("Location: ". $referer ."?cref=".$cref."&sent=0");	
 	}
 
 } else {
-//header("Location: ". $scheme . $host ."/");	
+header("Location: ". $scheme . $host ."/");	
 }
 
 ?>
