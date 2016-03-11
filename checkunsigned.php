@@ -4,9 +4,10 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-client-email.php');
 
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log')) {
 $unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log');
-$unsigned_logs = unserialize($unsigned_logs_raw);
-
+$unsigned_logs = unserialize($unsigned_logs_raw);	
+	
 	if (!empty($unsigned_logs)) {
 	$now = time();
 	//pre($unsigned_logs);
@@ -32,4 +33,8 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 	} else {
 	exit;	
 	}
+
+} else {
+exit;		
+}
 ?>
