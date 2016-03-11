@@ -106,43 +106,12 @@ $imap_error_logs = unserialize($raw_imap_error_logs);
 						</table>
 					</div>
 					<?php } else { ?>
-					<div class="alert alert-danger text-center">
+					<div class="alert alert-info text-center">
 						<h3>No email logs available</h3>
 						<p>There is no logs available for inbound emails at the moment.</p>
 					</div>
 					<?php } ?>
 					
-					<?php if ($imap_error_logs) { ?>
-					<div class="well well-lg table-responsive">
-						<h3 class="text-center">Imap Errors</h3>
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>Date/time</th>
-									<th>Total messages</th>
-									<th>Unread messages</th>
-									<th>Deleted messages</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-								<?php foreach ($email_data as $data) { ?>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<?php } ?>	
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<?php } else { ?>
-					<div class="alert alert-success text-center">
-						<h3>No imap errors at the moment</h3>
-						<p>There is no logs available for imap errors at the moment.</p>
-					</div>
-					<?php } ?>
-
 				</div>
 			</div>
 		</div>
