@@ -32,7 +32,7 @@ if ($inbox){
 		$emails_counter = 0;
 		$check = imap_mailboxmsginfo($inbox);
 		
-		pre($check);
+		//pre($check);
 		
 		//echo "Total Messages: " . $check['Nmsgs'] . "<br />\n";
 		//echo "Unread Messages: " . $check['Unread'] . "<br />\n";
@@ -79,51 +79,72 @@ if ($inbox){
 			$overview = imap_fetch_overview($inbox, $email_number, 0);
 			$message = imap_fetchbody($inbox,$email_number,2);
 			$structure = imap_fetchstructure($inbox,$email_number);
-			//$seen_msg = $overview->seen;
-
-			pre($structure->parts);
+			$parts_total = count($structure->parts);
+			$parts = $structure->parts;
+			$seen_msg = $overview[0]->seen;
 
 			$attachments = array();
 			
-			if(isset($structure->parts) && count($structure->parts)) {
+			if( isset($parts) && $parts_total > 0 ) {
 	         
-	         for($i = 0; $i < count($structure->parts); $i++) {
-	           $attachments[$i] = array('is_attachment' => false,'filename' => '','name' => '','attachment' => '');
-	
-	           if($structure['parts'][$i]['ifdparameters']) {
-	             foreach($structure['parts'][$i]['ifdparameters'] as $object) {
-	               if(strtolower($object['attribute']) == 'filename') {
-	                 $attachments[$i]['is_attachment'] = true;
-	                 $attachments[$i]['filename'] = $object['value'];
+	         foreach($parts as $k => $v) {
+	           $attachments[$k] = array('is_attachment' => false,'filename' => '','name' => '','attachment' => '');
+			   
+			   //pre($v);
+			   
+	           if( $v->ifdparameters ) {
+	             
+	             foreach($v->dparameters as $object) {
+	             //pre($object);
+	               
+	               if(strtolower($object->attribute) == 'filename') {
+	                 $attachments[$k]['is_attachment'] = true;
+	                 $attachments[$k]['filename'] = $object->value;
 	               }
+	               
 	             }
-	           }
-	
-	           if($structure['parts'][$i]['ifdparameters']) {
-	             foreach($structure['parts'][$i]['parameters'] as $object) {
-	               if(strtolower($object['attribute']) == 'name') {
-	                 $attachments[$i]['is_attachment'] = true;
-	                 $attachments[$i]['name'] = $object['value'];
+	             
+	           } 
+	           
+	           if ( $v->ifparameters ) {
+	             
+	             foreach( $v->parameters as $object ) {
+	               
+	               if(strtolower($object->attribute) == 'name') {
+	                 $attachments[$k]['is_attachment'] = true;
+	                 $attachments[$k]['name'] = $object->value;
 	               }
+	               
 	             }
+	             
 	           }
+	           
+	           //pre($attachments);
 	
-	           if($attachments[$i]['is_attachment']) {
-	             $attachments[$i]['attachment'] = imap_fetchbody($inbox, $email_number, $i+1);
-	             if($structure['parts'][$i]['encoding'] == 3) { // 3 = BASE64
-	               $attachments[$i]['attachment'] = base64_decode($attachments[$i]['attachment']);
+	           if ( $attachments[$k]['is_attachment'] ) {
+		           
+	             $attachments[$k]['attachment'] = imap_fetchbody($inbox, $email_number, $k+1);
+	            
+	             if($v->encoding == 3) { // 3 = BASE64
+		             
+	               $attachments[$k]['attachment'] = base64_decode($attachments[$k]['attachment']);
+	               
+	             } elseif ($v->encoding == 4) { // 4 = QUOTED-PRINTABLE
+		             
+	               $attachments[$k]['attachment'] = quoted_printable_decode($attachments[$k]['attachment']);
+	               
 	             }
-	             elseif($structure['parts'][$i]['encoding'] == 4) { // 4 = QUOTED-PRINTABLE
-	               $attachments[$i]['attachment'] = quoted_printable_decode($attachments[$i]['attachment']);
-	             }
-	           }             
-	         } // for($i = 0; $i < count($structure['parts']); $i++)
+	             
+	           } // if( $attachments[$k]['is_attachment'] )  
+	                   
+	         } //  foreach($parts as $k => $v)
+	         
 	       } // if(isset($structure['parts']) && count($structure['parts']))
 	       
 	       // 
 	       foreach ($overview as $ov) {
-			$seen_msg = $ov['seen'];
-			$subject = $ov['subject'];
+			$seen_msg = $ov->seen;
+			$subject = $ov->subject;
 			$subject_parts = explode('&', $subject);
 			$client_ref = strtolower($subject_parts[0]);
 			$client_name = strtolower($subject_parts[1]);
