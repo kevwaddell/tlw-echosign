@@ -19,5 +19,5 @@ function curPageURL() {
 $url_array = parse_url(curPageURL());
 $host = $url_array['host'];
 $scheme = $url_array['scheme']."://";
-define(SITEROOT, $scheme . $host);
+DEFINE('SITEROOT', $scheme . $host);
 ?>
