@@ -10,11 +10,12 @@ global $host;
 	
 	if ($host == 'tlw-esign.dev') {
 	$gs_path = '/usr/local/bin/gs';	
-	} 
-	
-	if ('tlw-echosign.dev') {
-	$gs_path = '/opt/local/bin/gs';		
+	} else if ('tlw-echosign.dev') {
+	$gs_path = '/opt/local/bin/gs';			
+	} else {
+	$gs_path = '/usr/bin/gs';	
 	}
+
 	
 	$pdf = $src.'.pdf';
     $quality = 90;
