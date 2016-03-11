@@ -5,7 +5,7 @@ function sendClientEmail() {
 	global $host;
 	global $data;
 								
-	$body = file_get_contents($scheme.$host.'/temps/client-email-notify.php?cref='.$data[ref]);
+	$body = file_get_contents($scheme.$host.'/temps/client-email-notify.php?cref='.$data['ref']);
 	
 	$mail = new PHPMailer();
 	
@@ -20,7 +20,7 @@ function sendClientEmail() {
 	//Sending options	
 	$mail->AddReplyTo("info@tlwsolicitors.co.uk","TLW Solicitors");
 	$mail->SetFrom('esign@tlwsolicitors.co.uk', 'TLW Solicitors');
-	$address = $data[email];
+	$address = $data['email'];
 	$mail->AddAddress($address);
 	$mail->Subject = "Your TLW Solicitors Client Agreement is ready to sign";
 	$mail->MsgHTML($body);
