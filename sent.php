@@ -18,8 +18,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gs-function.php');
 <?php 
 if ( !isset($_GET['sent']) ) {
 header("Location: ". SITEROOT ."/");	
-}
-if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
+} else if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 	
 	if (is_dir ( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] ))  {
 	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'].'/data.txt');
@@ -28,7 +27,7 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 	
 	if (sendITEmail()) {
 		
-		if (is_dir ( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] )) {
+		if (is_dir( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] )) {
 		rcopy( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] , $_SERVER['DOCUMENT_ROOT'].'/'.'signed/'. $_GET['cref'] );	
 		} 
 		
@@ -37,7 +36,7 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 		$data = unserialize($raw_data);		
 		}
 		
-		if (!file_exists($_SERVER['DOCUMENT_ROOT']'/logs/sent_data.log')) {
+		if ( !file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.log') ) {
 		$signed_data = array();
 		$signed_data[$data['ref']] = array('ref' => $data['ref'], 'tkn' => $data['tkn'], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
 		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.log', serialize($signed_data));
