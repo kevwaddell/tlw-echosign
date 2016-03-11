@@ -5,7 +5,7 @@ function sendClientEmail() {
 	global $host;
 	global $data;
 								
-	$body = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temps/client-email-notify.php?cref='.$data['ref']);
+	$body = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temps/client-email-notify.php');
 	
 	pre($body);
 	
