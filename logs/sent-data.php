@@ -13,8 +13,8 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <link rel="stylesheet" href="<?php echo $scheme; ?><?php echo $host; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php
-if (file_exists('sent_data.txt')) {
-$raw_sent_data = file_get_contents('sent_data.txt');	
+if (file_exists('sent_data.log')) {
+$raw_sent_data = file_get_contents('sent_data.log');	
 $sent_data = unserialize($raw_sent_data);	
 }	
 ?>

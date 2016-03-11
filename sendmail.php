@@ -8,7 +8,7 @@ if ( isset($_GET['cref']) ) {
 	$raw_data = file_get_contents($cref.'/data.txt');
 
 	$data = unserialize($raw_data);
-	$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.txt');
+	$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log');
 	$unsigned_logs = unserialize($unsigned_logs_raw);
 	
 	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
@@ -20,7 +20,7 @@ if ( isset($_GET['cref']) ) {
 		foreach($unsigned_logs as $k => $log) {
 			if ($log['ref'] == $cref) {
 			$unsigned_logs[$k]['sent'] = time();
-			$new_logs = file_put_contents('logs/unsigned.txt', serialize($unsigned_logs));	
+			$new_logs = file_put_contents('logs/unsigned.log', serialize($unsigned_logs));	
 			}	
 		}	
 		

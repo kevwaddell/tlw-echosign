@@ -15,12 +15,12 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <?php
 $imap_error_logs = false;
 
-if (file_exists('email-logs.txt')) {
-$raw_email_data = file_get_contents('email-logs.txt');	
+if (file_exists('email-logs.log')) {
+$raw_email_data = file_get_contents('email-logs.log');	
 $email_data = unserialize($raw_email_data);	
 }
-if (file_exists('imap-error-logs.txt')) {
-$raw_imap_error_logs = file_get_contents('imap-error-logs.txt');	
+if (file_exists('imap-error-logs.log')) {
+$raw_imap_error_logs = file_get_contents('imap-error-logs.log');	
 $imap_error_logs = unserialize($raw_imap_error_logs);	
 }		
 ?>

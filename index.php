@@ -17,7 +17,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 $cref = $_POST['cref'];
 $errors = array();
 $messages = array();
-$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.txt');
+$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log');
 $unsigned_data = unserialize($raw_unsigned_data);	
 $unsigned = false;	
 $noref = true;	

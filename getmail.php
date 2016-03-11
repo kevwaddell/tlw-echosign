@@ -39,7 +39,7 @@ if ($inbox){
 		$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs.log'); 
 		$email_logs = unserialize($email_logs_raw);
 		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
-		file_put_contents('logs/email-logs.txt', serialize($email_logs)); 	
+		file_put_contents('logs/email-logs.log', serialize($email_logs)); 	
 		} else {
 		$email_logs = array();
 		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );

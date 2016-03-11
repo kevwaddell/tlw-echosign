@@ -48,13 +48,13 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 		file_put_contents('logs/sent_data.txt', serialize($signed_data));
 		}
 		
-		if (file_exists('logs/unsigned.txt')) {
-		$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.txt');
+		if (file_exists('logs/unsigned.log')) {
+		$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned.log');
 		$unsigned_data = unserialize($raw_unsigned_data);	
 			foreach ($unsigned_data as $k => $ud) {
 				if ($ud['ref'] == $_GET['cref']) {
 				unset($unsigned_data[$k]);
-				file_put_contents('logs/unsigned.txt', serialize($unsigned_data));
+				file_put_contents('logs/unsigned.log', serialize($unsigned_data));
 				}	
 			}
 		}
