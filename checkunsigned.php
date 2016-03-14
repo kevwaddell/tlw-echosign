@@ -19,7 +19,7 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 		//pre(gmdate('jS F, Y, g:ia', $ul['sent']));
 		
 			if ($datePlus2Days < $now) {
-			$raw_data = file_get_contents($ul['ref'].'/data.txt');	
+			$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$ul['ref'].'/data.txt');	
 			$data = unserialize($raw_data);
 				if ( sendClientEmail() ) {
 				$unsigned_logs[$k]['sent'] = time();

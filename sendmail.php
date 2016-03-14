@@ -23,7 +23,7 @@ if ( isset($_GET['cref']) ) {
 			foreach($unsigned_logs as $k => $log) {
 				if ($log['ref'] == $cref) {
 				$unsigned_logs[$k]['sent'] = time();
-				$new_logs = file_put_contents('logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	
+				$new_logs = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	
 				}	
 			}	
 			

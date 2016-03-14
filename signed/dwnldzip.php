@@ -8,7 +8,7 @@ if (isset($_GET['tkn']) && $_GET['tkn'] != "") {
 
 $tkn = $_GET['tkn'];
 $ref = $_GET['cref'];
-	if (file_exists($tkn."@".$ref.".zip")) {
+	if (file_exists($_SERVER['DOCUMENT_ROOT']."/signed/".$tkn."@".$ref.".zip")) {
 	header("Location: ". $referer ."?tkn=".$tkn."&cref=".$ref."&dwnld=1");		
 	} else {
 	header("Location: ". $referer ."?tkn=".$tkn."&cref=".$ref."&dwnld=0");
