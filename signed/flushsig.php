@@ -18,7 +18,7 @@ function zip_files($data) {
 			if (sendZipEmail($d)) {
 			unlink($tkn."@".$ref.".zip");	
 			unset($data[$k]);
-			file_put_contents('../logs/sent_data.txt', serialize($data));
+			file_put_contents('../logs/sent-data.txt', serialize($data));
 			}
 			
 		}
@@ -59,8 +59,8 @@ function zip_files($data) {
 	}// End foreach $data
 }
 
-if(file_exists('../logs/sent_data.txt')) {
-$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.txt');	
+if(file_exists('../logs/sent-data.txt')) {
+$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data.txt');	
 $data = unserialize($raw_data);	
 
 if (!empty($data)) {

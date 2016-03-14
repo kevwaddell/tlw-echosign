@@ -35,15 +35,15 @@ header("Location: ". SITEROOT ."/");
 		rename($src, $dest); 
 		} 
 		
-		if ( !file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log') ) {
+		if ( !file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log') ) {
 		$signed_data = array();
 		$signed_data[$data['ref']] = array('ref' => $data['ref'], 'tkn' => $data['tkn'], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log', serialize($signed_data));
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log', serialize($signed_data));
 		} else {
-		$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log');	
+		$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log');	
 		$signed_data = unserialize($raw_signed_data);
 		$signed_data[$data['ref']] = array('ref' => $data['ref'], 'tkn' => $data['tkn'], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log', serialize($signed_data));
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log', serialize($signed_data));
 		}
 		
 		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {

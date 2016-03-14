@@ -13,12 +13,12 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php
-$sent_data = false;
+$sent-data = false;
 $log_date = date('Y-m-d', time());
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log')) {
-$raw_sent_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log');	
-$sent_data = unserialize($raw_sent_data);	
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log')) {
+$raw_sent-data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log');	
+$sent-data = unserialize($raw_sent-data);	
 }	
 ?>
 </head>
@@ -117,8 +117,8 @@ $sent_data = unserialize($raw_sent_data);
 						</div>		
 					<?php } ?>
 					
-					<?php if ($sent_data) { 
-					//pre($sent_data);
+					<?php if ($sent-data) { 
+					//pre($sent-data);
 					?>
 					<div class="well well-lg table-responsive">
 						<h3 class="text-center">Signed documents</h3>
@@ -133,7 +133,7 @@ $sent_data = unserialize($raw_sent_data);
 							</thead>
 							<tbody>
 								
-								<?php foreach ($sent_data as $data) { ?>
+								<?php foreach ($sent-data as $data) { ?>
 								<tr>
 									<td style="vertical-align: middle;"><?php echo gmdate('jS F, Y, g:ia', $data['sdate']); ?></td>
 									<td style="vertical-align: middle;"><?php echo gmdate('jS F, Y, g:ia', $data['rdate']); ?></td>

@@ -9,7 +9,7 @@ $referer_parse = parse_url($referer_raw);
 $referer = $referer_parse['scheme']."://".$referer_parse['host'].$referer_parse['path'];
 	
 if (isset($_GET['tkn']) && $_GET['tkn'] != "") {
-$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data.txt');	
+$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data.txt');	
 $data = unserialize($raw_data);	
 
 $tkn = $_GET['tkn'];
@@ -24,7 +24,7 @@ $d = array('ref' => $ref, 'tkn' => $tkn);
 				if ($sd['tkn'] == $tkn) {
 				unlink($tkn."@".$ref.".zip");
 				unset($data[$k]);
-				$new_data = file_put_contents('../logs/sent_data.txt', serialize($data));	
+				$new_data = file_put_contents('../logs/sent-data.txt', serialize($data));	
 					if ($new_data) {
 					header("Location: ". $referer ."?cref=".$ref."&deleted=1");	
 					}
