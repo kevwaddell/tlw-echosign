@@ -5,8 +5,9 @@ function rrmdir($dir) {
     if ( is_dir($dir) ) {
      
         $files = scandir($dir);
-        //echo '<pre>';print_r($dir);echo '</pre>'; 
+        echo '<pre>';print_r($dir);echo '</pre>'; 
         
+/*
         if ($files) {
        
 	        foreach ($files as $file) {
@@ -19,6 +20,7 @@ function rrmdir($dir) {
 			}
 		
 		}
+*/
 
     } else if ( file_exists($dir) ) {
 	    unlink($dir);
@@ -28,8 +30,8 @@ function rrmdir($dir) {
 // Function to Copy folders and files       
 function rcopy($src, $dst) { 
 	 
-	 if (file_exists ( $dst )) {
-     rrmdir ( $dst );
+	 if ( file_exists( $dst ) ) {
+     //rrmdir ( $dst );
      }
 	 
 	 if ( is_dir ( $src ) ) {
@@ -51,7 +53,6 @@ function rcopy($src, $dst) {
 			rmdir($src);	
 			} 
 		}
-
         
      } else if ( file_exists ($src) ) {
 	 copy ( $src, $dst );   

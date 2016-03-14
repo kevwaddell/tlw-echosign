@@ -30,13 +30,10 @@ header("Location: ". SITEROOT ."/");
 	if (sendITEmail()) {
 		
 		if (is_dir( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] )) {
-		rcopy( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] , $_SERVER['DOCUMENT_ROOT'].'/signed/'. $_GET['cref'] );	
+		$src = $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'];
+		$dest = $_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'];
+		rename($src, $dest); 
 		} 
-		
-		if (is_dir ( $_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'] ))  {
-		$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'].'/data.txt');
-		$data = unserialize($raw_data);		
-		}
 		
 		if ( !file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent_data-'.$log_date.'.log') ) {
 		$signed_data = array();
