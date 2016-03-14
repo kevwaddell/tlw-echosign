@@ -92,6 +92,9 @@ $sent_data = unserialize($raw_sent_data);
 						<div class="alert alert-danger text-center alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<p class="lead">Sorry the document data you requested for<br>client ref <strong><?php echo $_GET['cref']; ?></strong> is no longer available to download</p>
+							<p style="margin-top: 10px;">
+								<a href="<?php echo SITEROOT; ?>/logs/sent-data/" class="btn btn-success" target="_blank;"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
+							</p>
 						</div>		
 					<?php } ?>
 					
