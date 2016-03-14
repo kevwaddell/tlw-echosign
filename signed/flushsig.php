@@ -29,19 +29,20 @@ function zip_files($data) {
 		
 			
 			$zip = new ZipArchive();
-			$files = scandir($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref);
-			$iterator = new FilesystemIterator($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref);
+			$files = scandir($ref);
+			$iterator = new FilesystemIterator($ref);
 			
 				if ($iterator->valid()) {
 				
-				$zip->open($_SERVER['DOCUMENT_ROOT'].'/signed/'.$tkn."@".$ref.".zip", ZipArchive::CREATE | ZipArchive::OVERWRITE);
+					$zip->open($tkn."@".$ref.".zip", ZipArchive::CREATE | ZipArchive::OVERWRITE);
 				
-				foreach ($files as $f){
-					if ($f != "." && $f != "..") {
-					$zip->addFile($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref."/". $f);
-					}	
-				}
-				$zip->close();
+					foreach ($files as $f){
+						if ($f != "." && $f != "..") {
+						$zip->addFile($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref."/".$f, $f);
+						}	
+					}
+					
+					$zip->close();
 				
 				foreach ($files as $f){
 					if ($f != "." && $f != "..") {
