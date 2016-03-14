@@ -31,6 +31,8 @@ if ($inbox){
 
 		$emails_counter = 0;
 		$check = imap_mailboxmsginfo($inbox);
+		$email_logs = array();
+		$unsigned_logs = array();
 		
 		//pre($check);
 		
@@ -40,37 +42,30 @@ if ($inbox){
 		
 		rsort($emails);
 		// Check if Email logs for current date extists
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
-			$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log'); 
-			$email_logs = unserialize($email_logs_raw);
-			$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log', serialize($email_logs)); 	
-		} else {
-		//If file does not exist create it
-			$email_logs = array();
+		if ($check['Unread'] > 0) {
+			
+			if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
+				$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log'); 
+				$email_logs = unserialize($email_logs_raw);
+			} 
+				
 			$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
 			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log', serialize($email_logs));
+		}
+		
+		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log')) {
+			$prev_unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log');
+			$unsigned_logs = unserialize($prev_unsigned_logs_raw);	
+			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	; 
 		}
 		
 		// Check if Unsigned logs for current date extists
 		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {
 			$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
 			$unsigned_logs = unserialize($unsigned_logs_raw);
-		} else {
-		//If file does not exist create it check yesterdays logs and add to todays logs
-			$unsigned_logs = array();
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs) );
-
-			if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log')) {
-			$prev_unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log');
-			$unsigned_logs = unserialize($prev_unsigned_logs_raw);	
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	; 	
-			}
-			
-			$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
-			$unsigned_logs = unserialize($unsigned_logs_raw);
-			
 		}
+		
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	; 			
 		
 		/* for every email... */
 		foreach($emails as $email_number) {
