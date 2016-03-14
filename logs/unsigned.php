@@ -19,7 +19,7 @@ $log_date = date('Y-m-d', time());
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {
 $raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');	
 $unsigned_data = unserialize($raw_unsigned_data);	
-echo '<pre class="debug">';print_r($unsigned_data);echo '</pre>';
+//echo '<pre class="debug">';print_r($unsigned_data);echo '</pre>';
 }	
 ?>
 </head>
