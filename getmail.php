@@ -172,26 +172,27 @@ if ($inbox){
 							);
 	
 						    //Check if the directory exists if not create it and add data files
-						    if ( !is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir) ) {
-							$dir = mkdir($client_ref, 0755);
-							
-								if ($dir == 1) {
+						    if ( is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir) ) {
+
+								$php_temp = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temps/letter-tmp.php');  
+						        $new_doc = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
+						        $new_html = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'.'sign.php', $php_temp);
+						        $new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));  
+						        $result = "OK";
+	
+					        } else {
+						        
+						     	$dir = mkdir($client_ref, 0755);
+						     	
+						     	if ($dir == 1) {
 								$php_temp = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temps/letter-tmp.php');  
 						        $new_doc = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
 						        $new_html = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'.'sign.php', $php_temp);
 						        $new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));
 						        $result = "OK";
-								}
-	
-					        } else {
-						      	$php_temp = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temps/letter-tmp.php');  
-						        $new_doc = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
-						        $new_html = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'.'sign.php', $php_temp);
-						        $new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));  
-						        $result = "OK";
-					        }
+								}					        }
 					        
-					        //echo '<pre>';print_r($result);echo '</pre>';
+					        echo '<pre>';print_r($result);echo '</pre>';
   							
 							if ($result == "OK") {
 	
