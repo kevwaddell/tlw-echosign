@@ -30,7 +30,7 @@ function zip_files($data) {
 			
 			$zip = new ZipArchive();
 			$files = scandir($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref);
-			$iterator = new FilesystemIterator($ref);
+			$iterator = new FilesystemIterator($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref);
 			
 				if ($iterator->valid()) {
 				
