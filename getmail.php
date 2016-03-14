@@ -58,7 +58,7 @@ if ($inbox){
 			$unsigned_logs = unserialize($unsigned_logs_raw);
 		} else {
 		//If file does not exist create it check yesterdays logs and add to todays logs
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize(array());
+			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize(array()) );
 
 			if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log')) {
 			$prev_unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log');
