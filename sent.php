@@ -16,6 +16,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gs-function.php');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php 
 $log_date = date('Y-m-d', time());
+$move_folder = false;
 
 if ( !isset($_GET['sent']) ) {
 header("Location: ". SITEROOT ."/");	
@@ -33,30 +34,31 @@ header("Location: ". SITEROOT ."/");
 	$signed_data = array();	
 	}
 	
-	//echo '<pre class="debug">';print_r($signed_data);echo '</pre>';
+	$signed_data[] = array('ref' => $data['ref'], 'tkn' => $data['tkn'], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
+	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log', serialize($signed_data));
 	
-	if (sendITEmail()) {
+	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {
+	$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
+	$unsigned_data = unserialize($raw_unsigned_data);	
+		foreach ($unsigned_data as $k => $ud) {
 		
-		if (is_dir( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] )) {
+			if ($ud['ref'] == $_GET['cref']) {
+			unset($unsigned_data[$k]);
+			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_data));
+			}	
+		}
+	}
+	
+	if (is_dir( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] )) {
 		$src = $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'];
 		$dest = $_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'];
-		rename($src, $dest); 
-		} 
+		$move_folder = rename($src, $dest); 
 		
-		$signed_data[] = array('ref' => $data['ref'], 'tkn' => $data['tkn'], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log', serialize($signed_data));
-		
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {
-		$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
-		$unsigned_data = unserialize($raw_unsigned_data);	
-			foreach ($unsigned_data as $k => $ud) {
-			
-				if ($ud['ref'] == $_GET['cref']) {
-				unset($unsigned_data[$k]);
-				file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_data));
-				}	
-			}
+		if ($move_folder) {
+		sendITEmail();	
 		}
+	} 
+	
 	}
 	
 //echo '<pre>';print_r($data);echo '</pre>';
