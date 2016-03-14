@@ -9,7 +9,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <meta name="robots" content="noindex,nofollow">
-<title>TLW Solicitors | Email logs</title>
+<title>TLW Solicitors | esign administration area</title>
 <link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php
