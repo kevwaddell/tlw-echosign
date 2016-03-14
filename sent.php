@@ -53,7 +53,7 @@ header("Location: ". SITEROOT ."/");
 		$src = $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'];
 		$dest = $_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'];
 		
-		if (rename($src, $dest) ) {
+		if ( rename($src, $dest) ) {
 		sendITEmail();	
 		}
 
