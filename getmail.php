@@ -58,13 +58,16 @@ if ($inbox){
 			$unsigned_logs = unserialize($unsigned_logs_raw);
 		} else {
 		//If file does not exist create it check yesterdays logs and add to todays logs
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', "");
+			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize(array());
 
 			if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log')) {
 			$prev_unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log');
 			$unsigned_logs = unserialize($prev_unsigned_logs_raw);	
 			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	; 	
 			}
+			
+			$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
+			$unsigned_logs = unserialize($unsigned_logs_raw);
 			
 		}
 		
@@ -169,7 +172,7 @@ if ($inbox){
 							'firstname' => ucwords($client_name),
 							'tkn'	=> md5( uniqid(rand(), true) )
 							);
-	
+							
 						    //Check if the directory exists if not create it and add data files
 						    if ( is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir) ) {
 
@@ -195,36 +198,20 @@ if ($inbox){
   							
 							if ($result == "OK") {
 								
-								//print_r($data);
-	
-								include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
-								$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
-								$unsigned_logs = unserialize($unsigned_logs_raw);
-	
-								if (sendClientEmail()) {
-									$data['sent'] = time();
-									$unsigned_logs[] = $data;
-									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
-									imap_setflag_full($inbox, $email_number, "\\Seen \\Flagged", ST_UID);
-								} else {
-									$data['sent'] = NULL;
-									$unsigned_logs[] = $data;
-									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
-									
-									if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log')) {
-									$raw_error_logs = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log');
-									$error_logs = unserialize($raw_error_logs);		
-									$error_logs[] = $mail['ErrorInfo'];	
-									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log', serialize($error_logs));
-									} else {
-									$error_logs = array();
-									$error_logs[] = $mail['ErrorInfo'];
-									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log', serialize($error_logs));	
-									}
-								}// If client email sent
-								
+								$unsigned_logs[$data['ref']] = serialize($data);
+								file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
 								print_r($unsigned_logs);
 								
+								include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
+
+								if (sendClientEmail()) {
+									$sent = time();
+									imap_setflag_full($inbox, $email_number, "\\Seen \\Flagged", ST_UID);
+								} else {
+									$sent = NULL;
+																
+								}// If client email sent
+
 							} // If result OK
 							
 					    } // if file is word doc
