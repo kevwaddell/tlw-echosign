@@ -192,9 +192,11 @@ if ($inbox){
 						        $result = "OK";
 								}					        }
 					        
-					        echo '<pre>';print_r($result);echo '</pre>';
+					       // echo '<pre>';print_r($result);echo '</pre>';
   							
 							if ($result == "OK") {
+								
+								print_r($data);
 	
 								include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
 								$unsigned_logs[] = $data;
