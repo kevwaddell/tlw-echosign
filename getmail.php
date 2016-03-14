@@ -196,19 +196,22 @@ if ($inbox){
   							
 							if ($result == "OK") {
 								
-								print_r($data);
+								//print_r($data);
 	
 								include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
-								$unsigned_logs[] = $data;
+								$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
+								$unsigned_logs = unserialize($unsigned_logs_raw);
+								
+								print_r($unsigned_logs);
 								
 								if (sendClientEmail()) {
-								$unsigned_logs['sent'] = time();
-								file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
-									
-								imap_setflag_full($inbox, $email_number, "\\Seen \\Flagged", ST_UID);
+									$data['sent'] = time();
+									$unsigned_logs[] = $data;
+									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
+									imap_setflag_full($inbox, $email_number, "\\Seen \\Flagged", ST_UID);
 								} else {
-									
-									$unsigned_logs['sent'] = NULL;
+									$data['sent'] = NULL;
+									$unsigned_logs[] = $data;
 									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
 									
 									if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log')) {
