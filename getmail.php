@@ -195,7 +195,7 @@ if ($inbox){
   							
 							if ($result == "OK") {
 	
-								include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-client-email.php');
+								include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
 								$unsigned_logs[] = $data;
 								
 								if (sendClientEmail()) {
