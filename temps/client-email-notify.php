@@ -4,7 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 if ( isset($_GET['cref']) ) {
 $cref = $_GET['cref'];	
 //echo '<pre>';print_r($cref);echo '</pre>';
-$raw_data = file_get_contents(SITEROOT.'/'.$cref.'/data.txt');
+$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$cref.'/data.txt');
 $data = unserialize($raw_data);	
 $name = " ".$data['firstname']." ";
 $cref = $data['ref'];
