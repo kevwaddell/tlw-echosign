@@ -54,9 +54,13 @@ header("Location: ". SITEROOT ."/");
 		$dest = $_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'];
 		$move_folder = rename($src, $dest); 
 		
+		echo '<pre class="debug">';print_r($move_folder);echo '</pre>';
+		
+/*
 		if ($move_folder) {
 		sendITEmail();	
 		}
+*/
 	} 
 	
 	}
