@@ -20,7 +20,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 	
 	<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/col-strip.php'); ?>
 	
-	<?php include_once($_SERVER['DOCUMENT_ROOT'].'admin/inc/html/admin-header.inc'); ?>
+	<?php include_once($_SERVER['DOCUMENT_ROOT'].'/admin/inc/html/admin-header.inc'); ?>
 	
 	<main class="main-content">
 		
