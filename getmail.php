@@ -197,20 +197,19 @@ if ($inbox){
 					       // echo '<pre>';print_r($result);echo '</pre>';
   							
 							if ($result == "OK") {
-								
-								$unsigned_logs[$data['ref']] = serialize($data);
-								file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
-								print_r($unsigned_logs);
-								
+
 								include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
 
 								if (sendClientEmail()) {
-									$sent = time();
+									$data['sent'] = time();
 									imap_setflag_full($inbox, $email_number, "\\Seen \\Flagged", ST_UID);
 								} else {
-									$sent = NULL;
+									$data['sent'] = NULL;
 																
 								}// If client email sent
+								
+								$unsigned_logs[$data['ref']] = serialize($data);
+								file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
 
 							} // If result OK
 							
