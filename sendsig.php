@@ -9,8 +9,8 @@ $dateTime = gmdate('g:ia, jS F, Y');
 //pre($data);
 
 //Email functions to send to client, proclaim and IT
-include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-proclaim-attachment-email.php');
-include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-client-attachemt-email.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-proclaim-attachment-email.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-attachemt-email.php');
 
 
 if ( sendProclaimEmail() ) {

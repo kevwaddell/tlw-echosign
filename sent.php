@@ -3,7 +3,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/file-copy-functions.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
-include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-IT-attachment-email.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-IT-attachment-email.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gs-function.php');
 ?>
 <!DOCTYPE html>
