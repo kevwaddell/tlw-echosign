@@ -1,7 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
-include_once($_SERVER['DOCUMENT_ROOT'].'/inc/file-copy-functions.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-IT-attachment-email.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gs-function.php');
@@ -27,10 +26,16 @@ header("Location: ". SITEROOT ."/");
 	$data = unserialize($raw_data);		
 	}
 	
-	echo '<pre class="debug">';print_r($data);echo '</pre>';
+	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log') ) {
+	$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log');	
+	$signed_data = unserialize($raw_signed_data);	
+	} else {
+	$signed_data = array();	
+	}
+	
+	//echo '<pre class="debug">';print_r($signed_data);echo '</pre>';
 	
 	if (sendITEmail()) {
-	$signed_data = array();
 		
 		if (is_dir( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] )) {
 		$src = $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'];
@@ -38,16 +43,8 @@ header("Location: ". SITEROOT ."/");
 		rename($src, $dest); 
 		} 
 		
-		if ( file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log') ) {
-		$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log');	
-		$signed_data = unserialize($raw_signed_data);
 		$signed_data[] = array('ref' => $data['ref'], 'tkn' => $data['tkn'], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
 		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log', serialize($signed_data));
-
-		} else {
-		$signed_data[] = array('ref' => $data['ref'], 'tkn' => $data['tkn'], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log', serialize($signed_data));
-		}
 		
 		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {
 		$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
