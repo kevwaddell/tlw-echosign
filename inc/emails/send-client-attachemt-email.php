@@ -41,10 +41,8 @@ function sendClientPDFEmail() {
 	$pdfmail->Subject = "Thank you for signing our agreement";
 	$pdfmail->MsgHTML($body);
 	$pdfmail->AddAttachment($_SERVER['DOCUMENT_ROOT']."/".$data['ref']."/".$data['ref'].".pdf");
-	$pdfsend = $pdfmail->Send();
-	//$send = true;
 	
-	return $pdfsend;
+	return $pdfmail->Send();
 
 }	
 ?>

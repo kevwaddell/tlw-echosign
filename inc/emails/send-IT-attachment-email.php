@@ -22,10 +22,9 @@ function sendITEmail() {
 	$mail->Subject = "A document agreement has been signed on TLW Esign website!!!";
 	$mail->MsgHTML($body);
 	$mail->AddAttachment($_SERVER['DOCUMENT_ROOT']."/".$data['ref']."/".$data['ref'].".pdf");
-	$send = $mail->Send();
 	//$send = true;
 	
-	return $send;
+	return $mail->Send();
 }
 
 ?>

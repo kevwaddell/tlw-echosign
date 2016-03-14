@@ -20,10 +20,8 @@ function sendProclaimEmail() {
 	$mail->Subject = $data['ref'];
 	$mail->MsgHTML($body);
 	$mail->AddAttachment($_SERVER['DOCUMENT_ROOT']."/".$data['ref']."/".$data['ref'].".pdf");
-	$send = $mail->Send();
-	//$send = true;
 	
-	return $send;
+	return $mail->Send();
 }
 
 ?>

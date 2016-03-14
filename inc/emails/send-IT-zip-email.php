@@ -22,10 +22,8 @@ function sendZipEmail($d) {
 	$mail->Subject = "TLW Esign data cleanse client ref: ".$ref;
 	$mail->MsgHTML($body);
 	$mail->AddAttachment($_SERVER['DOCUMENT_ROOT']."/signed/".$tkn ."@". $ref .".zip");
-	$send = $mail->Send();
-	//$send = true;
 	
-	return $send;
+	return $mail->Send();
 }
 
 ?>

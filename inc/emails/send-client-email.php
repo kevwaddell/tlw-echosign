@@ -24,9 +24,8 @@ function sendClientEmail() {
 	$mail->AddAddress($address);
 	$mail->Subject = "Your TLW Solicitors Client Agreement is ready to sign";
 	$mail->MsgHTML($body);
-	$send = $mail->Send();
 	
-	return $send;
+	return $mail->Send();
 	
 }	
 ?>
