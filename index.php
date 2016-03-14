@@ -74,10 +74,6 @@ $unsigned_data = unserialize($raw_unsigned_data);
 	
 } ?>
 
-<?php 
-
-?>
-
 </head>
 <body>
 	
