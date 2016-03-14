@@ -200,9 +200,7 @@ if ($inbox){
 								include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
 								$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
 								$unsigned_logs = unserialize($unsigned_logs_raw);
-								
-								print_r($unsigned_logs);
-								
+	
 								if (sendClientEmail()) {
 									$data['sent'] = time();
 									$unsigned_logs[] = $data;
@@ -224,6 +222,8 @@ if ($inbox){
 									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log', serialize($error_logs));	
 									}
 								}// If client email sent
+								
+								print_r($unsigned_logs);
 								
 							} // If result OK
 							
