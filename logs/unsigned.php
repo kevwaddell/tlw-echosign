@@ -110,7 +110,7 @@ echo '<pre class="debug">';print_r($unsigned_data);echo '</pre>';
 							<tbody>
 								
 								<?php foreach ($unsigned_data as $data) { 
-								
+								$data = unserialize($data);
 								?>
 								<tr>
 									<td style="vertical-align: middle;"><?php echo $data['ref']; ?></td>
