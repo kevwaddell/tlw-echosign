@@ -109,9 +109,7 @@ echo '<pre class="debug">';print_r($unsigned_data);echo '</pre>';
 							</thead>
 							<tbody>
 								
-								<?php foreach ($unsigned_data as $data) { 
-								$data = unserialize($data);
-								?>
+								<?php foreach ($unsigned_data as $data) { ?>
 								<tr>
 									<td style="vertical-align: middle;"><?php echo $data['ref']; ?></td>
 									<td class="text-center" style="vertical-align: middle;"><?php echo $data['tkn']; ?></td>

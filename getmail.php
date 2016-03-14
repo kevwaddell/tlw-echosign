@@ -209,7 +209,7 @@ if ($inbox){
 																
 								}// If client email sent
 								
-								$unsigned_logs[] = serialize($data);
+								$unsigned_logs[] = $data;
 								file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
 
 							} // If result OK

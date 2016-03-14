@@ -20,7 +20,6 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 		
 			if ($datePlus2Days < $now) {
 			$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$ul['ref'].'/data.txt');	
-			$data = unserialize($raw_data);
 				if ( sendClientEmail() ) {
 				$unsigned_logs[$k]['sent'] = time();
 				$new_logs = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	

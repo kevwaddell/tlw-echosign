@@ -50,6 +50,7 @@ header("Location: ". SITEROOT ."/");
 		$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
 		$unsigned_data = unserialize($raw_unsigned_data);	
 			foreach ($unsigned_data as $k => $ud) {
+			
 				if ($ud['ref'] == $_GET['cref']) {
 				unset($unsigned_data[$k]);
 				file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_data));

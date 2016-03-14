@@ -32,7 +32,7 @@ $unsigned_data = unserialize($raw_unsigned_data);
 	if ($unsigned_data) {
 
 		foreach ($unsigned_data as $ud) {
-			
+		
 			if ($cref == $ud['ref']) {
 			$ref = $ud['ref'];
 			$tkn = $ud['tkn'];
