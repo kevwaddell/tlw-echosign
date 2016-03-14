@@ -13,7 +13,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php
-	
+pre($_SERVER);	
 ?>
 </head>
 <body>
