@@ -25,12 +25,13 @@ if ( isset($_GET['cref']) ) {
 				if ($log['ref'] == $cref) {
 				$unsigned_logs[$k]['sent'] = time();
 				$new_logs = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	
+				
+					if ($new_logs) {
+					header("Location: ". $referer ."?cref=".$cref."&sent=1");
+					} 
 				}	
 			}	
 			
-			if ($new_logs) {
-			header("Location: ". $referer ."?cref=".$cref."&sent=1");
-			} 
 			
 		} else {
 		header("Location: ". $referer ."?cref=".$cref."&sent=0");	

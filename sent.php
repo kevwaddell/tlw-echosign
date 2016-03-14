@@ -3,6 +3,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-IT-attachment-email.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-attachemt-email.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gs-function.php');
 ?>
 <!DOCTYPE html>
@@ -17,10 +18,9 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gs-function.php');
 <?php 
 $log_date = date('Y-m-d', time());
 $move_folder = false;
+$signed_data = array();	
 
-if ( !isset($_GET['sent']) ) {
-header("Location: ". SITEROOT ."/");	
-} else if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
+if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 	
 	if (is_dir ( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] ))  {
 	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'].'/data.txt');
@@ -30,11 +30,16 @@ header("Location: ". SITEROOT ."/");
 	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log') ) {
 	$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log');	
 	$signed_data = unserialize($raw_signed_data);	
-	} else {
-	$signed_data = array();	
 	}
 	
-	$signed_data[] = array('ref' => $data['ref'], 'tkn' => $data['tkn'], 'sby' => $data['fullname'], 'sdate' =>  $data['signed'], 'rdate' => strtotime('+1 day', time()) );
+	$signed_data[] = array(
+	'ref' => $data['ref'], 
+	'tkn' => $data['tkn'], 
+	'sby' => $data['fullname'], 
+	'sdate' =>  $data['signed'], 
+	'rdate' => strtotime('+1 day', time()) 
+	);
+	
 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log', serialize($signed_data));
 	
 	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {
@@ -55,6 +60,7 @@ header("Location: ". SITEROOT ."/");
 		
 		if ( rename($src, $dest) ) {
 		sendITEmail();	
+		sendClientPDFEmail();
 		}
 
 	}
@@ -63,6 +69,8 @@ header("Location: ". SITEROOT ."/");
 } else if ( isset($_GET['sent']) && $_GET['sent'] == 0 ) {
 	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'].'/data.txt');
 	$data = unserialize($raw_data);		
+} else {
+header("Location: ". SITEROOT ."/");		
 }
 ?>
 </head>

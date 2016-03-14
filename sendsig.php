@@ -10,7 +10,6 @@ $dateTime = gmdate('g:ia, jS F, Y');
 
 //Email functions to send to client, proclaim and IT
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-proclaim-attachment-email.php');
-include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-attachemt-email.php');
 
 
 if ( sendProclaimEmail() ) {
@@ -18,7 +17,7 @@ if ( sendProclaimEmail() ) {
 	$data['signed'] = time(); 
 	$new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$data['ref'] .'/data.txt', serialize($data));
 	
-	if ($new_data && sendClientPDFEmail()) {
+	if ($new_data) {
 	header("Location: ". SITEROOT ."/sent/?sent=1&cref=".$data['ref']);
 	}
 
