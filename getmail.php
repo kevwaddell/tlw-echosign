@@ -180,9 +180,9 @@ if ($inbox){
 						        $new_doc = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
 						        $new_html = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'.'sign.php', $php_temp);
 						        $new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));
+						        $result = "OK";
 								}
-							
-					        $result = "OK";
+	
 					        } else {
 						      	$php_temp = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temps/letter-tmp.php');  
 						        $new_doc = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
@@ -196,17 +196,16 @@ if ($inbox){
 							if ($result == "OK") {
 	
 								include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-client-email.php');
+								$unsigned_logs[] = $data;
 								
 								if (sendClientEmail()) {
-								$data['sent'] = time();
-								$unsigned_logs[] = $data;
+								$unsigned_logs['sent'] = time();
 								file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
 									
 								imap_setflag_full($inbox, $email_number, "\\Seen \\Flagged", ST_UID);
 								} else {
 									
-									$data['sent'] = NULL;
-									$unsigned_logs[] = $data;
+									$unsigned_logs['sent'] = NULL;
 									file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
 									
 									if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-error-logs-'.$log_date.'.log')) {
