@@ -48,20 +48,21 @@ if ($inbox){
 			$email_logs = unserialize($email_logs_raw);
 		} 
 		
-		// Check if Unsigned logs for prev day extists
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log')) {
-			$prev_unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log');
-			$unsigned_logs = unserialize($prev_unsigned_logs_raw);	
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	; 
-		}
-		
 		// Check if Unsigned logs for current date extists
 		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {
 			$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
 			$unsigned_logs = unserialize($unsigned_logs_raw);
 		}	
 		
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	; 
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs)); 
+		
+		// Check if Unsigned logs for prev day extists
+		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log')) {
+			$prev_unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log');
+			$prev_unsigned_logs = unserialize($prev_unsigned_logs_raw);	
+			$unsigned_logs = array_merge($unsigned_logs, $prev_unsigned_logs);
+			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	; 
+		}
 		
 		// Check if Unsigned logs for current date extists
 		if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log')) {
