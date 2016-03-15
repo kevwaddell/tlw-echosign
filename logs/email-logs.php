@@ -29,7 +29,7 @@ $dates = array();
 		}
 	}	
 rsort($dates);	 
-pre($dates);
+//pre($dates);
 }
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
@@ -104,7 +104,7 @@ $email_data = unserialize($raw_email_data);
 												<select name="log-date" class="form-control">
 													<option value="0">Select a log date</option>
 													<?php foreach ($dates as $date) { ?>
-													<option value="<?php echo $date; ?>"><?php echo date("jS F, Y", strtotime($date)); ?></option>
+													<option value="<?php echo $date; ?>"<?php echo($date == date('Y-m-d')) ? ' checked=checked':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
 													<?php } ?>
 												</select>
 											</div>
