@@ -167,7 +167,7 @@ $sent_data = unserialize($raw_sent_data);
 					<?php if ($sent_data) { ?>
 					<div class="well well-lg table-responsive">
 
-						<h3 class="text-center">Signed documents</h3>
+						<h3 class="text-center">Signed documents - <?php echo date("jS F, Y", strtotime($log_date)); ?></h3>
 						<table class="table table-bordered">
 							<thead>
 								<tr>
@@ -198,7 +198,7 @@ $sent_data = unserialize($raw_sent_data);
 					</div>
 					<?php } else { ?>
 					<div class="alert alert-info text-center">
-						<h3>No signed documents available</h3>
+						<h3>No signed documents for <?php echo date("jS F, Y", strtotime($log_date)); ?></h3>
 						<p>There is no data available for signed client documents.</p>
 					</div>
 					<?php } ?>
