@@ -34,24 +34,24 @@ if ($inbox){
 		$email_logs = array();
 		$unsigned_logs = array();
 		
-		//pre($check);
-		
 		//echo "Total Messages: " . $check['Nmsgs'] . "<br />\n";
 		//echo "Unread Messages: " . $check['Unread'] . "<br />\n";
 		//echo "Deleted Messages: " . $check['Deleted'] . "<br />\n";
 		
 		rsort($emails);
-		// Check if Email logs for current date extists
+		// Check if Emails are Unread
 		if ($check->Unread > 0) {
 			
-			if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
-				$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log'); 
-				$email_logs = unserialize($email_logs_raw);
-			} 
-				
-			$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log', serialize($email_logs));
-		}
+		pre($check->Unread);	
+			
+		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
+			$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log'); 
+			$email_logs = unserialize($email_logs_raw);
+		} 
+			
+		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log', serialize($email_logs));
+		
 		
 		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log')) {
 			$prev_unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log');
@@ -218,6 +218,8 @@ if ($inbox){
 			} // foreach overview	
 					
 		} // For every email
+		
+		} // Check if Emails are Unread
 
 	} //if ther are emails
 	
