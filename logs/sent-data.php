@@ -22,12 +22,15 @@ if (!empty($log_files)) {
 $dates = array();
 	foreach($log_files as $file) {
 	$date = substr($file , -14, 10);
-	
 		if (!in_array($date, $dates)) {
 		$dates[] = $date;	
 		}
 	}	
-rsort($dates);	 
+	
+	if (!in_array($log_files, $dates)) {
+	$dates[] = $log_date;
+	}
+	rsort($dates);	 
 //pre($dates);
 }
 
