@@ -5,5 +5,6 @@ $settings = unserialize($settings_raw);
 
 DEFINE('SOURCE_EMAIL', $settings['src_email']);
 DEFINE('REPLY_EMAIL', $settings['reply_email']);
+DEFINE('IMPORT_EMAIL', $settings['import_email']);
 }	
 ?>
