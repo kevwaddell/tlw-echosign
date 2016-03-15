@@ -11,12 +11,12 @@ if (isset($_GET['cref']) && isset($_GET['log'])) {
 $log_date = $_GET['log'];
 $cref = $_GET['cref'];
 
-$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log');	
+$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log');	
 $data = unserialize($raw_data);	
 	foreach ($data as $k => $d) {
 		if ($d['ref'] == $cref) {
 		unset($data[$k]);
-		$new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log', serialize($data));	
+		$new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log', serialize($data));	
 		}
 	}
 	

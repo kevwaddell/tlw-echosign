@@ -50,7 +50,7 @@ $remove_date = date('g:ia, jS F, Y', $remove_date_raw);
 			<strong><?php echo $remove_date; ?></strong></p>
 			
 			<p>Or click on the link below and remove the data now.<br />
-			<a href="<?php echo SITEROOT; ?>/logs/sent-data/">Remove data now !!!</a></p>
+			<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/">Remove data now !!!</a></p>
 			
 		</div>
 		

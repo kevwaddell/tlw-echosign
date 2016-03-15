@@ -24,7 +24,7 @@ $cref = $_POST['cref'];
 $log_date = $_POST['date'];
 $errors = array();
 $messages = array();
-$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
+$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');
 $unsigned_data = unserialize($raw_unsigned_data);	
 //pre($unsigned_data);
 
@@ -45,7 +45,7 @@ $unsigned_data = unserialize($raw_unsigned_data);
 	}
 	
 	if (!$unsigned && !$noref ) {
-	$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log');
+	$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log');
 	$signed_data = unserialize($raw_signed_data);	
 	//pre($signed_data);
 		foreach ($signed_data as $k => $sd) {

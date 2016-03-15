@@ -5,7 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-IT-zip-email.php');
 $now = time();
 $log_date = date('Y-m-d', $now);
-$log_files = glob($_SERVER['DOCUMENT_ROOT'] . "/logs/sent-data-*.log");
+$log_files = glob($_SERVER['DOCUMENT_ROOT']."/admin/logs/sent-data-*.log");
 	
 function zip_files($data) {
 	global $now;

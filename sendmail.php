@@ -11,7 +11,7 @@ if ( isset($_GET['cref']) ) {
 	if ( is_dir($cref) ) {
 	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$cref.'/data.txt');
 		$data = unserialize($raw_data);
-		$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');
+		$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');
 		$unsigned_logs = unserialize($unsigned_logs_raw);
 		
 		include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
@@ -24,7 +24,7 @@ if ( isset($_GET['cref']) ) {
 				
 				if ($log['ref'] == $cref) {
 				$unsigned_logs[$k]['sent'] = time();
-				$new_logs = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	
+				$new_logs = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	
 				
 					if ($new_logs) {
 					header("Location: ". $referer ."?cref=".$cref."&sent=1");
