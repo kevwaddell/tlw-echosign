@@ -12,9 +12,9 @@ function sendClientEmail() {
 	//SMTP settings
 	$mail->isSMTP();
 	if ($host == 'tlw-esign.dev') {
-	include_once('gmail-smtp.php');	
+	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gmail-smtp.php');	
 	} else {
-	include_once('tlw-smtp.php');	
+	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/tlw-smtp.php');	
 	}	
 	
 	//Sending options	
