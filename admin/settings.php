@@ -53,13 +53,24 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log)) {
 $settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log); 
 	if (!empty($settings_raw)) {
 	$settings = unserialize($settings_raw);	
+	
+	$src_email = $settings['src_email'];
+	$reply_email = $settings['reply_email'];
+	$import_email = $settings['import_email'];
+	$it_admin_email = $settings['it_admin_email'];
 	}
 }
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$smtp_log)) {
 $smtp_settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$smtp_log); 
 	if (!empty($smtp_settings_raw)) {
+	
 	$smtp_settings = unserialize($smtp_settings_raw);	
+	
+	$smtp_host = $smtp_settings['smtp_host'];
+	$smtp_port = $smtp_settings['smtp_port'];
+	$smtp_user = $smtp_settings['smtp_user'];
+	$smtp_pwd = decryptIt($smtp_settings['smtp_pwd']);
 	}
 }
 
@@ -132,18 +143,6 @@ if ( isset($_POST['update_smtp_settings']) ) {
 	}
 
 }
-
-//Email Settings	
-$src_email = $settings['src_email'];
-$reply_email = $settings['reply_email'];
-$import_email = $settings['import_email'];
-$it_admin_email = $settings['it_admin_email'];
-
-//SMPT Settings
-$smtp_host = $smtp_settings['smtp_host'];
-$smtp_port = $smtp_settings['smtp_port'];
-$smtp_user = $smtp_settings['smtp_user'];
-$smtp_pwd = decryptIt($smtp_settings['smtp_pwd']);
 
 //pre($settings);	
 
