@@ -20,9 +20,9 @@ $log_date = date('Y-m-d', time());
 $files = glob(dirname(__FILE__) . "/email-logs-*.log");
 
 if (!empty($files)) {
-
+$dates = array();
 	foreach($files as $file) {
-	$dates = substr ( $file , -14, 7);
+	$date = substr ( $file , -14, 10);
 	pre($dates);
 	}
 }
