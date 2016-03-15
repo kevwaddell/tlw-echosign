@@ -10,28 +10,20 @@ $referer = $referer_parse['scheme']."://".$referer_parse['host'].$referer_parse[
 $now = time();
 $log_date = date('Y-m-d', $now);
 	
-if (isset($_GET['tkn']) && $_GET['tkn'] != "") {
-$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data.txt');	
-$data = unserialize($raw_data);	
-
+if (isset($_GET['tkn']) && isset($_GET['cref'])) {
 $tkn = $_GET['tkn'];
 $ref = $_GET['cref'];
+
 $d = array('ref' => $ref, 'tkn' => $tkn);
 
 	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/signed/'.$tkn."@".$ref.".zip")) {
 		
 		if ( sendZipEmail($d) ) {
-		
-			foreach ($data as $k => $sd) {
-				if ($sd['tkn'] == $tkn) {
-				unlink($_SERVER['DOCUMENT_ROOT'].'/signed/'.$tkn."@".$ref.".zip");
-				unset($data[$k]);
-				$new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log', serialize($data));	
-					if ($new_data) {
-					header("Location: ". $referer ."?cref=".$ref."&deleted=1");	
-					}
-				}
-			}
+			
+			if ( unlink($_SERVER['DOCUMENT_ROOT'].'/signed/'.$tkn."@".$ref.".zip") ) {
+			header("Location: ". $referer ."?cref=".$ref."&deleted=1");		
+			}	
+			
 		}
 		
 	} else {
