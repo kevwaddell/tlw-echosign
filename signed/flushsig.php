@@ -5,6 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-IT-zip-email.php');
 $now = time();
 $log_date = date('Y-m-d', $now);
+$log_files = glob($_SERVER['DOCUMENT_ROOT'] . "/logs/sent-data-*.log");
 	
 function zip_files($data) {
 	
@@ -12,6 +13,8 @@ function zip_files($data) {
 	$ref = $d['ref'];
 	$tkn = $d['tkn'];
 	$rdate = $d['rdate'];
+	
+	pre($tkn."@".$ref);
 					
 		if ( file_exists($_SERVER['DOCUMENT_ROOT']."/signed/".$tkn."@".$ref.".zip") && ($rdate < $now) ) {
 			
@@ -66,7 +69,16 @@ $data = unserialize($raw_data);
 	zip_files($data);	
 	}
 	
-} else {
-exit;	
 }	
+
+if(!empty($log_files)) {
+	foreach($log_files as $k => $lf) {
+	$log_raw_data = file_get_contents($lf);		
+	$log_data = unserialize($log_raw_data);
+		if (!empty($log_data)) {
+		pre($log_data);	
+		}
+	}
+}
+
 ?>
