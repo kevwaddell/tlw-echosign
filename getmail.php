@@ -42,7 +42,7 @@ if ($inbox){
 		// Check if Emails are Unread
 		if ($check->Unread > 0) {
 			
-		pre($check->Unread);	
+		//pre($check->Unread);	
 			
 		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
 			$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log'); 
