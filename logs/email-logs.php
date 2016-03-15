@@ -17,6 +17,10 @@ $imap_error_logs = false;
 $email_data = false;
 $log_date = date('Y-m-d', time());
 
+$files = glob(dirname(__FILE__) . "/*.log");
+
+echo '<pre class="debug">';print_r($files);echo '</pre>';
+
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
 $raw_email_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log');	
 $email_data = unserialize($raw_email_data);	
@@ -83,6 +87,7 @@ $imap_error_logs = unserialize($raw_imap_error_logs);
 				<div class="col-md-10 col-md-offset-1">
 					<?php if ($email_data) { ?>
 					<div class="well well-lg table-responsive">
+						
 						<h3 class="text-center">Successful inbound emails</h3>
 						<table class="table table-bordered">
 							<thead>
