@@ -25,7 +25,8 @@ $qDecoded  = rtrim( mcrypt_decrypt( MCRYPT_RIJNDAEL_256, md5( $cryptKey ), base6
 return( $qDecoded );
 }
 
-$settings = array();	
+$settings = array();
+$smtp_settings = array();	
 $errors = array();
 $src_email = "";
 $reply_email = "";
