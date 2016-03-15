@@ -89,7 +89,7 @@ $import_email = $settings['import_email'];
 							</div>
 							<div class="form-group">
 								<label for="import_email">Import email:</label>
-								<input type="text" name="import_email" class="form-control input-lg text-center" placeholder="replyto@email.com" value="<?php echo $reply_email; ?>">
+								<input type="text" name="import_email" class="form-control input-lg text-center" placeholder="import@email.com" value="<?php echo $import_email; ?>">
 								<span id="helpBlock" class="help-block">The import email address is where the PDF of the signed document will be sent to.</span>
 							</div>
 							<button class="btn btn-success btn-lg btn-block caps"><i class="glyphicon glyphicon-search pull-left"></i>Update</button>
