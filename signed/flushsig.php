@@ -13,17 +13,15 @@ function zip_files($data) {
 	$tkn = $d['tkn'];
 	$rdate = $d['rdate'];
 					
-		if ( file_exists($_SERVER['DOCUMENT_ROOT']."/signed/".$tkn."@".$ref.".zip") && $rdate < $now ) {
+		if ( file_exists($_SERVER['DOCUMENT_ROOT']."/signed/".$tkn."@".$ref.".zip") && ($rdate < $now) ) {
 			
 			if (sendZipEmail($d)) {
 			unlink($_SERVER['DOCUMENT_ROOT']."/signed/".$tkn."@".$ref.".zip");	
-			unset($data[$k]);
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log', serialize($data));
 			}
 			
 		}
 		
-		if ( is_dir($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref) && $rdate > $now){
+		if ( is_dir($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref) && ($rdate > $now) ){
 		$raw_client_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref.'/data.txt');	
 		$client_data = unserialize($raw_client_data);
 		
