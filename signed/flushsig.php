@@ -14,7 +14,7 @@ function zip_files($data) {
 	$tkn = $d['tkn'];
 	$rdate = $d['rdate'];
 	
-	pre($rdate < $now);
+	pre("Remove date: ".date('d-m-Y', $rdate)."<br> Today: ".date('d-m-Y', $now));
 					
 		if ( file_exists($_SERVER['DOCUMENT_ROOT']."/signed/".$tkn."@".$ref.".zip") && ($rdate < $now) ) {
 			
