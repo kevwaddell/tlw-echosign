@@ -27,28 +27,28 @@ $settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/live_set
 	}
 }
 
-if ( !empty($_POST) ) {	
+if ( isset($_POST['update_email_settings']) ) {	
 	
 	if ( trim($_POST['src_email']) == "") {
-	$errors[] = "Please enter a <b>Source</b> email address.";
+	$errors['src_email'] = "Please enter a <b>Source</b> email address.";
 	} else {
 	$settings['src_email'] = trim($_POST['src_email']);
 	}
 	
 	if ( trim($_POST['reply_email']) == "") {
-	$errors[] = "Please enter a <b>Reply</b> email address.";	
+	$errors['reply_email'] = "Please enter a <b>Reply</b> email address.";	
 	} else {
 	$settings['reply_email'] = trim($_POST['reply_email']);	
 	}
 	
 	if ( trim($_POST['import_email']) == "") {
-	$errors[] = "Please enter a <b>Import</b> email address.";	
+	$errors['import_email'] = "Please enter a <b>Import</b> email address.";	
 	} else {
 	$settings['import_email'] = trim($_POST['import_email']);	
 	}
 	
 	if ( trim($_POST['it_admin_email']) == "") {
-	$errors[] = "Please enter a <b>IT Administrator</b> email address.";	
+	$errors['it_admin_email'] = "Please enter a <b>IT Administrator</b> email address.";	
 	} else {
 	$settings['it_admin_email'] = trim($_POST['it_admin_email']);	
 	}
@@ -83,35 +83,34 @@ $it_admin_email = $settings['it_admin_email'];
 			<div class="row">
 				<div class="col-sm-10 col-sm-offset-1">
 					<div class="well well-lg">
-						<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Live settings</h3>
 						<form method="post" action="">
-							
+							<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Email Settings</h3>
 							<div class="col-md-6">
-								<div class="form-group">
-									<label for="src_email">Source email:</label>
+								<div class="form-group required">
+									<label for="src_email"><span>*</span>Source email:</label>
 									<input type="text" name="src_email" class="form-control input-lg text-center" placeholder="source@email.com" value="<?php echo $src_email; ?>">
 									<span id="helpBlock" class="help-block">The email address of the inbox that will collect the documents to be processed.</span>
 								</div>
-								<div class="form-group">
-									<label for="reply_email">Reply email:</label>
+								<div class="form-group required">
+									<label for="reply_email"><span>*</span>Reply email:</label>
 									<input type="text" name="reply_email" class="form-control input-lg text-center" placeholder="replyto@email.com" value="<?php echo $reply_email; ?>">
 									<span id="helpBlock" class="help-block">The Reply email address that will be set in the confirmation emails to the clients.</span>
 								</div>
 							</div>
 							
 							<div class="col-md-6">
-								<div class="form-group">
-									<label for="import_email">Import email:</label>
+								<div class="form-group required">
+									<label for="import_email"><span>*</span>Import email:</label>
 									<input type="text" name="import_email" class="form-control input-lg text-center" placeholder="import@email.com" value="<?php echo $import_email; ?>">
 									<span id="helpBlock" class="help-block">The import email address is where the PDF of the signed document will be sent to.</span>
 								</div>
-								<div class="form-group">
-									<label for="import_email">IT email:</label>
+								<div class="form-group required">
+									<label for="import_email"><span>*</span>IT email:</label>
 									<input type="text" name="it_admin_email" class="form-control input-lg text-center" placeholder="IT@email.com" value="<?php echo $it_admin_email; ?>">
 									<span id="helpBlock" class="help-block">The IT Administrator email address where archived zipped client files will be sent to.</span>
 								</div>
 							</div>
-							<button class="btn btn-success btn-lg btn-block caps"><i class="glyphicon glyphicon-search pull-left"></i>Update</button>
+							<input type="submit" name="update_email_settings" value="Update" class="btn btn-success btn-lg btn-block caps">
 						</form>
 					</div>
 					
