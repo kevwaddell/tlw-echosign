@@ -60,7 +60,7 @@ if ( isset($_POST['update_email_settings']) ) {
 	}
 	
 	if (!empty($settings) && empty($errors)) {
-	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/live_settings.log', serialize($settings));	
+	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log, serialize($settings));	
 	
 	$settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log); 
 	$settings = unserialize($settings_raw);	
