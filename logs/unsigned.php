@@ -33,8 +33,8 @@ rsort($dates);
 
 if (isset($_POST['change_logs'])) {
 	$log_date = $_POST['log_date'];
-	$raw_email_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');	
-	$email_data = unserialize($raw_email_data);	
+	$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');	
+	$unsigned_data = unserialize($raw_unsigned_data);	
 } else {
 	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {
 	$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');	
