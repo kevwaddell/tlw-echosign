@@ -17,11 +17,11 @@ $imap_error_logs = false;
 $email_data = false;
 $log_date = date('Y-m-d', time());
 
-$files = glob(dirname(__FILE__) . "/email-logs-*.log");
+$log_files = glob(dirname(__FILE__) . "/email-logs-*.log");
 
-if (!empty($files)) {
+if (!empty($log_files)) {
 $dates = array();
-	foreach($files as $file) {
+	foreach($log_files as $file) {
 	$date = substr($file , -14, 10);
 	
 		if (!in_array($date, $dates)) {
@@ -94,6 +94,28 @@ $email_data = unserialize($raw_email_data);
 				<div class="col-md-10 col-md-offset-1">
 					<?php if ($email_data) { ?>
 					<div class="well well-lg table-responsive">
+						
+						<?php if (count($log_files) > 1) { ?>
+							<div class="filter-form">
+								<form method="post" action="">
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												<select name="log-date" class="form-control">
+													<option value="0">Select a log date</option>
+													<?php foreach ($dates as $date) { ?>
+													<option value="<?php echo $date; ?>"><?php echo date("jS F, Y", strtotime($date)); ?></option>
+													<?php } ?>
+												</select>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<input type="submit" value="View Logs" class="btn btn-default btn-block">
+										</div>
+									</div>
+								</form>
+							</div>
+						<?php } ?>
 						
 						<h3 class="text-center">Successful inbound emails</h3>
 						<table class="table table-bordered">
