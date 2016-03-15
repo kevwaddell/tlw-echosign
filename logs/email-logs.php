@@ -32,10 +32,18 @@ rsort($dates);
 //pre($dates);
 }
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
-$raw_email_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log');	
-$email_data = unserialize($raw_email_data);	
-}	
+if (isset($_POST['change_logs'])) {
+	$log_date = $_POST['log_date'];
+	$raw_email_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log');	
+	$email_data = unserialize($raw_email_data);	
+} else {
+	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
+	$raw_email_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log');	
+	$email_data = unserialize($raw_email_data);	
+	}	
+}
+
+
 ?>
 </head>
 <body>
@@ -101,7 +109,7 @@ $email_data = unserialize($raw_email_data);
 									<div class="row">
 										<div class="col-sm-6">
 											<div class="form-group">
-												<select name="log-date" class="form-control">
+												<select name="log_date" class="form-control">
 													<option value="0">Select a log date</option>
 													<?php foreach ($dates as $date) { ?>
 													<option value="<?php echo $date; ?>"<?php echo($date == date('Y-m-d')) ? ' selected="selected"':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
@@ -110,7 +118,7 @@ $email_data = unserialize($raw_email_data);
 											</div>
 										</div>
 										<div class="col-sm-6">
-											<input type="submit" value="View Logs" class="btn btn-default btn-block">
+											<input type="submit" name="change-logs" value="View Logs" class="btn btn-default btn-block">
 										</div>
 									</div>
 								</form>
