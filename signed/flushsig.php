@@ -14,7 +14,7 @@ function zip_files($data) {
 	$tkn = $d['tkn'];
 	$rdate = $d['rdate'];
 	
-	pre($tkn."@".$ref);
+	pre($rdate < $now);
 					
 		if ( file_exists($_SERVER['DOCUMENT_ROOT']."/signed/".$tkn."@".$ref.".zip") && ($rdate < $now) ) {
 			
