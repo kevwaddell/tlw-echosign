@@ -33,7 +33,7 @@ $reply_email = "";
 $import_email = "";
 $it_admin_email = "";
 $smtp_host = "";
-$smtp_port = 0;
+$smtp_port = "";
 $smtp_user = "";
 $smtp_pwd = "";
 
