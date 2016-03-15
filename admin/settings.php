@@ -17,6 +17,7 @@ $settings = array();
 $errors = array();
 $src_email = "";
 $reply_email = "";
+$import_email = "";
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/inc/live_settings.log')) {
 $settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/live_settings.log'); 
@@ -28,15 +29,21 @@ $settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/live_set
 if ( !empty($_POST) ) {	
 	
 	if ( trim($_POST['src_email']) == "") {
-	$errors[] = "Please enter a Source email address.";
+	$errors[] = "Please enter a <b>Source</b> email address.";
 	} else {
 	$settings['src_email'] = trim($_POST['src_email']);
 	}
 	
 	if ( trim($_POST['reply_email']) == "") {
-	$errors[] = "Please enter a Reply email address.";	
+	$errors[] = "Please enter a <b>Reply</b> email address.";	
 	} else {
 	$settings['reply_email'] = trim($_POST['reply_email']);	
+	}
+	
+	if ( trim($_POST['import_email']) == "") {
+	$errors[] = "Please enter a <b>Import</b> email address.";	
+	} else {
+	$settings['import_email'] = trim($_POST['import_email']);	
 	}
 	
 	if (!empty($settings) && empty($errors)) {
@@ -50,6 +57,7 @@ if ( !empty($_POST) ) {
 	
 $src_email = $settings['src_email'];
 $reply_email = $settings['reply_email'];
+$import_email = $settings['import_email'];
 
 //pre($settings);	
 
@@ -78,6 +86,11 @@ $reply_email = $settings['reply_email'];
 								<label for="reply_email">Reply email:</label>
 								<input type="text" name="reply_email" class="form-control input-lg text-center" placeholder="replyto@email.com" value="<?php echo $reply_email; ?>">
 								<span id="helpBlock" class="help-block">The Reply email address that will be set in the confirmation emails to the clients.</span>
+							</div>
+							<div class="form-group">
+								<label for="import_email">Import email:</label>
+								<input type="text" name="import_email" class="form-control input-lg text-center" placeholder="replyto@email.com" value="<?php echo $reply_email; ?>">
+								<span id="helpBlock" class="help-block">The import email address is where the PDF of the signed document will be sent to.</span>
 							</div>
 							<button class="btn btn-success btn-lg btn-block caps"><i class="glyphicon glyphicon-search pull-left"></i>Update</button>
 						</form>
