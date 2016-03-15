@@ -13,23 +13,52 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php
+function encryptIt( $q ) {
+$cryptKey  = 'qJB0rGtIn5UB1xG03efyCp';
+$qEncoded      = base64_encode( mcrypt_encrypt( MCRYPT_RIJNDAEL_256, md5( $cryptKey ), $q, MCRYPT_MODE_CBC, md5( md5( $cryptKey ) ) ) );
+return( $qEncoded );
+}
+
+function decryptIt( $q ) {
+$cryptKey  = 'qJB0rGtIn5UB1xG03efyCp';
+$qDecoded  = rtrim( mcrypt_decrypt( MCRYPT_RIJNDAEL_256, md5( $cryptKey ), base64_decode( $q ), MCRYPT_MODE_CBC, md5( md5( $cryptKey ) ) ), "\0");
+return( $qDecoded );
+}
+
 $settings = array();	
 $errors = array();
 $src_email = "";
 $reply_email = "";
 $import_email = "";
 $it_admin_email = "";
+$smtp_host = "";
+$smtp_port = 0;
+$smtp_user = "";
+$smtp_pwd = "";
 
 if (SITEHOST == 'www.tlwsolicitors-esign.co.uk') {
 $settings_log = "live_settings.log";
 	} else {
 $settings_log = "dev_settings.log";
+}
+
+if (SITEHOST == 'tlw-echosign.dev') {
+$smtp_log = "smtp_local_settings.log";
+	} else {
+$smtp_log = "smtp_online_settings.log";
 }	
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log)) {
 $settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log); 
 	if (!empty($settings_raw)) {
 	$settings = unserialize($settings_raw);	
+	}
+}
+
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$smtp_log)) {
+$smtp_settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$smtp_log); 
+	if (!empty($smtp_settings_raw)) {
+	$smtp_settings = unserialize($smtp_settings_raw);	
 	}
 }
 
@@ -67,11 +96,53 @@ if ( isset($_POST['update_email_settings']) ) {
 	}
 
 }
+
+if ( isset($_POST['update_smtp_settings']) ) {	
+
+	if ( trim($_POST['smtp_host']) == "") {
+	$errors['smtp_host'] = "Please enter a SMTP <b>Host</b> e.g smtp.gamil.com.";
+	} else {
+	$smtp_settings['smtp_host'] = trim($_POST['smtp_host']);
+	}
 	
+	if ( trim($_POST['smtp_port']) == "") {
+	$errors['smtp_port'] = "Please enter a SMTP <b>Port</b> e.g 25.";	
+	} else {
+	$smtp_settings['smtp_port'] = trim($_POST['smtp_port']);	
+	}
+	
+	if ( trim($_POST['smtp_user']) == "") {
+	$errors['smtp_user'] = "Please enter the <b>Username</b> for the SMPT account.";	
+	} else {
+	$smtp_settings['smtp_user'] = trim($_POST['smtp_user']);	
+	}
+	
+	if ( trim($_POST['smtp_pwd']) == "") {
+	$errors['smtp_pwd'] = "Please enter the <b>Password</b> for the SMPT account.";		
+	} else {
+	$smtp_settings['smtp_pwd'] = encryptIt($_POST['smtp_pwd']);
+	}
+	
+	if (!empty($smtp_settings) && empty($smtp_errors)) {
+	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$smtp_log, serialize($smtp_settings));	
+	
+	$smtp_settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$smtp_log); 
+	$smtp_settings = unserialize($smtp_settings_raw);	
+	}
+
+}
+
+//Email Settings	
 $src_email = $settings['src_email'];
 $reply_email = $settings['reply_email'];
 $import_email = $settings['import_email'];
 $it_admin_email = $settings['it_admin_email'];
+
+//SMPT Settings
+$smtp_host = $smtp_settings['smtp_host'];
+$smtp_port = $smtp_settings['smtp_port'];
+$smtp_user = $smtp_settings['smtp_user'];
+$smtp_pwd = decryptIt($smtp_settings['smtp_pwd']);
 
 //pre($settings);	
 
@@ -117,6 +188,36 @@ $it_admin_email = $settings['it_admin_email'];
 								</div>
 							</div>
 							<input type="submit" name="update_email_settings" value="Update" class="btn btn-success btn-lg btn-block caps">
+						</form>
+						
+						<form method="post" action="">
+							<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">SMTP Settings</h3>
+							<div class="col-md-6">
+								<div class="form-group required">
+									<label for="smtp_host"><span>*</span>Host:</label>
+									<input type="text" name="smtp_host" class="form-control input-lg text-center" placeholder="smtp.host.com" value="<?php echo $smtp_host; ?>">
+									<span id="helpBlock" class="help-block">The host addret of the SMPT server.</span>
+								</div>
+								<div class="form-group required">
+									<label for="smtp_port"><span>*</span>Port:</label>
+									<input type="text" name="smtp_port" class="form-control input-lg text-center" placeholder="e.g 25" value="<?php echo $smtp_port; ?>">
+									<span id="helpBlock" class="help-block">SMTP Port e.g 25.</span>
+								</div>
+							</div>
+							
+							<div class="col-md-6">
+								<div class="form-group required">
+									<label for="smtp_user"><span>*</span>Username:</label>
+									<input type="text" name="smtp_user" class="form-control input-lg text-center" placeholder="SMTP Username" value="<?php echo $smtp_user; ?>">
+									<span id="helpBlock" class="help-block">The Username for the SMTP Host.</span>
+								</div>
+								<div class="form-group required">
+									<label for="smtp_pwd"><span>*</span>Password:</label>
+									<input type="password" name="smtp_pwd" class="form-control input-lg text-center" value="<?php echo $smtp_pwd; ?>">
+									<span id="helpBlock" class="help-block">The Password for the SMTP Host</span>
+								</div>
+							</div>
+							<input type="submit" name="update_smtp_settings" value="Update" class="btn btn-success btn-lg btn-block caps">
 						</form>
 					</div>
 					
