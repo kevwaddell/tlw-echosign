@@ -22,7 +22,7 @@ $files = glob(dirname(__FILE__) . "/email-logs-*.log");
 if (!empty($files)) {
 
 	foreach($files as $file) {
-	$dates = substr ( $file , -14, 4);
+	$dates = substr ( $file , -14, 7);
 	pre($dates);
 	}
 }
