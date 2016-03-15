@@ -191,7 +191,7 @@ if ( isset($_POST['update_smtp_settings']) ) {
 						</form>
 						
 						<form method="post" action="">
-							<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">SMTP Settings</h3>
+							<h3 class="caps text-center" style="margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">SMTP Settings</h3>
 							<div class="col-md-6">
 								<div class="form-group required">
 									<label for="smtp_host"><span>*</span>Host:</label>
