@@ -16,6 +16,25 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 $sent_data = false;
 $log_date = date('Y-m-d', time());
 
+$log_files = glob(dirname(__FILE__) . "/unsigned-*.log");
+
+if (!empty($log_files)) {
+$dates = array();
+	foreach($log_files as $file) {
+	$date = substr($file , -14, 10);
+	
+		if (!in_array($date, $dates)) {
+		$dates[] = $date;	
+		}
+	}	
+rsort($dates);	 
+//pre($dates);
+}
+
+if (isset($_POST['change_logs'])) {
+$log_date = $_POST['log_date'];		
+}
+
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log')) {
 $raw_sent_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log');	
 $sent_data = unserialize($raw_sent_data);	
@@ -120,10 +139,31 @@ $sent_data = unserialize($raw_sent_data);
 						</div>		
 					<?php } ?>
 					
-					<?php if ($sent_data) { 
-					//pre($sent-data);
-					?>
+					<?php if (!empty($log_files)) { ?>
+					<div class="filter-form">
+						<form method="post" action="">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<select name="log_date" class="form-control">
+											<option value="0">Select a log date</option>
+											<?php foreach ($dates as $date) { ?>
+											<option value="<?php echo $date; ?>"<?php echo($date == $log_date) ? ' selected="selected"':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
+											<?php } ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<input type="submit" name="change_logs" value="View Logs" class="btn btn-default btn-block">
+								</div>
+							</div>
+						</form>
+					</div>
+				<?php } ?>
+					
+					<?php if ($sent_data) { ?>
 					<div class="well well-lg table-responsive">
+
 						<h3 class="text-center">Signed documents</h3>
 						<table class="table table-bordered">
 							<thead>
