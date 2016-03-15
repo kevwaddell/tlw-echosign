@@ -61,24 +61,16 @@ function zip_files($data) {
 	}// End foreach $data
 }
 
-if(file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log')) {
-$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/sent-data-'.$log_date.'.log');	
-$data = unserialize($raw_data);	
-
-	if (!empty($data)) {
-	zip_files($data);	
-	}
-	
-}	
-
 if(!empty($log_files)) {
 	foreach($log_files as $k => $lf) {
 	$log_raw_data = file_get_contents($lf);		
 	$log_data = unserialize($log_raw_data);
 		if (!empty($log_data)) {
-		pre($log_data);	
+		zip_files($log_data);
 		}
 	}
+} else {
+exit;	
 }
 
 ?>
