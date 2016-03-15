@@ -21,7 +21,7 @@ $files = glob(dirname(__FILE__) . "/email-logs-*.log");
 
 if (!empty($files)) {
 	foreach($files as $file) {
-	$spit_file = split(dirname(__FILE__)."email-logs-", $file);
+	$spit_file = split(dirname(__FILE__)."/email-logs-", $file);
 	pre($spit_file);
 	}
 }
