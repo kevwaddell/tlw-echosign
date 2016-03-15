@@ -185,10 +185,15 @@ $sent_data = unserialize($raw_sent_data);
 									<td style="vertical-align: middle;"><?php echo gmdate('jS F, Y, g:ia', $data['rdate']); ?></td>
 									<td class="text-center" style="vertical-align: middle;"><?php echo $data['ref']; ?></td>
 									<td class="text-center" style="vertical-align: middle;">
-										<div class="btn-group btn-group-lg" role="toolbar">
+										<?php if (file_exists($_SERVER['DOCUMENT_ROOT']."/signed/".$data['tkn']."@".$data['ref'].".zip")) { ?>
+											<div class="btn-group btn-group-lg" role="toolbar">
 											<a href="<?php echo SITEROOT; ?>/signed/rmvzip/?tkn=<?php echo $data['tkn']; ?>&cref=<?php echo $data['ref']; ?>" title="Delete" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i><span class="sr-only">Delete</span></a>			
 											<a href="<?php echo SITEROOT; ?>/signed/dwnldzip/?tkn=<?php echo $data['tkn']; ?>&cref=<?php echo $data['ref']; ?>" title="Download" class="btn btn-default"><i class="glyphicon glyphicon-save"></i><span class="sr-only">Download</span></a>
 										</div>
+										<?php } else { ?>
+											<a href="<?php echo SITEROOT; ?>/signed/rmvdata/?cref=<?php echo $data['ref']; ?>&sdate=<?php echo $data['sdate']; ?>" title="Delete" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i><span class="sr-only">Delete</span></a>
+										<?php } ?>
+										
 										</td>
 								</tr>
 								<?php } ?>	
