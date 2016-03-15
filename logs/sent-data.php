@@ -16,7 +16,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 $sent_data = false;
 $log_date = date('Y-m-d', time());
 
-$log_files = glob(dirname(__FILE__) . "/unsigned-*.log");
+$log_files = glob(dirname(__FILE__) . "/sent-data-*.log");
 
 if (!empty($log_files)) {
 $dates = array();
