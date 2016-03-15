@@ -17,7 +17,7 @@ $imap_error_logs = false;
 $email_data = false;
 $log_date = date('Y-m-d', time());
 
-$files = glob(dirname(__FILE__) . "/*.log");
+$files = glob(dirname(__FILE__) . "/email-logs-*.log");
 
 echo '<pre class="debug">';print_r($files);echo '</pre>';
 
