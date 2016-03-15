@@ -8,6 +8,8 @@ $log_date = date('Y-m-d', $now);
 $log_files = glob($_SERVER['DOCUMENT_ROOT'] . "/logs/sent-data-*.log");
 	
 function zip_files($data) {
+	global $now;
+	global $log_date;
 	
 	foreach ($data as $k => $d) {
 	$ref = $d['ref'];
