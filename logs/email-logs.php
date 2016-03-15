@@ -19,7 +19,12 @@ $log_date = date('Y-m-d', time());
 
 $files = glob(dirname(__FILE__) . "/email-logs-*.log");
 
-echo '<pre class="debug">';print_r($files);echo '</pre>';
+if (!empty($files)) {
+	foreach($files as $file) {
+	$spit_file = split(dirname(__FILE__)."email-logs-");
+	pre($spit_file);
+	}
+}
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
 $raw_email_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log');	
