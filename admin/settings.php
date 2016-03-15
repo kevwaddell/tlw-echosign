@@ -20,8 +20,14 @@ $reply_email = "";
 $import_email = "";
 $it_admin_email = "";
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/inc/live_settings.log')) {
-$settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/live_settings.log'); 
+if (SITEHOST == 'www.tlwsolicitors-esign.co.uk') {
+$settings_log = "live_settings.log";
+	} else {
+$settings_log = "dev_settings.log";
+}	
+
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log)) {
+$settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log); 
 	if (!empty($settings_raw)) {
 	$settings = unserialize($settings_raw);	
 	}
@@ -56,7 +62,7 @@ if ( isset($_POST['update_email_settings']) ) {
 	if (!empty($settings) && empty($errors)) {
 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/live_settings.log', serialize($settings));	
 	
-	$settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/live_settings.log'); 
+	$settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log); 
 	$settings = unserialize($settings_raw);	
 	}
 
