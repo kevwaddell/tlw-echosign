@@ -60,7 +60,11 @@ if ($inbox){
 		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log')) {
 			$prev_unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$prev_log_date.'.log');
 			$prev_unsigned_logs = unserialize($prev_unsigned_logs_raw);	
-			$unsigned_logs = array_merge($unsigned_logs, $prev_unsigned_logs);
+			foreach($prev_unsigned_logs as $pl) {
+				if (!in_array($pl, $unsigned_logs)) {
+				$unsigned_logs[] = $pl;
+				}
+			}
 			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	; 
 		}
 		
