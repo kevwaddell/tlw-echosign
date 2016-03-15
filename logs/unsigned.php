@@ -16,11 +16,33 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 $unsigned_data = false;
 $log_date = date('Y-m-d', time());
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {
-$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');	
-$unsigned_data = unserialize($raw_unsigned_data);	
-//echo '<pre class="debug">';print_r($unsigned_data);echo '</pre>';
-}	
+$log_files = glob(dirname(__FILE__) . "/unsigned-*.log");
+
+if (!empty($log_files)) {
+$dates = array();
+	foreach($log_files as $file) {
+	$date = substr($file , -14, 10);
+	
+		if (!in_array($date, $dates)) {
+		$dates[] = $date;	
+		}
+	}	
+rsort($dates);	 
+//pre($dates);
+}
+
+if (isset($_POST['change_logs'])) {
+	$log_date = $_POST['log_date'];
+	$raw_email_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');	
+	$email_data = unserialize($raw_email_data);	
+} else {
+	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log')) {
+	$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/logs/unsigned-'.$log_date.'.log');	
+	$unsigned_data = unserialize($raw_unsigned_data);	
+	//echo '<pre class="debug">';print_r($unsigned_data);echo '</pre>';
+	}		
+}
+
 ?>
 </head>
 <body>
@@ -97,6 +119,29 @@ $unsigned_data = unserialize($raw_unsigned_data);
 					//echo '<pre>';print_r($unsigned_data);echo '</pre>';
 					?>
 					<div class="well well-lg table-responsive">
+						
+						<?php if (count($log_files) > 1) { ?>
+							<div class="filter-form">
+								<form method="post" action="">
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												<select name="log_date" class="form-control">
+													<option value="0">Select a log date</option>
+													<?php foreach ($dates as $date) { ?>
+													<option value="<?php echo $date; ?>"<?php echo($date == $log_date) ? ' selected="selected"':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
+													<?php } ?>
+												</select>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<input type="submit" name="change_logs" value="View Logs" class="btn btn-default btn-block">
+										</div>
+									</div>
+								</form>
+							</div>
+						<?php } ?>
+
 						<h3 class="text-center">Document details</h3>
 						<table class="table table-bordered">
 							<thead>
