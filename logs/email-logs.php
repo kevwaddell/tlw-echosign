@@ -22,9 +22,14 @@ $files = glob(dirname(__FILE__) . "/email-logs-*.log");
 if (!empty($files)) {
 $dates = array();
 	foreach($files as $file) {
-	$date = substr ( $file , -14, 10);
-	pre($date);
-	}
+	$date = substr($file , -14, 10);
+	
+		if (!in_array($date, $dates)) {
+		$dates[] = $date;	
+		}
+	}	
+	 
+pre($dates);
 }
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/logs/email-logs-'.$log_date.'.log')) {
