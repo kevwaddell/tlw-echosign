@@ -112,13 +112,13 @@ if (isset($_POST['change_logs'])) {
 												<select name="log_date" class="form-control">
 													<option value="0">Select a log date</option>
 													<?php foreach ($dates as $date) { ?>
-													<option value="<?php echo $date; ?>"<?php echo($date == date('Y-m-d')) ? ' selected="selected"':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
+													<option value="<?php echo $date; ?>"<?php echo($date == $log_date) ? ' selected="selected"':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
 													<?php } ?>
 												</select>
 											</div>
 										</div>
 										<div class="col-sm-6">
-											<input type="submit" name="change-logs" value="View Logs" class="btn btn-default btn-block">
+											<input type="submit" name="change_logs" value="View Logs" class="btn btn-default btn-block">
 										</div>
 									</div>
 								</form>
