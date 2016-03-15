@@ -27,7 +27,7 @@ $dates = array();
 		}
 	}	
 	
-	if (!in_array($log_files, $dates)) {
+	if (!in_array($log_date, $dates)) {
 	$dates[] = $log_date;
 	}
 	rsort($dates);	 
