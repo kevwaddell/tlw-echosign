@@ -1,7 +1,5 @@
 <div class="letter-outer">
-	<div class="letter-logo-wide">
-		
-	</div>
+	<div class="letter-logo-wide"></div>
 	<div class="well well-lg text-center no-doc-well bg-ltgray">
 		<i class="glyphicon glyphicon-file"></i>
 		<h1 class="txt-tlw-red caps">Document not available</h1>
