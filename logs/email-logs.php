@@ -23,7 +23,7 @@ if (!empty($files)) {
 $dates = array();
 	foreach($files as $file) {
 	$date = substr ( $file , -14, 10);
-	pre($dates);
+	pre($date);
 	}
 }
 
