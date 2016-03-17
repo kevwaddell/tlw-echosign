@@ -1,6 +1,7 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/classes/SecurityClass.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,23 +14,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php
-function encryptIt( $q ) {
-$cryptKey  = 'qJB0rGtIn5UB1xG03efyCp';
-$qEncoded  = base64_encode( mcrypt_encrypt( MCRYPT_RIJNDAEL_256, md5( $cryptKey ), $q, MCRYPT_MODE_CBC, md5( md5( $cryptKey ) ) ) );
-return( $qEncoded );
-}
-
-function decryptIt( $q ) {
-$cryptKey  = 'qJB0rGtIn5UB1xG03efyCp';
-$qDecoded  = rtrim( mcrypt_decrypt( MCRYPT_RIJNDAEL_256, md5( $cryptKey ), base64_decode( $q ), MCRYPT_MODE_CBC, md5( md5( $cryptKey ) ) ), "\0");
-return( $qDecoded );
-}
-
-if(function_exists("mcrypt_encrypt")) {
-    echo "mcrypt is loaded!";
-} else {
-    echo "mcrypt isn't loaded!";
-}
+$secure_pass = new Security();
 //$encrypt = encryptIt( 'document5' );
 //pre( $encrypt);
 //pre(decryptIt($encrypt));
@@ -80,7 +65,7 @@ $smtp_settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$
 	$smtp_host = $smtp_settings['smtp_host'];
 	$smtp_port = $smtp_settings['smtp_port'];
 	$smtp_user = $smtp_settings['smtp_user'];
-	$smtp_pwd = $smtp_settings['smtp_pwd'];
+	$smtp_pwd = $secure_pass->decrypt($smtp_settings['smtp_pwd']);
 	}
 }
 
@@ -149,8 +134,8 @@ if ( isset($_POST['update_smtp_settings']) ) {
 	if ( trim($_POST['smtp_pwd']) == "") {
 	$smtp_errors['smtp_pwd'] = "Please enter the <b>Password</b> for the SMPT account.";		
 	} else {
-	$smtp_settings['smtp_pwd'] = $_POST['smtp_pwd'];
-	$smtp_pwd = $smtp_settings['smtp_pwd'];
+	$smtp_settings['smtp_pwd'] = $secure_pass->encrypt($_POST['smtp_pwd']);
+	$smtp_pwd = $secure_pass->decrypt($smtp_settings['smtp_pwd']);
 	}
 	
 	//pre($smtp_errors);
@@ -163,7 +148,7 @@ if ( isset($_POST['update_smtp_settings']) ) {
 	$smtp_host = $smtp_settings['smtp_host'];
 	$smtp_port = $smtp_settings['smtp_port'];
 	$smtp_user = $smtp_settings['smtp_user'];
-	$smtp_pwd = $smtp_settings['smtp_pwd'];
+	$smtp_pwd = $secure_pass->decrypt($smtp_settings['smtp_pwd']);
 	}
 
 }
