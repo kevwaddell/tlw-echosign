@@ -35,7 +35,7 @@ $path = split("/", $_SERVER['REQUEST_URI']);
 			            <li><a href="<?php echo SITEROOT; ?>/admin/logs/unsigned/">Unsigned documents</a></li>
 			          </ul>
 			        </li>
-			        <li><a href="<?php echo SITEROOT; ?>"><i class="fa fa-power-off"></i> Log out</a></li>
+			        <li><a href="<?php echo SITESCHEME; ?>logout@<?php echo SITEHOST; ?>"><i class="fa fa-power-off"></i> Log out</a></li>
 			      </ul>
 				</div><!-- /.navbar-collapse -->
 			   
