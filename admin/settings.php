@@ -140,7 +140,7 @@ if ( isset($_POST['update_smtp_settings']) ) {
 	$smtp_settings['smtp_pwd'] = encryptIt($_POST['smtp_pwd']);
 	}
 	
-	pre($smtp_errors);
+	//pre($smtp_errors);
 	
 	if (!empty($smtp_settings) && empty($smtp_errors)) {
 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$smtp_log, serialize($smtp_settings));	
