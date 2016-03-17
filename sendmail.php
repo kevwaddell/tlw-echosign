@@ -11,7 +11,7 @@ pre($_SERVER);
 if ( isset($_GET['cref']) ) {
 	$cref = $_GET['cref'];
 	
-	if ($_SERVER['HTTP_REFERER']) {
+	if ( isset($_SERVER['HTTP_REFERER']) ) {
 	$referer_raw = $_SERVER['HTTP_REFERER'];	
 	} else {
 	$referer_raw = false;	
