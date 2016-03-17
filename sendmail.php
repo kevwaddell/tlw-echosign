@@ -6,6 +6,8 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php
 
 $log_date = date('Y-m-d', time());
 
+pre($_SERVER);
+
 if ( isset($_GET['cref']) ) {
 	$cref = $_GET['cref'];
 	
