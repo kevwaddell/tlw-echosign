@@ -8,7 +8,12 @@ $log_date = date('Y-m-d', time());
 
 if ( isset($_GET['cref']) ) {
 	$cref = $_GET['cref'];
-	$referer_raw = $_SERVER['HTTP_REFERER'];
+	
+	if ($_SERVER['HTTP_REFERER']) {
+	$referer_raw = $_SERVER['HTTP_REFERER'];	
+	} else {
+	$referer_raw = false;	
+	}
 	
 	if ($referer_raw) {
 	$referer_parse = parse_url($referer_raw);
