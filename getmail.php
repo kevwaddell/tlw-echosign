@@ -37,6 +37,7 @@ if ($inbox){
 		//echo "Total Messages: " . $check['Nmsgs'] . "<br />\n";
 		//echo "Unread Messages: " . $check['Unread'] . "<br />\n";
 		//echo "Deleted Messages: " . $check['Deleted'] . "<br />\n";
+		
 		/*
 		Check if log files exist and if not create 
 		one for the current date with empty array.	
