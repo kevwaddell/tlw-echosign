@@ -165,7 +165,7 @@ $sent_data = unserialize($raw_sent_data);
 											<a href="<?php echo SITEROOT; ?>/signed/flushsig/?cref=<?php echo $data['ref']; ?>" title="Zip file" class="btn btn-default"><i class="glyphicon glyphicon-folder-closed"></i> Zip folder</a>			
 											<a href="<?php echo SITEROOT; ?>/signed/<?php echo $data['ref']; ?>/<?php echo $data['ref']; ?>.pdf" target="_blank" title="View Document" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> View Document</a>
 											</div>
-										<?php}  else { ?>
+										<?php } else { ?>
 											<a href="<?php echo SITEROOT; ?>/signed/rmvdata/?cref=<?php echo $data['ref']; ?>&log=<?php echo $log_date; ?>" title="Delete" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i><span class="sr-only">Delete</span></a>
 										<?php } ?>
 										
