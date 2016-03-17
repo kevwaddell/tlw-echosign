@@ -17,7 +17,7 @@ $imap_error_logs = false;
 $email_data = false;
 $log_date = date('Y-m-d', time());
 
-$log_files = glob(dirname(__FILE__) . "/email-logs-*.log");
+$log_files = glob($_SERVER['DOCUMENT_ROOT'] . "/admin/logs/email-logs-*.log");
 
 if (!empty($log_files)) {
 $dates = array();
