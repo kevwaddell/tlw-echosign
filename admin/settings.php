@@ -90,9 +90,7 @@ if ( isset($_POST['update_email_settings']) ) {
 	}
 	
 	if ( trim($_POST['it_admin_email']) == "") {
-		if ($smtp_pwd == "") {
-		$email_errors['it_admin_email'] = "Please enter a <b>IT Administrator</b> email address.";	
-		}
+	$email_errors['it_admin_email'] = "Please enter a <b>IT Administrator</b> email address.";	
 	} else {
 	$settings['it_admin_email'] = trim($_POST['it_admin_email']);	
 	}
@@ -134,7 +132,9 @@ if ( isset($_POST['update_smtp_settings']) ) {
 	}
 	
 	if ( trim($_POST['smtp_pwd']) == "") {
-	$smtp_errors['smtp_pwd'] = "Please enter the <b>Password</b> for the SMPT account.";		
+		if ($smtp_pwd == "") {
+		$smtp_errors['smtp_pwd'] = "Please enter the <b>Password</b> for the SMPT account.";	
+		}	
 	} else {
 	$smtp_settings['smtp_pwd'] = $secure_pass->encrypt($_POST['smtp_pwd']);
 	}
