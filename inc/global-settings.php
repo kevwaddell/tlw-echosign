@@ -21,9 +21,12 @@ $settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$setti
 	
 	//Global Email address settings
 	DEFINE('TLW_SOURCE_EMAIL', $settings['src_email']);
+	DEFINE('TLW_SOURCE_NAME', $settings['src_name']);
 	DEFINE('TLW_REPLY_EMAIL', $settings['reply_email']);
+	DEFINE('TLW_REPLY_NAME', $settings['reply_name']);
 	DEFINE('TLW_IMPORT_EMAIL', $settings['import_email']);
 	DEFINE('TLW_IT_EMAIL', $settings['it_admin_email']);
+	DEFINE('TLW_IT_NAME', $settings['it_admin_name']);
 	}
 }	
 

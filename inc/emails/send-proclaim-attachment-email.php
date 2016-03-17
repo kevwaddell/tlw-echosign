@@ -1,7 +1,5 @@
 <?php 
-	
 function sendProclaimEmail() {
-	global $host;
 	global $data;
 	
 	$body = '<h1>File Attached</h1>';
@@ -9,19 +7,14 @@ function sendProclaimEmail() {
 	$mail = new PHPMailer();
 	//SMTP settings
 	$mail->isSMTP();
-	if ($host == 'tlw-esign.dev') {
-	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gmail-smtp.php');	
-	} else {
-	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/tlw-smtp.php');	
-	}	
+	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/tlw-smtp.php')
 	
-	$mail->SetFrom( "esign@tlwsolicitors.co.uk", "TLW Solicitors" );
-	$mail->AddAddress("webmaster@tlwsolicitors.co.uk", "Webmaster");	
+	$mail->SetFrom(TLW_SOURCE_EMAIL, TLW_SOURCE_NAME);
+	$mail->AddAddress(TLW_IMPORT_EMAIL);	
 	$mail->Subject = $data['ref'];
 	$mail->MsgHTML($body);
 	$mail->AddAttachment($_SERVER['DOCUMENT_ROOT']."/".$data['ref']."/".$data['ref'].".pdf");
 	
 	return $mail->Send();
 }
-
 ?>

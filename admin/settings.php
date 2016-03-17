@@ -29,6 +29,7 @@ $reply_email = "";
 $reply_name = "";
 $import_email = "";
 $it_admin_email = "";
+$it_admin_name = "";
 $smtp_host = "";
 $smtp_port = "";
 $smtp_user = "";
@@ -57,6 +58,7 @@ $settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$setti
 	$reply_name = $settings['reply_name'];
 	$import_email = $settings['import_email'];
 	$it_admin_email = $settings['it_admin_email'];
+	$it_admin_name = $settings['it_admin_name'];
 	}
 }
 
@@ -111,6 +113,12 @@ if ( isset($_POST['update_email_settings']) ) {
 	$settings['it_admin_email'] = trim($_POST['it_admin_email']);	
 	}
 	
+	if ( trim($_POST['it_admin_name']) == "") {
+	$settings['it_admin_name'] = "Webmaster";
+	} else {
+	$settings['it_admin_name'] = trim($_POST['it_admin_name']);
+	}
+	
 	if (!empty($settings) && empty($email_errors)) {
 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log, serialize($settings));	
 	
@@ -122,6 +130,7 @@ if ( isset($_POST['update_email_settings']) ) {
 	$reply_name = $settings['reply_name'];
 	$import_email = $settings['import_email'];
 	$it_admin_email = $settings['it_admin_email'];
+	$it_admin_name = $settings['it_admin_name'];
 	}
 
 }
@@ -188,43 +197,52 @@ if ( isset($_POST['update_smtp_settings']) ) {
 				<div class="col-sm-10 col-sm-offset-1">
 					<div class="well well-lg">
 						<form method="post" action="">
-							<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Email Settings</h3>
-							<div class="col-md-6">
-								<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['src_email'])) ? ' has-error':'' ?>">
-									<label for="src_email"><span>*</span>Source email:</label>
-									<input type="text" name="src_email" class="form-control input-lg text-center" placeholder="source@email.com" value="<?php echo $src_email; ?>">
-									<span id="helpBlock" class="help-block">The email address of the inbox that will collect the documents to be processed.</span>
+							<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Email Settings</h3>				<div class="row">
+								<div class="col-md-6">
+									<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['src_email'])) ? ' has-error':'' ?>">
+										<label for="src_email"><span>*</span>Source email:</label>
+										<input type="text" name="src_email" class="form-control input-lg text-center" placeholder="source@email.com" value="<?php echo $src_email; ?>">
+										<span id="helpBlock" class="help-block">The email address of the inbox that will collect the documents to be processed.</span>
+									</div>
+									<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['reply_email'])) ? ' has-error':'' ?>">
+										<label for="reply_email"><span>*</span>Reply email:</label>
+										<input type="text" name="reply_email" class="form-control input-lg text-center" placeholder="replyto@email.com" value="<?php echo $reply_email; ?>">
+										<span id="helpBlock" class="help-block">The Reply email address that will be set in the confirmation emails to the clients.</span>
+									</div>
+									<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['it_admin_email'])) ? ' has-error':'' ?>">
+										<label for="it_admin_email"><span>*</span>IT email:</label>
+										<input type="text" name="it_admin_email" class="form-control input-lg text-center" placeholder="IT@email.com" value="<?php echo $it_admin_email; ?>">
+										<span id="helpBlock" class="help-block">The IT Administrator email address where archived zipped client files will be sent to.</span>
+									</div>
 								</div>
-								<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['reply_email'])) ? ' has-error':'' ?>">
-									<label for="reply_email"><span>*</span>Reply email:</label>
-									<input type="text" name="reply_email" class="form-control input-lg text-center" placeholder="replyto@email.com" value="<?php echo $reply_email; ?>">
-									<span id="helpBlock" class="help-block">The Reply email address that will be set in the confirmation emails to the clients.</span>
-								</div>
-								<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['import_email'])) ? ' has-error':'' ?>">
-									<label for="import_email"><span>*</span>Import email:</label>
-									<input type="text" name="import_email" class="form-control input-lg text-center" placeholder="import@email.com" value="<?php echo $import_email; ?>">
-									<span id="helpBlock" class="help-block">The import email address is where the PDF of the signed document will be sent to.</span>
+								
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="src_name">Source name:</label>
+										<input type="text" name="src_name" class="form-control input-lg text-center" placeholder="TLW Solicitors Esign" value="<?php echo $src_name; ?>">
+										<span id="helpBlock" class="help-block">The name of the source that will show when a confirmation email is sent.</span>
+									</div>
+									<div class="form-group">
+										<label for="reply_name">Reply name:</label>
+										<input type="text" name="reply_name" class="form-control input-lg text-center" placeholder="TLW Solicitors" value="<?php echo $reply_name; ?>">
+										<span id="helpBlock" class="help-block">The name of the replier that will show when a confirmation email is sent.</span>
+									</div>
+									<div class="form-group">
+										<label for="it_admin_name">IT member name:</label>
+										<input type="text" name="it_admin_name" class="form-control input-lg text-center" placeholder="Webmaster" value="<?php echo $it_admin_name; ?>">
+										<span id="helpBlock" class="help-block">The name of the IT person that will sent archives and logging emails.</span>
+									</div>
 								</div>
 							</div>
 							
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="src_name">Source name:</label>
-									<input type="text" name="src_name" class="form-control input-lg text-center" placeholder="TLW Solicitors Esign" value="<?php echo $src_name; ?>">
-									<span id="helpBlock" class="help-block">The name of the source that will show when a confirmation email is sent.</span>
-								</div>
-								<div class="form-group">
-									<label for="reply_name">Reply name:</label>
-									<input type="text" name="reply_name" class="form-control input-lg text-center" placeholder="TLW Solicitors" value="<?php echo $reply_name; ?>">
-									<span id="helpBlock" class="help-block">The name of the replier that will show when a confirmation email is sent.</span>
-								</div>
-								<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['it_admin_email'])) ? ' has-error':'' ?>">
-									<label for="it_admin_email"><span>*</span>IT email:</label>
-									<input type="text" name="it_admin_email" class="form-control input-lg text-center" placeholder="IT@email.com" value="<?php echo $it_admin_email; ?>">
-									<span id="helpBlock" class="help-block">The IT Administrator email address where archived zipped client files will be sent to.</span>
-								</div>
+							<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['import_email'])) ? ' has-error':'' ?>">
+								<label for="import_email"><span>*</span>Import email:</label>
+								<input type="text" name="import_email" class="form-control input-lg text-center" placeholder="import@email.com" value="<?php echo $import_email; ?>">
+								<span id="helpBlock" class="help-block">The import email address is where the PDF of the signed document will be sent to.</span>
 							</div>
+							
 							<input type="submit" name="update_email_settings" value="Update" class="btn btn-success btn-lg btn-block caps">
+							
 						</form>
 						</div>
 						

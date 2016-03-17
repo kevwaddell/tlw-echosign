@@ -1,7 +1,5 @@
 <?php 
 function sendZipEmail($d) {
-	global $scheme;
-	global $host;
 	$ref = $d['ref'];
 	$tkn = $d['tkn'];
 	
@@ -10,15 +8,10 @@ function sendZipEmail($d) {
 	//SMTP settings
 	$mail = new PHPMailer();
 	$mail->isSMTP();
-	if ($host == 'tlw-esign.dev') {
-	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gmail-smtp.php');	
-	} else {
-	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/tlw-smtp.php');	
-	}	   
+	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/tlw-smtp.php');   
 	
-	$mail->SetFrom( "esign@tlwsolicitors.co.uk", "TLW Solicitors" );
-	$address = "webmaster@tlwsolicitors.co.uk";
-	$mail->AddAddress($address, "Webmaster");	
+	$mail->SetFrom(TLW_SOURCE_EMAIL, TLW_SOURCE_NAME);
+	$mail->AddAddress(TLW_IT_EMAIL, TLW_IT_NAME);	
 	$mail->Subject = "TLW Esign data cleanse client ref: ".$ref;
 	$mail->MsgHTML($body);
 	$mail->AddAttachment($_SERVER['DOCUMENT_ROOT']."/signed/".$tkn ."@". $ref .".zip");

@@ -1,7 +1,5 @@
 <?php 
 function sendClientPDFEmail() {
-	global $scheme;
-	global $host;
 	global $data;
 	global $dateTime;
 
@@ -17,8 +15,8 @@ function sendClientPDFEmail() {
 	$pdfmail->Password = TLW_SMTP_PWD;                         
 	$pdfmail->Port = TLW_SMTP_PORT; 	      
 	
-	$pdfmail->AddReplyTo(TLW_REPLY_EMAIL,"TLW Solicitors");
-	$pdfmail->SetFrom(TLW_SOURCE_EMAIL, "TLW Solicitors");
+	$pdfmail->AddReplyTo(TLW_REPLY_EMAIL, TLW_REPLY_NAME);
+	$pdfmail->SetFrom(TLW_SOURCE_EMAIL, TLW_SOURCE_NAME);
 	if (!$data['fullname']) {
 	$pdfmail->AddAddress($data['email']);	
 	} else {
