@@ -15,7 +15,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <?php
 function encryptIt( $q ) {
 $cryptKey  = 'qJB0rGtIn5UB1xG03efyCp';
-$qEncoded      = base64_encode( mcrypt_encrypt( MCRYPT_RIJNDAEL_256, md5( $cryptKey ), $q, MCRYPT_MODE_CBC, md5( md5( $cryptKey ) ) ) );
+$qEncoded  = base64_encode( mcrypt_encrypt( MCRYPT_RIJNDAEL_256, md5( $cryptKey ), $q, MCRYPT_MODE_CBC, md5( md5( $cryptKey ) ) ) );
 return( $qEncoded );
 }
 
@@ -24,6 +24,9 @@ $cryptKey  = 'qJB0rGtIn5UB1xG03efyCp';
 $qDecoded  = rtrim( mcrypt_decrypt( MCRYPT_RIJNDAEL_256, md5( $cryptKey ), base64_decode( $q ), MCRYPT_MODE_CBC, md5( md5( $cryptKey ) ) ), "\0");
 return( $qDecoded );
 }
+$encrypt = encryptIt( 'document5' );
+//pre( $encrypt);
+pre(decryptIt($encrypt));
 
 $settings = array();
 $smtp_settings = array();	
@@ -71,7 +74,7 @@ $smtp_settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$
 	$smtp_host = $smtp_settings['smtp_host'];
 	$smtp_port = $smtp_settings['smtp_port'];
 	$smtp_user = $smtp_settings['smtp_user'];
-	$smtp_pwd = decryptIt($smtp_settings['smtp_pwd']);
+	$smtp_pwd = $smtp_settings['smtp_pwd'];
 	}
 }
 
@@ -140,8 +143,8 @@ if ( isset($_POST['update_smtp_settings']) ) {
 	if ( trim($_POST['smtp_pwd']) == "") {
 	$smtp_errors['smtp_pwd'] = "Please enter the <b>Password</b> for the SMPT account.";		
 	} else {
-	$smtp_settings['smtp_pwd'] = encryptIt($_POST['smtp_pwd']);
-	$smtp_pwd = decryptIt($smtp_settings['smtp_pwd']);
+	$smtp_settings['smtp_pwd'] = $_POST['smtp_pwd'];
+	$smtp_pwd = $smtp_settings['smtp_pwd'];
 	}
 	
 	//pre($smtp_errors);
@@ -154,7 +157,7 @@ if ( isset($_POST['update_smtp_settings']) ) {
 	$smtp_host = $smtp_settings['smtp_host'];
 	$smtp_port = $smtp_settings['smtp_port'];
 	$smtp_user = $smtp_settings['smtp_user'];
-	$smtp_pwd = decryptIt($smtp_settings['smtp_pwd']);
+	$smtp_pwd = $smtp_settings['smtp_pwd'];
 	}
 
 }
