@@ -125,9 +125,13 @@ $doc = parseWord($file);
 			<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-disabled-btns.php');?>
 			
 				<?php if (isset($_GET['tkn']) && isset($data['old_tkn']) && $_GET['tkn'] == $data['old_tkn']) { ?>
+				
 				<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-renew-message.php');?>
-				<?php} else {?>
+				
+				<?php } else { ?>
+				
 				<?php include_once($_SERVER['DOCUMENT_ROOT'].'/inc/html/letter-disabled-message.php');?>
+				
 				<?php } ?>
 				
 				<?php if (isset($_GET['cref']) && isset($_GET['sent']) ) { ?>
