@@ -7,7 +7,7 @@ function sendProclaimEmail() {
 	$mail = new PHPMailer();
 	//SMTP settings
 	$mail->isSMTP();
-	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/tlw-smtp.php')
+	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/tlw-smtp.php');
 	
 	$mail->SetFrom(TLW_SOURCE_EMAIL, TLW_SOURCE_NAME);
 	$mail->AddAddress(TLW_IMPORT_EMAIL);	

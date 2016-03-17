@@ -7,8 +7,8 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-proclaim-attachment-ema
 
 $raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$_POST['cref'].'/data.txt');
 $data = unserialize($raw_data);
-$dateTime = gmdate('g:ia, jS F, Y');
-pre($data);
+$dateTime = date('g:ia, jS F, Y');
+//pre($dateTime);
 
 if ( sendProclaimEmail() ) {
 	
