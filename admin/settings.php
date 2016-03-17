@@ -120,24 +120,28 @@ if ( isset($_POST['update_smtp_settings']) ) {
 	$smtp_errors['smtp_host'] = "Please enter a SMTP <b>Host</b> e.g smtp.gamil.com.";
 	} else {
 	$smtp_settings['smtp_host'] = trim($_POST['smtp_host']);
+	$smtp_host = $smtp_settings['smtp_host'];
 	}
 	
 	if ( trim($_POST['smtp_port']) == "") {
 	$smtp_errors['smtp_port'] = "Please enter a SMTP <b>Port</b> e.g 25.";	
 	} else {
 	$smtp_settings['smtp_port'] = trim($_POST['smtp_port']);	
+	$smtp_port = $smtp_settings['smtp_port'];
 	}
 	
 	if ( trim($_POST['smtp_user']) == "") {
 	$smtp_errors['smtp_user'] = "Please enter the <b>Username</b> for the SMPT account.";	
 	} else {
-	$smtp_settings['smtp_user'] = trim($_POST['smtp_user']);	
+	$smtp_settings['smtp_user'] = trim($_POST['smtp_user']);
+	$smtp_user = $smtp_settings['smtp_user'];	
 	}
 	
 	if ( trim($_POST['smtp_pwd']) == "") {
 	$smtp_errors['smtp_pwd'] = "Please enter the <b>Password</b> for the SMPT account.";		
 	} else {
 	$smtp_settings['smtp_pwd'] = encryptIt($_POST['smtp_pwd']);
+	$smtp_pwd = decryptIt($smtp_settings['smtp_pwd']);
 	}
 	
 	//pre($smtp_errors);
