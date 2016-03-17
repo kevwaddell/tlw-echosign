@@ -65,7 +65,7 @@ $smtp_settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$
 	$smtp_host = $smtp_settings['smtp_host'];
 	$smtp_port = $smtp_settings['smtp_port'];
 	$smtp_user = $smtp_settings['smtp_user'];
-	//$smtp_pwd = $secure_pass->decrypt($smtp_settings['smtp_pwd']);
+	$smtp_pwd = $smtp_settings['smtp_pwd'];
 	}
 }
 
@@ -90,7 +90,9 @@ if ( isset($_POST['update_email_settings']) ) {
 	}
 	
 	if ( trim($_POST['it_admin_email']) == "") {
-	$email_errors['it_admin_email'] = "Please enter a <b>IT Administrator</b> email address.";	
+		if ($smtp_pwd == "") {
+		$email_errors['it_admin_email'] = "Please enter a <b>IT Administrator</b> email address.";	
+		}
 	} else {
 	$settings['it_admin_email'] = trim($_POST['it_admin_email']);	
 	}
