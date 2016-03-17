@@ -61,6 +61,13 @@ function zip_files($data) {
 	}// End foreach $data
 }
 
+if (isset($_GET['cref']) && $_GET['cref'] != "") {
+	$cref = $_GET['cref'];
+	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$cref.'/data.txt');
+	$data = unserialize($raw_data);
+	zip_files($data);	
+}
+
 if(!empty($log_files)) {
 	foreach($log_files as $k => $lf) {
 	$log_raw_data = file_get_contents($lf);		

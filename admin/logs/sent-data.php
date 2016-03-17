@@ -156,11 +156,16 @@ $sent_data = unserialize($raw_sent_data);
 									<td class="text-center" style="vertical-align: middle;"><?php echo $data['ref']; ?></td>
 									<td class="text-center" style="vertical-align: middle;">
 										<?php if (file_exists($_SERVER['DOCUMENT_ROOT']."/signed/".$data['tkn']."@".$data['ref'].".zip")) { ?>
-											<div class="btn-group btn-group-lg" role="toolbar">
+										<div class="btn-group btn-group-lg" role="toolbar">
 											<a href="<?php echo SITEROOT; ?>/signed/rmvzip/?tkn=<?php echo $data['tkn']; ?>&cref=<?php echo $data['ref']; ?>" title="Delete" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i><span class="sr-only">Delete</span></a>			
 											<a href="<?php echo SITEROOT; ?>/signed/dwnldzip/?tkn=<?php echo $data['tkn']; ?>&cref=<?php echo $data['ref']; ?>" title="Download" class="btn btn-default"><i class="glyphicon glyphicon-save"></i><span class="sr-only">Download</span></a>
 										</div>
-										<?php } else { ?>
+										<?php } elseif ( is_dir($_SERVER['DOCUMENT_ROOT']."/signed/".$data['ref']) ) { ?>
+											<div class="btn-group btn-group-lg" role="toolbar">
+											<a href="<?php echo SITEROOT; ?>/signed/flushsig/?cref=<?php echo $data['ref']; ?>" title="Zip file" class="btn btn-default"><i class="glyphicon glyphicon-folder-closed"></i> Zip folder</a>			
+											<a href="<?php echo SITEROOT; ?>/signed/<?php echo $data['ref']; ?>/<?php echo $data['ref']; ?>.pdf" target="_blank" title="View Document" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> View Document</a>
+											</div>
+										<?php}  else { ?>
 											<a href="<?php echo SITEROOT; ?>/signed/rmvdata/?cref=<?php echo $data['ref']; ?>&log=<?php echo $log_date; ?>" title="Delete" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i><span class="sr-only">Delete</span></a>
 										<?php } ?>
 										
