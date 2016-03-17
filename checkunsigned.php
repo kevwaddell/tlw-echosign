@@ -21,12 +21,16 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 		
 			if ($datePlus2Days < $now) {
 			$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$ul['ref'].'/data.txt');	
+			$data = unserialize($raw_data);	
+			$new_tkn = md5( uniqid(rand(), true) );
 			$unsigned_logs[$k]['old_tkn'] = $raw_data['tkn'];
-			$unsigned_logs[$k]['tkn'] = md5( uniqid(rand(), true) );
-			$data = $unsigned_logs[$k];
+			$unsigned_logs[$k]['tkn'] = $new_tkn
+			$data['tkn'] = $new_tkn;
+			
 				if ( sendClientEmail() ) {
 				$unsigned_logs[$k]['sent'] = time();
 				$new_logs = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	
+				$new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$data['ref'].'/data.txt', serialize($data));	
 				}
 				
 			} //if 2 days gone
