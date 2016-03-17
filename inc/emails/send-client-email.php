@@ -11,17 +11,12 @@ function sendClientEmail() {
 	
 	//SMTP settings
 	$mail->isSMTP();
-	if ($host == 'tlw-esign.dev') {
-	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gmail-smtp.php');	
-	} else {
-	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/tlw-smtp.php');	
-	}	
+	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/tlw-smtp.php');		
 	
 	//Sending options	
 	$mail->AddReplyTo("info@tlwsolicitors.co.uk","TLW Solicitors");
-	$mail->SetFrom('esign@tlwsolicitors.co.uk', 'TLW Solicitors');
-	$address = $data['email'];
-	$mail->AddAddress($address);
+	$mail->SetFrom('esign@tlwsolicitors.co.uk', 'TLW Solicitors Esign');
+	$mail->AddAddress($data['email']);
 	$mail->Subject = "Your TLW Solicitors Client Agreement is ready to sign";
 	$mail->MsgHTML($body);
 	

@@ -10,29 +10,15 @@ function sendClientPDFEmail() {
 	$pdfmail = new PHPMailer();
 	//SMTP settings
 	$pdfmail->isSMTP();
-	if ($host == 'tlw-esign.dev') {
-	$pdfmail->SMTPOptions = array ('ssl' => array('verify_peer'  => false, 'verify_peer_name'  => false, 'allow_self_signed' => true));
-	$pdfmail->Host = 'smtp.gmail.com';
-	$pdfmail->SMTPAuth = true;
-	$pdfmail->Username = 'kwaddelltlw@gmail.com';
-	$pdfmail->Password = 'TLW_kevin21';
-	$pdfmail->SMTPSecure = 'tls';                           
-	$pdfmail->Port = 587;   	
-	} else {
 	$pdfmail->SMTPOptions = array ('ssl' => array('verify_peer'  => false, 'verify_peer_name'  => false, 'allow_self_signed' => true));
 	$pdfmail->SMTPAuth   = true;  
-		if ($host == "tlw-echosign.dev") {
-		$pdfmail->Host = 'tlwserv02.tlwsolicitors.local';
-		} else {
-		$pdfmail->Host = 'nsgateway.tlwsolicitors.co.uk';
-		}
-	$pdfmail->Username = 'esign';
-	$pdfmail->Password = 'document5';                         
-	$pdfmail->Port = 25; 	      
-	}
+	$pdfmail->Host = TLW_SMTP_HOST;
+	$pdfmail->Username = TLW_SMTP_USER;
+	$pdfmail->Password = TLW_SMTP_PWD;                         
+	$pdfmail->Port = TLW_SMTP_PORT; 	      
 	
-	$pdfmail->AddReplyTo("info@tlwsolicitors.co.uk","TLW Solicitors");
-	$pdfmail->SetFrom("esign@tlwsolicitors.co.uk", "TLW Solicitors");
+	$pdfmail->AddReplyTo(TLW_REPLY_EMAIL,"TLW Solicitors");
+	$pdfmail->SetFrom(TLW_SOURCE_EMAIL, "TLW Solicitors");
 	if (!$data['fullname']) {
 	$pdfmail->AddAddress($data['email']);	
 	} else {

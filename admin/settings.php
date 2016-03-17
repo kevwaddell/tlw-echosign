@@ -24,7 +24,9 @@ $smtp_settings = array();
 $email_errors = array();
 $smtp_errors = array();
 $src_email = "";
+$src_name = "";
 $reply_email = "";
+$reply_name = "";
 $import_email = "";
 $it_admin_email = "";
 $smtp_host = "";
@@ -50,7 +52,9 @@ $settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$setti
 	$settings = unserialize($settings_raw);	
 	
 	$src_email = $settings['src_email'];
+	$src_name = $settings['src_name'];
 	$reply_email = $settings['reply_email'];
+	$reply_name = $settings['reply_name'];
 	$import_email = $settings['import_email'];
 	$it_admin_email = $settings['it_admin_email'];
 	}
@@ -77,10 +81,22 @@ if ( isset($_POST['update_email_settings']) ) {
 	$settings['src_email'] = trim($_POST['src_email']);
 	}
 	
+	if ( trim($_POST['src_name']) == "") {
+	$settings['src_name'] = "TLW Solicitors Esign";
+	} else {
+	$settings['src_name'] = trim($_POST['src_name']);
+	}
+	
 	if ( trim($_POST['reply_email']) == "") {
 	$email_errors['reply_email'] = "Please enter a <b>Reply</b> email address.";	
 	} else {
 	$settings['reply_email'] = trim($_POST['reply_email']);	
+	}
+	
+	if ( trim($_POST['reply_name']) == "") {
+	$settings['reply_name'] = "TLW Solicitors";
+	} else {
+	$settings['reply_name'] = trim($_POST['reply_name']);
 	}
 	
 	if ( trim($_POST['import_email']) == "") {
@@ -101,7 +117,9 @@ if ( isset($_POST['update_email_settings']) ) {
 	$settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log); 
 	$settings = unserialize($settings_raw);	
 	$src_email = $settings['src_email'];
+	$src_name = $settings['src_name'];
 	$reply_email = $settings['reply_email'];
+	$reply_name = $settings['reply_name'];
 	$import_email = $settings['import_email'];
 	$it_admin_email = $settings['it_admin_email'];
 	}
@@ -182,13 +200,23 @@ if ( isset($_POST['update_smtp_settings']) ) {
 									<input type="text" name="reply_email" class="form-control input-lg text-center" placeholder="replyto@email.com" value="<?php echo $reply_email; ?>">
 									<span id="helpBlock" class="help-block">The Reply email address that will be set in the confirmation emails to the clients.</span>
 								</div>
-							</div>
-							
-							<div class="col-md-6">
 								<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['import_email'])) ? ' has-error':'' ?>">
 									<label for="import_email"><span>*</span>Import email:</label>
 									<input type="text" name="import_email" class="form-control input-lg text-center" placeholder="import@email.com" value="<?php echo $import_email; ?>">
 									<span id="helpBlock" class="help-block">The import email address is where the PDF of the signed document will be sent to.</span>
+								</div>
+							</div>
+							
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="src_name">Source name:</label>
+									<input type="text" name="src_name" class="form-control input-lg text-center" placeholder="TLW Solicitors Esign" value="<?php echo $src_name; ?>">
+									<span id="helpBlock" class="help-block">The name of the source that will show when a confirmation email is sent.</span>
+								</div>
+								<div class="form-group">
+									<label for="reply_name">Reply name:</label>
+									<input type="text" name="reply_name" class="form-control input-lg text-center" placeholder="TLW Solicitors" value="<?php echo $reply_name; ?>">
+									<span id="helpBlock" class="help-block">The name of the replier that will show when a confirmation email is sent.</span>
 								</div>
 								<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['it_admin_email'])) ? ' has-error':'' ?>">
 									<label for="it_admin_email"><span>*</span>IT email:</label>

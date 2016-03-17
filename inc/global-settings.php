@@ -35,7 +35,7 @@ $smtp_settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$
 	$smtp_settings = unserialize($smtp_settings_raw);
 	//Global SMTP settings
 	DEFINE('TLW_SMTP_HOST', $smtp_settings['smtp_host']);
-	DEFINE('TLW_SMTP_POST', $smtp_settings['smtp_port']);
+	DEFINE('TLW_SMTP_PORT', $smtp_settings['smtp_port']);
 	DEFINE('TLW_SMTP_USER', $smtp_settings['smtp_user']);
 	DEFINE('TLW_SMTP_PWD', $secure_pass->decrypt($smtp_settings['smtp_pwd']));
 	}
