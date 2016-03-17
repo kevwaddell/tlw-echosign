@@ -71,32 +71,34 @@ if (isset($_POST['change_logs'])) {
 		<div class="container">
 			<div class="row">
 				<div class="col-md-10 col-md-offset-1">
-					<?php if ($email_data) { ?>
-					<div class="well well-lg table-responsive">
-						
-						<?php if (count($log_files) > 1) { ?>
-							<div class="filter-form">
-								<form method="post" action="">
-									<div class="row">
-										<div class="col-sm-6">
-											<div class="form-group">
-												<select name="log_date" class="form-control">
-													<option value="0">Select a log date</option>
-													<?php foreach ($dates as $date) { ?>
-													<option value="<?php echo $date; ?>"<?php echo($date == $log_date) ? ' selected="selected"':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
-													<?php } ?>
-												</select>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<input type="submit" name="change_logs" value="View Logs" class="btn btn-default btn-block">
+				
+				<?php if (count($log_files) > 1) { ?>
+						<div class="filter-form">
+							<form method="post" action="">
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<select name="log_date" class="form-control">
+												<option value="0">Select a log date</option>
+												<?php foreach ($dates as $date) { ?>
+												<option value="<?php echo $date; ?>"<?php echo($date == $log_date) ? ' selected="selected"':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
+												<?php } ?>
+											</select>
 										</div>
 									</div>
-								</form>
-							</div>
-						<?php } ?>
-						
-						<h3 class="text-center">Successful inbound emails</h3>
+									<div class="col-sm-6">
+										<input type="submit" name="change_logs" value="View Logs" class="btn btn-default btn-block">
+									</div>
+								</div>
+							</form>
+						</div>
+					<?php } ?>
+					
+					<?php if ($email_data) { ?>
+
+					<div class="well well-lg table-responsive">
+							
+					<h3 class="text-center">Successful inbound emails</h3>
 						<table class="table table-bordered">
 							<thead>
 								<tr>
@@ -120,6 +122,7 @@ if (isset($_POST['change_logs'])) {
 							</tbody>
 						</table>
 					</div>
+					
 					<?php } else { ?>
 					<div class="alert alert-info text-center">
 						<h3>No email logs available</h3>
