@@ -18,11 +18,6 @@ $secure_pass = new Security();
 //$encrypt = encryptIt( 'document5' );
 //pre( $encrypt);
 //pre(decryptIt($encrypt));
-if(function_exists("mcrypt_encrypt")) {
-    echo "mcrypt is loaded!";
-} else {
-    echo "mcrypt isn't loaded!";
-}
 
 $settings = array();
 $smtp_settings = array();	
