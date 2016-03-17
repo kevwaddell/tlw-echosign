@@ -112,6 +112,26 @@ $sent_data = unserialize($raw_sent_data);
 						</div>		
 					<?php } ?>
 					
+					<?php if (isset($_GET['zipped']) && $_GET['zipped'] == 1) { ?>
+						<div class="alert alert-success text-center alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<p class="lead">All data for client ref <strong><?php echo $_GET['cref']; ?></strong> has been zipped sucessfully.</p>
+							<p style="margin-top: 10px;">
+								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-success" target="_blank;"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
+							</p>
+						</div>		
+					<?php } ?>
+					
+					<?php if (isset($_GET['zipped']) && $_GET['zipped'] == 0) { ?>
+						<div class="alert alert-danger text-center alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<p class="lead">Data for client ref <strong><?php echo $_GET['cref']; ?></strong> could not be zipped.</p>
+							<p style="margin-top: 10px;">
+								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-danger" target="_blank;"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
+							</p>
+						</div>		
+					<?php } ?>
+					
 					<?php if (!empty($log_files)) { ?>
 					<div class="filter-form">
 						<form method="post" action="">
@@ -163,7 +183,7 @@ $sent_data = unserialize($raw_sent_data);
 										<?php } elseif ( is_dir($_SERVER['DOCUMENT_ROOT']."/signed/".$data['ref']) ) { ?>
 											<div class="btn-group btn-group-lg" role="toolbar">
 											<a href="<?php echo SITEROOT; ?>/signed/flushsig/?cref=<?php echo $data['ref']; ?>" title="Zip file" class="btn btn-default"><i class="glyphicon glyphicon-folder-close"></i><span class="sr-only">Zip folder</span></a>			
-											<a href="<?php echo SITEROOT; ?>/signed/<?php echo $data['ref']; ?>/<?php echo $data['ref']; ?>.pdf#view=Fit" target="_blank" title="View Document" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i><span class="sr-only">View Document</span></a>
+											<a href="<?php echo SITEROOT; ?>/signed/<?php echo $data['ref']; ?>/<?php echo $data['ref']; ?>.pdf#view=FitH" target="_blank" title="View Document" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i><span class="sr-only">View Document</span></a>
 											</div>
 										<?php } else { ?>
 											<a href="<?php echo SITEROOT; ?>/signed/rmvdata/?cref=<?php echo $data['ref']; ?>&log=<?php echo $log_date; ?>" title="Delete" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i><span class="sr-only">Delete</span></a>

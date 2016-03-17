@@ -62,10 +62,19 @@ function zip_files($data) {
 }
 
 if (isset($_GET['cref']) && $_GET['cref'] != "") {
+	$referer_raw = $_SERVER['HTTP_REFERER'];	
+	$referer_parse = parse_url($referer_raw);
+	$referer = $referer_parse['scheme']."://".$referer_parse['host'].$referer_parse['path'];
+	
 	$cref = $_GET['cref'];
 	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$cref.'/data.txt');
 	$data = unserialize($raw_data);
-	zip_files($data);	
+	
+	if (zip_files($data)) {
+		header("Location: ". $referer ."?cref=".$cref."&zipped=1");
+	} else {
+		header("Location: ". $referer ."?cref=".$cref."&zipped=0");	
+	}	
 }
 
 if(!empty($log_files)) {
