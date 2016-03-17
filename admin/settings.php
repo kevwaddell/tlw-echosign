@@ -65,7 +65,7 @@ $smtp_settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$
 	$smtp_host = $smtp_settings['smtp_host'];
 	$smtp_port = $smtp_settings['smtp_port'];
 	$smtp_user = $smtp_settings['smtp_user'];
-	$smtp_pwd = $secure_pass->decrypt($smtp_settings['smtp_pwd']);
+	//$smtp_pwd = $secure_pass->decrypt($smtp_settings['smtp_pwd']);
 	}
 }
 
@@ -135,7 +135,6 @@ if ( isset($_POST['update_smtp_settings']) ) {
 	$smtp_errors['smtp_pwd'] = "Please enter the <b>Password</b> for the SMPT account.";		
 	} else {
 	$smtp_settings['smtp_pwd'] = $secure_pass->encrypt($_POST['smtp_pwd']);
-	$smtp_pwd = $secure_pass->decrypt($smtp_settings['smtp_pwd']);
 	}
 	
 	//pre($smtp_errors);
@@ -148,7 +147,6 @@ if ( isset($_POST['update_smtp_settings']) ) {
 	$smtp_host = $smtp_settings['smtp_host'];
 	$smtp_port = $smtp_settings['smtp_port'];
 	$smtp_user = $smtp_settings['smtp_user'];
-	$smtp_pwd = $secure_pass->decrypt($smtp_settings['smtp_pwd']);
 	}
 
 }
@@ -224,7 +222,7 @@ if ( isset($_POST['update_smtp_settings']) ) {
 								</div>
 								<div class="form-group required<?php echo(!empty($smtp_errors) && isset($smtp_errors['smtp_pwd'])) ? ' has-error':'' ?>">
 									<label for="smtp_pwd"><span>*</span>Password:</label>
-									<input type="password" name="smtp_pwd" class="form-control input-lg text-center" value="<?php echo $smtp_pwd; ?>">
+									<input type="password" name="smtp_pwd" class="form-control input-lg text-center" value="">
 									<span id="helpBlock" class="help-block">The Password for the SMTP Host</span>
 								</div>
 							</div>
