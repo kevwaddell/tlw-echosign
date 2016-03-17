@@ -1,16 +1,14 @@
 <?php 
-include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/global-settings.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-proclaim-attachment-email.php'
 
 $raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$_POST['cref'].'/data.txt');
 $data = unserialize($raw_data);
 $dateTime = gmdate('g:ia, jS F, Y');
 //pre($data);
-
-//Email functions to send to client, proclaim and IT
-include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-proclaim-attachment-email.php');
-
 
 if ( sendProclaimEmail() ) {
 	

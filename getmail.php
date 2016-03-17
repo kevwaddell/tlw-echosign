@@ -1,5 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/global-settings.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
 
@@ -8,17 +9,15 @@ function getFileExtension($fileName){
    return $parts[count($parts)-1];
 }
 
-if ($host == "tlw-echosign.dev") {
-	$imapPath = "{192.168.12.9:143/imap4/notls/novalidate-cert/user=esign}";	
-} else {
-	$imapPath = "{nsgateway.tlwsolicitors.co.uk:143/imap/notls/novalidate-cert/user=esign}INBOX";
-}
-$username = "esign@tlwsolicitors.co.uk";
-$password = "document5";
+$imapPath = "{".TLW_SMTP_HOST.":143/imap/notls/novalidate-cert/user=esign}INBOX";
+$username = TLW_SOURCE_EMAIL;
+$password = TLW_SMTP_PWD;
 
 $inbox = imap_open($imapPath, $username, $password, NULL, 1, array('DISABLE_AUTHENTICATOR' => 'GSSAPI'));
 $log_date = date('Y-m-d', time());
 $prev_log_date = date('Y-m-d', strtotime($log_date.'- 1 day'));
+
+//pre($inbox);
 
 if ($inbox){
 	
@@ -43,32 +42,36 @@ if ($inbox){
 		one for the current date with empty array.	
 		*/
 				
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log')) {
+		if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log')) {
+			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log', serialize($unsigned_logs));
+		} else {
 			$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log'); 
 			$email_logs = unserialize($email_logs_raw);
-		} 
+		}
 		
 		// Check if Unsigned logs for current date extists
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log')) {
+		if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log')) {
+			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
+		} else {
 			$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');
-			$unsigned_logs = unserialize($unsigned_logs_raw);
+			$unsigned_logs = unserialize($unsigned_logs_raw);	
 		}	
-		
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs)); 
 		
 		// Check if Unsigned logs for prev day extists
 		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$prev_log_date.'.log')) {
 			$prev_unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$prev_log_date.'.log');
 			$prev_unsigned_logs = unserialize($prev_unsigned_logs_raw);	
-			foreach($prev_unsigned_logs as $pl) {
-				if (!in_array($pl, $unsigned_logs)) {
-				$unsigned_logs[] = $pl;
+			if (!empty($prev_unsigned_logs)) {
+				foreach($prev_unsigned_logs as $pl) {
+					if (!in_array($pl, $unsigned_logs)) {
+					$unsigned_logs[] = $pl;
+					}
 				}
+				file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	; 
 			}
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	; 
 		}
 		
-		// Check if Unsigned logs for current date extists
+		// Check if signed logs for current date extists
 		if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log')) {
 			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log', serialize($signed_logs));	; 
 		}

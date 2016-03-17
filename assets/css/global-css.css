@@ -105,7 +105,7 @@ line-height: 1.428;
 line-height: 1.33333;	
 }
 
-header.messages {
+.messages {
 margin-top: 10px;	
 }
 
@@ -114,12 +114,12 @@ margin-top: 10px;
 margin-bottom: 10px;	
 }
 
-header.messages h1,
-header.messages h2 {
+.messages h1,
+.messages h2 {
 margin-top: 0px;	
 }
 
-header.messages ol {
+.messages ol {
 margin-bottom: 0px;	
 }
 
@@ -128,7 +128,7 @@ display: inline-block;
 margin-left: 0px;
 }
 
-header.messages {
+.messages {
 margin-top: 10px;	
 }
 

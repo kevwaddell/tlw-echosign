@@ -27,7 +27,8 @@ return( $qDecoded );
 
 $settings = array();
 $smtp_settings = array();	
-$errors = array();
+$email_errors = array();
+$smtp_errors = array();
 $src_email = "";
 $reply_email = "";
 $import_email = "";
@@ -77,34 +78,38 @@ $smtp_settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$
 if ( isset($_POST['update_email_settings']) ) {	
 	
 	if ( trim($_POST['src_email']) == "") {
-	$errors['src_email'] = "Please enter a <b>Source</b> email address.";
+	$email_errors['src_email'] = "Please enter a <b>Source</b> email address.";
 	} else {
 	$settings['src_email'] = trim($_POST['src_email']);
 	}
 	
 	if ( trim($_POST['reply_email']) == "") {
-	$errors['reply_email'] = "Please enter a <b>Reply</b> email address.";	
+	$email_errors['reply_email'] = "Please enter a <b>Reply</b> email address.";	
 	} else {
 	$settings['reply_email'] = trim($_POST['reply_email']);	
 	}
 	
 	if ( trim($_POST['import_email']) == "") {
-	$errors['import_email'] = "Please enter a <b>Import</b> email address.";	
+	$email_errors['import_email'] = "Please enter a <b>Import</b> email address.";	
 	} else {
 	$settings['import_email'] = trim($_POST['import_email']);	
 	}
 	
 	if ( trim($_POST['it_admin_email']) == "") {
-	$errors['it_admin_email'] = "Please enter a <b>IT Administrator</b> email address.";	
+	$email_errors['it_admin_email'] = "Please enter a <b>IT Administrator</b> email address.";	
 	} else {
 	$settings['it_admin_email'] = trim($_POST['it_admin_email']);	
 	}
 	
-	if (!empty($settings) && empty($errors)) {
+	if (!empty($settings) && empty($email_errors)) {
 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log, serialize($settings));	
 	
 	$settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log); 
 	$settings = unserialize($settings_raw);	
+	$src_email = $settings['src_email'];
+	$reply_email = $settings['reply_email'];
+	$import_email = $settings['import_email'];
+	$it_admin_email = $settings['it_admin_email'];
 	}
 
 }
@@ -112,25 +117,25 @@ if ( isset($_POST['update_email_settings']) ) {
 if ( isset($_POST['update_smtp_settings']) ) {	
 
 	if ( trim($_POST['smtp_host']) == "") {
-	$errors['smtp_host'] = "Please enter a SMTP <b>Host</b> e.g smtp.gamil.com.";
+	$smtp_errors['smtp_host'] = "Please enter a SMTP <b>Host</b> e.g smtp.gamil.com.";
 	} else {
 	$smtp_settings['smtp_host'] = trim($_POST['smtp_host']);
 	}
 	
 	if ( trim($_POST['smtp_port']) == "") {
-	$errors['smtp_port'] = "Please enter a SMTP <b>Port</b> e.g 25.";	
+	$smtp_errors['smtp_port'] = "Please enter a SMTP <b>Port</b> e.g 25.";	
 	} else {
 	$smtp_settings['smtp_port'] = trim($_POST['smtp_port']);	
 	}
 	
 	if ( trim($_POST['smtp_user']) == "") {
-	$errors['smtp_user'] = "Please enter the <b>Username</b> for the SMPT account.";	
+	$smtp_errors['smtp_user'] = "Please enter the <b>Username</b> for the SMPT account.";	
 	} else {
 	$smtp_settings['smtp_user'] = trim($_POST['smtp_user']);	
 	}
 	
 	if ( trim($_POST['smtp_pwd']) == "") {
-	$errors['smtp_pwd'] = "Please enter the <b>Password</b> for the SMPT account.";		
+	$smtp_errors['smtp_pwd'] = "Please enter the <b>Password</b> for the SMPT account.";		
 	} else {
 	$smtp_settings['smtp_pwd'] = encryptIt($_POST['smtp_pwd']);
 	}
@@ -140,6 +145,10 @@ if ( isset($_POST['update_smtp_settings']) ) {
 	
 	$smtp_settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$smtp_log); 
 	$smtp_settings = unserialize($smtp_settings_raw);	
+	$smtp_host = $smtp_settings['smtp_host'];
+	$smtp_port = $smtp_settings['smtp_port'];
+	$smtp_user = $smtp_settings['smtp_user'];
+	$smtp_pwd = decryptIt($smtp_settings['smtp_pwd']);
 	}
 
 }
@@ -189,9 +198,11 @@ if ( isset($_POST['update_smtp_settings']) ) {
 							</div>
 							<input type="submit" name="update_email_settings" value="Update" class="btn btn-success btn-lg btn-block caps">
 						</form>
+						</div>
 						
+						<div class="well well-lg">
 						<form method="post" action="">
-							<h3 class="caps text-center" style="margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">SMTP Settings</h3>
+							<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">SMTP Settings</h3>
 							<div class="col-md-6">
 								<div class="form-group required">
 									<label for="smtp_host"><span>*</span>Host:</label>
@@ -219,7 +230,7 @@ if ( isset($_POST['update_smtp_settings']) ) {
 							</div>
 							<input type="submit" name="update_smtp_settings" value="Update" class="btn btn-success btn-lg btn-block caps">
 						</form>
-					</div>
+						</div>
 					
 				</div>
 			</div>

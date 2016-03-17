@@ -27,6 +27,14 @@ $path = split("/", $_SERVER['REQUEST_URI']);
 				    <li<?php echo (in_array("dashboard", $path)) ? ' class="active"':'' ; ?>><a href="<?php echo SITEROOT; ?>/admin/dashboard/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 			        <li<?php echo (in_array("settings", $path)) ? ' class="active"':'' ; ?>><a href="<?php echo SITEROOT; ?>/admin/settings/"><i class="fa fa-cogs"></i> Settings</a></li>
 			        <li<?php echo (in_array("actions", $path)) ? ' class="active"':'' ; ?>><a href="<?php echo SITEROOT; ?>/admin/actions/"><i class="fa fa-bolt"></i> Actions</a></li>
+			        <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Logs <span class="caret"></span></a>
+			          <ul class="dropdown-menu">
+			            <li><a href="<?php echo SITEROOT; ?>/admin/logs/email-logs/">Email logs</a></li>
+			            <li><a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/">Signed documents</a></li>
+			            <li><a href="<?php echo SITEROOT; ?>/admin/logs/unsigned/">Unsigned documents</a></li>
+			          </ul>
+			        </li>
 			        <li><a href="<?php echo SITEROOT; ?>"><i class="fa fa-power-off"></i> Log out</a></li>
 			      </ul>
 				</div><!-- /.navbar-collapse -->

@@ -1,5 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/global-settings.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/doc_reader.php');
 
@@ -79,8 +80,8 @@ $doc = parseWord($file);
 					$html = ob_get_contents();
 					ob_end_clean(); 
 					include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gs-function.php');
-					include("../classes/mpdf/mpdf.php");
-					$stylesheet = file_get_contents('../assets/css/pdf-styles.css');
+					include($_SERVER['DOCUMENT_ROOT']."/classes/mpdf/mpdf.php");
+					$stylesheet = file_get_contents($_SERVER['DOCUMENT_ROOT']'/assets/css/pdf-styles.css');
 					$mpdf=new mPDF('default', 'A4', '8', 'san-serif', '12', '12', '65', '45', '10', '10', 'P');
 					include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pdf-parts/pdf-header.php');
 					include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pdf-parts/pdf-footer.php');

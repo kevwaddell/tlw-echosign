@@ -1,5 +1,10 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/global-settings.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-client-email.php');
+
 $log_date = date('Y-m-d', time());
 
 if ( isset($_GET['cref']) ) {
@@ -13,10 +18,6 @@ if ( isset($_GET['cref']) ) {
 		$data = unserialize($raw_data);
 		$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');
 		$unsigned_logs = unserialize($unsigned_logs_raw);
-		
-		include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
-		include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
-		include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-client-email.php');
 	
 		if ( sendClientEmail() ) {
 			
