@@ -25,7 +25,7 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 			$old_tkn = $data['tkn'];
 			$new_tkn = md5( uniqid(rand(), true) );
 			$unsigned_logs[$k]['old_tkn'] = $old_tkn;
-			$unsigned_logs[$k]['tkn'] = $new_tkn
+			$unsigned_logs[$k]['tkn'] = $new_tkn;
 			$data['tkn'] = $new_tkn;
 			$data['old_tkn'] = $old_tkn;
 			
