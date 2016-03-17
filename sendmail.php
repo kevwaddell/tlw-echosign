@@ -1,4 +1,7 @@
 <?php
+pre($_SERVER);
+
+if ( isset($_GET['cref']) ) {
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/global-settings.php');
@@ -6,9 +9,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php
 
 $log_date = date('Y-m-d', time());
 
-pre($_SERVER);
-
-if ( isset($_GET['cref']) ) {
 	$cref = $_GET['cref'];
 	
 	if ( isset($_SERVER['HTTP_REFERER']) ) {
