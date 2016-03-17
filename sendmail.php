@@ -27,7 +27,7 @@ $log_date = date('Y-m-d', time());
 			$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');
 			$unsigned_logs = unserialize($unsigned_logs_raw);
 			
-			include_once($_SERVER['DOCUMENT_ROOT'].'/inc/send-client-email.php');
+			include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
 			
 			if ( sendClientEmail() ) {
 				
