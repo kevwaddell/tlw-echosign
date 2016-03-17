@@ -25,8 +25,8 @@ $qDecoded  = rtrim( mcrypt_decrypt( MCRYPT_RIJNDAEL_256, md5( $cryptKey ), base6
 return( $qDecoded );
 }
 $encrypt = encryptIt( 'document5' );
-//pre( $encrypt);
-pre(decryptIt($encrypt));
+pre( $encrypt);
+//pre(decryptIt($encrypt));
 
 $settings = array();
 $smtp_settings = array();	
