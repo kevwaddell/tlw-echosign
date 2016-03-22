@@ -3,7 +3,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 
 if ( isset($_GET['cref']) ) {
 $cref = $_GET['cref'];	
-$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$cref.'/data.txt');
+$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$cref.'/data.txt');
 $data = unserialize($raw_data);	
 $name = " <span style=\"color:#666\">".$data[firstname]."</span> ";
 } else {
