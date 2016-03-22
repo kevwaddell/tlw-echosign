@@ -60,6 +60,8 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 		$dest = $_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'];
 		
 		if ( rename($src, $dest) ) {
+		$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'].'/data.txt');
+		$data = unserialize($raw_data);	
 		sendITEmail();	
 		sendClientPDFEmail();
 		}
