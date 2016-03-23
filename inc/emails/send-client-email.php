@@ -7,7 +7,7 @@ function sendClientEmail($data) {
 	$mail = new PHPMailer();
 	
 	//SMTP settings
-	$mail_.$d['ref']->isSMTP();
+	$mail->isSMTP();
 	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/tlw-smtp.php');		
 	
 	//Sending options	
