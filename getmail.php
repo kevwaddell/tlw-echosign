@@ -89,11 +89,11 @@ if ($inbox){
 		/* for every email... */
 		foreach($emails as $email_number) {
 			$emails_counter++;
-/*
-			if ($emails_counter > 1) {
+			
+			if ($emails_counter > 2) {
 			exit;	
 			}
-*/
+			
 			/* get information specific to this email */
 			$overview = imap_fetch_overview($inbox, $email_number, 0);
 			$message = imap_fetchbody($inbox,$email_number,2);
