@@ -97,9 +97,9 @@ if ($inbox){
 			}
 			
 			/* get information specific to this email */
-			$overview = imap_fetch_overview($inbox, $email_number, 0);
-			$message = imap_fetchbody($inbox,$email_number,2);
-			$structure = imap_fetchstructure($inbox,$email_number);
+			$overview = imap_fetch_overview($inbox, $email_number, 0, FT_UID);
+			$message = imap_fetchbody($inbox,$email_number,2, FT_UID);
+			$structure = imap_fetchstructure($inbox,$email_number, FT_UID);
 			$parts_total = count($structure->parts);
 			$parts = $structure->parts;
 			$seen_msg = $overview[0]->seen;
