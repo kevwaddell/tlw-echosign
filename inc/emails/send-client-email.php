@@ -4,21 +4,21 @@ function sendClientEmail($data) {
 								
 	$body = file_get_contents(SITEROOT.'/temps/client-email-notify.php?cref='.$d['ref']);
 	
-	$mail_.$d['ref'] = new PHPMailer();
+	$mail = new PHPMailer();
 	
 	//SMTP settings
 	$mail_.$d['ref']->isSMTP();
 	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/tlw-smtp.php');		
 	
 	//Sending options	
-	$mail_.$d['ref']->AddReplyTo(TLW_REPLY_EMAIL, TLW_REPLY_NAME);
-	$mail_.$d['ref']->SetFrom(TLW_SOURCE_EMAIL, TLW_SOURCE_NAME);
-	$mail_.$d['ref']->AddAddress($data['email']);
-	$mail_.$d['ref']->Subject = "Your TLW Solicitors Client Agreement is ready to sign";
-	$mail_.$d['ref']->MsgHTML($body);
+	$mail->AddReplyTo(TLW_REPLY_EMAIL, TLW_REPLY_NAME);
+	$mail->SetFrom(TLW_SOURCE_EMAIL, TLW_SOURCE_NAME);
+	$mail->AddAddress($data['email']);
+	$mail->Subject = "Your TLW Solicitors Client Agreement is ready to sign";
+	$mail->MsgHTML($body);
 	
-	pre($mail_.$d['ref']);
+	pre($mail);
 	
-	return $mail_.$d['ref']->Send();
+	return $mail->Send();
 }	
 ?>
