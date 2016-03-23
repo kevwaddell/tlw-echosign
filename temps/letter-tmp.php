@@ -81,7 +81,7 @@ $doc = parseWord($file);
 					ob_end_clean(); 
 					include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gs-function.php');
 					include($_SERVER['DOCUMENT_ROOT']."/classes/mpdf/mpdf.php");
-					$stylesheet = file_get_contents($_SERVER['DOCUMENT_ROOT']'/assets/css/pdf-styles.css');
+					$stylesheet = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/assets/css/pdf-styles.css');
 					$mpdf=new mPDF('default', 'A4', '8', 'san-serif', '12', '12', '65', '45', '10', '10', 'P');
 					include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pdf-parts/pdf-header.php');
 					include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pdf-parts/pdf-footer.php');
