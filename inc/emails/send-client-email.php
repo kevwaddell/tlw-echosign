@@ -17,8 +17,6 @@ function sendClientEmail($data) {
 	$mail->Subject = "Your TLW Solicitors Client Agreement is ready to sign";
 	$mail->MsgHTML($body);
 	
-	pre($mail);
-	
 	return $mail->Send();
 }	
 ?>
