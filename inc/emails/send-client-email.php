@@ -19,6 +19,6 @@ function sendClientEmail() {
 	
 	pre($mail_.$data['ref']);
 	
-	return $mail_.$data['ref'])->Send();
+	return $mail_.$data['ref']->Send();
 }	
 ?>
