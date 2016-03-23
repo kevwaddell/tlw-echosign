@@ -26,8 +26,6 @@ if ($inbox){
 	/* grab emails */
 	$emails = imap_search($inbox,'ALL', SE_UID);
 	
-	pre($emails);
-	
 	if($emails) {
 
 		$emails_counter = 0;
@@ -89,7 +87,7 @@ if ($inbox){
 		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log', serialize($email_logs));
 		
 		/* for every email... */
-		foreach($emails as $email_number) {
+		foreach($emails as $MID) {
 			$emails_counter++;
 			
 			if ($emails_counter > 1) {
@@ -97,12 +95,14 @@ if ($inbox){
 			}
 			
 			/* get information specific to this email */
-			$overview = imap_fetch_overview($inbox, $email_number, 0, FT_UID);
-			$message = imap_fetchbody($inbox,$email_number,2, FT_UID);
-			$structure = imap_fetchstructure($inbox,$email_number, FT_UID);
+			$overview = imap_fetch_overview($inbox, $MID, 0, FT_UID);
+			$message = imap_fetchbody($inbox, $MID, 2, FT_UID);
+			$structure = imap_fetchstructure($inbox, $MID, FT_UID);
 			$parts_total = count($structure->parts);
 			$parts = $structure->parts;
 			$seen_msg = $overview[0]->seen;
+			
+			pre($overview);
 
 			$attachments = array();
 			
