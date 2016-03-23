@@ -217,7 +217,7 @@ if ($inbox){
 
 								include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
 
-								if (sendClientEmail()) {
+								if (sendClientEmail($data)) {
 									$data['sent'] = time();
 									imap_setflag_full($inbox, $email_number, "\\Seen \\Flagged", ST_UID);
 								} else {

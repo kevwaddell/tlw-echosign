@@ -1,24 +1,24 @@
 <?php 
-function sendClientEmail() {
-	global $data;
+function sendClientEmail($data) {
+	$d = $data;
 								
-	$body = file_get_contents(SITEROOT.'/temps/client-email-notify.php?cref='.$data['ref']);
+	$body = file_get_contents(SITEROOT.'/temps/client-email-notify.php?cref='.$d['ref']);
 	
-	$mail_.$data['ref'] = new PHPMailer();
+	$mail_.$d['ref'] = new PHPMailer();
 	
 	//SMTP settings
-	$mail_.$data['ref']->isSMTP();
+	$mail_.$d['ref']->isSMTP();
 	include_once($_SERVER['DOCUMENT_ROOT'].'/inc/tlw-smtp.php');		
 	
 	//Sending options	
-	$mail_.$data['ref']->AddReplyTo(TLW_REPLY_EMAIL, TLW_REPLY_NAME);
-	$mail_.$data['ref']->SetFrom(TLW_SOURCE_EMAIL, TLW_SOURCE_NAME);
-	$mail_.$data['ref']->AddAddress($data['email']);
-	$mail_.$data['ref']->Subject = "Your TLW Solicitors Client Agreement is ready to sign";
-	$mail_.$data['ref']->MsgHTML($body);
+	$mail_.$d['ref']->AddReplyTo(TLW_REPLY_EMAIL, TLW_REPLY_NAME);
+	$mail_.$d['ref']->SetFrom(TLW_SOURCE_EMAIL, TLW_SOURCE_NAME);
+	$mail_.$d['ref']->AddAddress($data['email']);
+	$mail_.$d['ref']->Subject = "Your TLW Solicitors Client Agreement is ready to sign";
+	$mail_.$d['ref']->MsgHTML($body);
 	
-	pre($mail_.$data['ref']);
+	pre($mail_.$d['ref']);
 	
-	return $mail_.$data['ref']->Send();
+	return $mail_.$d['ref']->Send();
 }	
 ?>
