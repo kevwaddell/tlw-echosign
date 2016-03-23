@@ -29,7 +29,7 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 			$data['tkn'] = $new_tkn;
 			$data['old_tkn'] = $old_tkn;
 			
-				if ( sendClientEmail() ) {
+				if ( sendClientEmail($data) ) {
 				$unsigned_logs[$k]['sent'] = time();
 				$new_logs = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	
 				$new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$data['ref'].'/data.txt', serialize($data));	

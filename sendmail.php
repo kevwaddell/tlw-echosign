@@ -29,7 +29,7 @@ $log_date = date('Y-m-d', time());
 			$unsigned_logs = unserialize($unsigned_logs_raw);
 
 			
-			if ( sendClientEmail() ) {
+			if ( sendClientEmail($data) ) {
 				
 				foreach($unsigned_logs as $k => $log) {
 					
