@@ -86,6 +86,8 @@ if ($inbox){
 		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
 		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log', serialize($email_logs));
 		
+		pre($emails);
+		
 		/* for every email... */
 		foreach($emails as $MID) {
 			$emails_counter++;
@@ -101,8 +103,6 @@ if ($inbox){
 			$parts_total = count($structure->parts);
 			$parts = $structure->parts;
 			$seen_msg = $overview[0]->seen;
-			
-			pre($overview);
 
 			$attachments = array();
 			
