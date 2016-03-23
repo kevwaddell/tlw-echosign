@@ -86,23 +86,23 @@ if ($inbox){
 		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
 		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log', serialize($email_logs));
 		
-		pre($emails);
-		
 		/* for every email... */
 		foreach($emails as $id) {
 			$emails_counter++;
 			
-			if ($emails_counter > 1) {
+			if ($emails_counter > 2) {
 			exit;	
 			}
 			
 			/* get information specific to this email */
-			$overview = imap_fetch_overview($inbox, $id, 0, FT_UID);
+			$overview = imap_fetch_overview($inbox, $id, FT_UID);
 			$message = imap_fetchbody($inbox, $id, 2, FT_UID);
 			$structure = imap_fetchstructure($inbox, $id, FT_UID);
 			$parts_total = count($structure->parts);
 			$parts = $structure->parts;
 			$seen_msg = $overview[0]->seen;
+					
+			//pre($overview);
 
 			$attachments = array();
 			
@@ -144,7 +144,7 @@ if ($inbox){
 	
 	           if ( $attachments[$k]['is_attachment'] ) {
 		           
-	             $attachments[$k]['attachment'] = imap_fetchbody($inbox, $email_number, $k+1);
+	             $attachments[$k]['attachment'] = imap_fetchbody($inbox, $id, $k+1, FT_UID);
 	            
 	             if($v->encoding == 3) { // 3 = BASE64
 		             
