@@ -15,8 +15,11 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <?php
 $sent_data = false;
 $log_date = date('Y-m-d', time());
+$log_path = "/logs/";
+$archive_log_path = "/logs/archives/sent-logs-archive/";
 
-$log_files = glob(dirname(__FILE__) . "/sent-data-*.log");
+$log_files = glob($_SERVER['DOCUMENT_ROOT'] . "/admin".$log_path."sent-data-*.log");
+$log_files .= glob($_SERVER['DOCUMENT_ROOT'] . "/admin".$archive_log_path."sent-data-*.log");
 
 if (!empty($log_files)) {
 $dates = array();
@@ -35,11 +38,17 @@ $dates = array();
 }
 
 if (isset($_POST['change_logs'])) {
-$log_date = $_POST['log_date'];		
+	$change_logs = $_POST['change_logs'];
+	
+	if ($change_logs != $log_date) {
+	$log_path = $archive_log_path;	
+	}
+	
+	$log_date = $_POST['log_date'];		
 }
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log')) {
-$raw_sent_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log');	
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_date.'.log')) {
+$raw_sent_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_date.'.log');	
 $sent_data = unserialize($raw_sent_data);	
 }	
 ?>

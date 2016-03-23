@@ -15,8 +15,11 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <?php
 $unsigned_data = false;
 $log_date = date('Y-m-d', time());
+$log_path = "/logs/";
+$archive_log_path = "/logs/archives/email-logs-archive/";
 
-$log_files = glob(dirname(__FILE__) . "/unsigned-*.log");
+$log_files = glob($_SERVER['DOCUMENT_ROOT'] . "/admin".$log_path."unsigned-*.log");
+$log_files .= glob($_SERVER['DOCUMENT_ROOT'] . "/admin".$archive_log_path."unsigned-*.log");
 
 if (!empty($log_files)) {
 $dates = array();
@@ -32,16 +35,21 @@ rsort($dates);
 }
 
 if (isset($_POST['change_logs'])) {
+	
+	$change_logs = $_POST['change_logs'];
+	
+	if ($change_logs != $log_date) {
+	$log_path = $archive_log_path;	
+	}
+
 	$log_date = $_POST['log_date'];
-	$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');	
-	$unsigned_data = unserialize($raw_unsigned_data);	
-} else {
-	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log')) {
-	$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');	
-	$unsigned_data = unserialize($raw_unsigned_data);	
-	//echo '<pre class="debug">';print_r($unsigned_data);echo '</pre>';
-	}		
 }
+
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/'.$log_path.'unsigned-'.$log_date.'.log')) {
+$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'unsigned-'.$log_date.'.log');	
+$unsigned_data = unserialize($raw_unsigned_data);	
+//echo '<pre class="debug">';print_r($unsigned_data);echo '</pre>';
+}	
 
 ?>
 </head>
