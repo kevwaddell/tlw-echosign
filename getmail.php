@@ -89,7 +89,7 @@ if ($inbox){
 		pre($emails);
 		
 		/* for every email... */
-		foreach($emails as $MID) {
+		foreach($emails as $id) {
 			$emails_counter++;
 			
 			if ($emails_counter > 1) {
@@ -97,9 +97,9 @@ if ($inbox){
 			}
 			
 			/* get information specific to this email */
-			$overview = imap_fetch_overview($inbox, $MID, 0, FT_UID);
-			$message = imap_fetchbody($inbox, $MID, 2, FT_UID);
-			$structure = imap_fetchstructure($inbox, $MID, FT_UID);
+			$overview = imap_fetch_overview($inbox, $id, 0, FT_UID);
+			$message = imap_fetchbody($inbox, $id, 2, FT_UID);
+			$structure = imap_fetchstructure($inbox, $id, FT_UID);
 			$parts_total = count($structure->parts);
 			$parts = $structure->parts;
 			$seen_msg = $overview[0]->seen;
@@ -221,7 +221,7 @@ if ($inbox){
 
 								if (sendClientEmail($data)) {
 									$data['sent'] = time();
-									imap_setflag_full($inbox, $email_number, "\\Seen \\Flagged", ST_UID);
+									imap_setflag_full($inbox, $id, "\\Seen \\Flagged", ST_UID);
 								} else {
 									$data['sent'] = NULL;
 																
