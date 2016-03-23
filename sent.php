@@ -18,54 +18,54 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gs-function.php');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php 
 $log_date = date('Y-m-d', time());
-$move_folder = false;
-$signed_data = array();	
 
 if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
-	
-	if (is_dir ( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] ))  {
-	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'].'/data.txt');
-	$data = unserialize($raw_data);		
-	}
-	
-	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log') ) {
-	$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log');	
-	$signed_data = unserialize($raw_signed_data);	
-	}
-	
-	$signed_data[] = array(
-	'ref' => $data['ref'], 
-	'tkn' => $data['tkn'], 
-	'sby' => $data['fullname'], 
-	'sdate' =>  $data['signed'], 
-	'rdate' => strtotime('+1 day', time()) 
-	);
-	
-	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log', serialize($signed_data));
-	
-	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log')) {
-	$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');
-	$unsigned_data = unserialize($raw_unsigned_data);	
-		foreach ($unsigned_data as $k => $ud) {
-		
-			if ($ud['ref'] == $_GET['cref']) {
-			unset($unsigned_data[$k]);
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_data));
-			}	
-		}
-	}
 	
 	if (is_dir( $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'] )) {
 		$src = $_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'];
 		$dest = $_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'];
 		
 		if ( rename($src, $dest) ) {
-		$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'].'/data.txt');
-		$data = unserialize($raw_data);	
-		sendITEmail();	
-		sendClientPDFEmail();
+			$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'].'/data.txt');
+			$data = unserialize($raw_data);	
+			sendITEmail();	
+			sendClientPDFEmail();
+		} else {
+			$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'].'/data.txt');
+			$data = unserialize($raw_data);	
 		}
 
+	}
+	
+	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log') ) {
+		$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log');	
+		$signed_data = unserialize($raw_signed_data);	
+	} else {
+		$signed_data = array();		
+	}
+	
+	$signed_data[] = array(
+		'ref' => $data['ref'], 
+		'tkn' => $data['tkn'], 
+		'sby' => $data['fullname'], 
+		'sdate' =>  $data['signed'], 
+		'rdate' => strtotime('+1 day', time()) 
+	);
+	
+	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log', serialize($signed_data));
+	
+	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log')) {
+		$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');
+		$unsigned_data = unserialize($raw_unsigned_data);	
+		
+		foreach ($unsigned_data as $k => $ud) {
+		
+			if ($ud['ref'] == $_GET['cref']) {
+			unset($unsigned_data[$k]);
+			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_data));
+			}	
+			
+		}
 	}
 	
 //echo '<pre>';print_r($data);echo '</pre>';
@@ -73,7 +73,7 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'].'/data.txt');
 	$data = unserialize($raw_data);		
 } else {
-header("Location: ". SITEROOT ."/");		
+	header("Location: ". SITEROOT ."/");		
 }
 ?>
 </head>
