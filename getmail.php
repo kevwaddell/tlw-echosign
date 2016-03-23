@@ -24,7 +24,7 @@ if ($inbox){
 	//echo "<br> --> connection successful....<br>";
 	
 	/* grab emails */
-	$emails = imap_search($inbox,'ALL');
+	$emails = imap_search($inbox,'ALL', SE_UID);
 	
 	if($emails) {
 
