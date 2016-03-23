@@ -24,7 +24,7 @@ if ($inbox){
 	//echo "<br> --> connection successful....<br>";
 	
 	/* grab emails */
-	$emails = imap_search($inbox,'ALL');
+	$emails = imap_search($inbox,'UNSEEN');
 	
 	pre($emails);
 	
@@ -92,7 +92,7 @@ if ($inbox){
 		foreach($emails as $email_number) {
 			$emails_counter++;
 			
-			if ($emails_counter > 2) {
+			if ($emails_counter > 1) {
 			exit;	
 			}
 			
