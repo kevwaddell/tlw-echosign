@@ -26,6 +26,8 @@ if ($inbox){
 	/* grab emails */
 	$emails = imap_search($inbox,'ALL', SE_UID);
 	
+	pre($emails);
+	
 	if($emails) {
 
 		$emails_counter = 0;
