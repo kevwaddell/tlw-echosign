@@ -26,7 +26,7 @@ if (!empty($archive_log_files)) {
 $log_files = array_merge($log_files, $archive_log_files);
 }
 
-pre($log_files);
+//pre($log_files);
 
 if (!empty($log_files)) {
 $dates = array();
