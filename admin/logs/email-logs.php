@@ -20,7 +20,11 @@ $log_path = "/logs/";
 $archive_log_path = "/logs/archives/email-logs-archive/";
 
 $log_files = glob($_SERVER['DOCUMENT_ROOT'] . "/admin".$log_path."email-logs-*.log");
-$log_files .= glob($_SERVER['DOCUMENT_ROOT'] . "/admin".$archive_log_path."email-logs-*.log");
+$archive_log_files = glob($_SERVER['DOCUMENT_ROOT'] . "/admin".$archive_log_path."email-logs-*.log");
+
+if (!empty($archive_log_files)) {
+$log_files = array_merge($log_files, $archive_log_files);
+}
 
 pre($log_files);
 
@@ -39,13 +43,13 @@ rsort($dates);
 
 if (isset($_POST['change_logs'])) {
 
-	$change_logs = $_POST['change_logs'];
+	$change_logs_date = $_POST['log_date'];
 	
-	if ($change_logs != $log_date) {
+	if ($change_logs_date != $log_date) {
 	$log_path = $archive_log_path;	
 	}
 	
-	$log_date = $change_logs;
+	$log_date = $change_logs_date;
 }
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'email-logs-'.$log_date.'.log')) {
