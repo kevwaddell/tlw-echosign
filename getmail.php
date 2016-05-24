@@ -52,7 +52,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$prev_log_da
 }
 
 if ($inbox){
-	imap_expunge($inbox);
+
 	//echo "<br> --> connection successful....<br>";
 	
 	/* grab emails */
@@ -255,12 +255,13 @@ if ($inbox){
 				}
 
 			} // foreach overview	
+		
+		imap_expunge($inbox);	
+		imap_close($inbox);
 					
 		} // For every email
 
 	} //if ther are emails
-	
-imap_close($inbox);
 
 } else {
 	
