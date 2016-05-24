@@ -42,7 +42,7 @@ $dates = array();
 }
 
 if (isset($_POST['change_logs'])) {
-	$change_logs_date = $_POST['log_date']
+	$change_logs_date = $_POST['log_date'];
 	
 	if ($change_logs_date != $log_date) {
 	$log_path = $archive_log_path;	

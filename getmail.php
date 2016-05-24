@@ -187,6 +187,7 @@ if ($inbox){
 			$client_ref = strtolower($subject_parts[0]);
 			$client_name = strtolower($subject_parts[1]);
 			$client_email = $subject_parts[2];
+			$handler_email = $subject_parts[3];
 			$result = null;
 	
 				if ($seen_msg == 0) {
@@ -204,6 +205,7 @@ if ($inbox){
 							//Add the data from the email subject line to an array
 							$data = array(
 						    'ref' => $client_ref,
+						    'handler'	=> $handler_email,
 							'email' => $client_email,
 							'firstname' => ucwords($client_name),
 							'tkn'	=> md5( uniqid(rand(), true) )
@@ -214,7 +216,7 @@ if ($inbox){
 
 								$php_temp = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temps/letter-tmp.php');  
 						        $new_doc = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
-						        $new_html = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'.'sign.php', $php_temp);
+						        $new_html = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'.'sign.php', $php_temp);    
 						        $new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));  
 						        $result = "OK";
 	
