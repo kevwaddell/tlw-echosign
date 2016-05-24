@@ -109,7 +109,7 @@ if ($inbox){
 			$emails_counter++;
 		
 			if ($emails_counter > 1) {
-			exit;	
+			break;	
 			}
 			
 			/* get information specific to this email */
