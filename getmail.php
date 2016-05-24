@@ -259,6 +259,8 @@ if ($inbox){
 	} //if ther are emails
 	
 	imap_expunge($inbox);	
+	imap_errors();
+	imap_alerts();
 	imap_close($inbox);
 	
 } else {
