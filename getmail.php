@@ -245,24 +245,22 @@ if ($inbox){
 						
 				} else { // If Folder already exists delete email
 					imap_delete($inbox, $overview[0]->msgno);
-					imap_close($inbox);	
 				}
 									
 					
 				} else { // If no attachments delete email
 					imap_delete($inbox, $overview[0]->msgno);
-					imap_close($inbox);	
 				}
 
 			} // foreach overview	
-		
-		imap_expunge($inbox);	
-		imap_close($inbox);
 					
 		} // For every email
 
 	} //if ther are emails
-
+	
+	imap_expunge($inbox);	
+	imap_close($inbox);
+	
 } else {
 	
 	if (file_exists('logs/imap-error-logs-'.$log_date.'.log')) {
