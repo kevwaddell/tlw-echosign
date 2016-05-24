@@ -101,12 +101,6 @@ $doc = parseWord($file);
 					}
 					
 					echo $html;
-					
-					if (isset($_POST['name'])) {
-						$data['fullname'] = ucwords($_POST['name']);
-						file_put_contents('data.txt', serialize($data));
-						//echo '<pre>';print_r($data);echo '</pre>';
-					}
 				?>
 				<form method="post" action="<?php echo SITEROOT; ?>/sendsig/">
 			    	<button id="confirm-sig" type="submit" class="btn btn-success btn-lg btn-block caps">Confirm and send<i class="glyphicon glyphicon-ok pull-left"></i> </button>

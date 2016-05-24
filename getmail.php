@@ -3,6 +3,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/global-settings.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
+$php_temp 	= 	file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temps/letter-tmp.php'); 
 
 function getFileExtension($fileName){
    $parts = explode(".",$fileName);
@@ -51,11 +52,13 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$prev_log_da
 }
 
 if ($inbox){
-	
+	imap_expunge($inbox);
 	//echo "<br> --> connection successful....<br>";
 	
 	/* grab emails */
 	$emails = imap_search($inbox,'ALL', SE_UID);
+	
+	//echo '<pre class="debug">';print_r($emails);echo '</pre>';
 	
 	if($emails) {
 
@@ -65,9 +68,9 @@ if ($inbox){
 		$unsigned_logs = array();
 		$signed_logs = array();
 		
-		//echo "Total Messages: " . $check['Nmsgs'] . "<br />\n";
-		//echo "Unread Messages: " . $check['Unread'] . "<br />\n";
-		//echo "Deleted Messages: " . $check['Deleted'] . "<br />\n";
+		//echo "Total Messages: " . $check->Nmsgs . "<br />\n";
+		//echo "Unread Messages: " . $check->Unread . "<br />\n";
+		//echo "Deleted Messages: " . $check->Deleted . "<br />\n";
 		
 		/*
 		Check if log files exist and if not create 
@@ -95,19 +98,17 @@ if ($inbox){
 		}
 		
 		rsort($emails);
+		
 		// Check if Emails are Unread
-		if ($check->Unread > 0) {
-			
-		//pre($check->Unread);	
-			
 		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
 		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log', serialize($email_logs));
 		
 		/* for every email... */
 		foreach($emails as $id) {
-			$emails_counter++;
 			
-			if ($emails_counter > 2) {
+			$emails_counter++;
+		
+			if ($emails_counter > 1) {
 			exit;	
 			}
 			
@@ -117,18 +118,24 @@ if ($inbox){
 			$structure = imap_fetchstructure($inbox, $id, FT_UID);
 			$parts_total = count($structure->parts);
 			$parts = $structure->parts;
-			$seen_msg = $overview[0]->seen;
-					
-			//pre($overview);
+			
+			foreach($parts as $k => $v) {
+				if ($v->subtype == 'PLAIN') {
+				unset($parts[$k]);  
+	           	}
+			}
+			
+			rsort($parts);
 
 			$attachments = array();
 			
 			if( isset($parts) && $parts_total > 0 ) {
 	         
 	         foreach($parts as $k => $v) {
-	           $attachments[$k] = array('is_attachment' => false,'filename' => '','name' => '','attachment' => '');
-			   
-			   //pre($v);
+		         	
+			 	if ($parts_total == 1) {
+			 	$k = 0;	
+				}
 			   
 	           if( $v->ifdparameters ) {
 	             
@@ -161,7 +168,7 @@ if ($inbox){
 	
 	           if ( $attachments[$k]['is_attachment'] ) {
 		           
-	             $attachments[$k]['attachment'] = imap_fetchbody($inbox, $id, $k+1, FT_UID);
+	             $attachments[$k]['attachment'] = imap_fetchbody($inbox, $id, $k+2, FT_UID);
 	            
 	             if($v->encoding == 3) { // 3 = BASE64
 		             
@@ -178,90 +185,78 @@ if ($inbox){
 	         } //  foreach($parts as $k => $v)
 	         
 	       } // if(isset($structure['parts']) && count($structure['parts']))
-	       
-	       // 
+
 	       foreach ($overview as $ov) {
 			$seen_msg = $ov->seen;
 			$subject = $ov->subject;
 			$subject_parts = explode('&', $subject);
 			$client_ref = strtolower($subject_parts[0]);
-			$client_name = strtolower($subject_parts[1]);
-			$client_email = $subject_parts[2];
-			$handler_email = $subject_parts[3];
+			$client_fname = strtolower($subject_parts[1]);
+			$client_lname = strtolower($subject_parts[2]);
+			$client_email = $subject_parts[3];
+			$handler_email = $subject_parts[4];
 			$result = null;
-	
-				if ($seen_msg == 0) {
+			$data = array();
+			
+				if (count($attachments) == 1) {
+					$name 		= 	$attachments[0]['name'];
+					$contents 	= 	$attachments[0]['attachment'];
+					$doc_dir 	= 	$client_ref;
+					$doc_ext 	= 	getFileExtension($name);
+					$doc_name 	= 	$client_ref.'-letter.'. $doc_ext;
+
+					
+					if ( !is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir)  ) {	
+
+						$dir = mkdir($client_ref, 0755);
+					
+						if ($dir == 1) {
+							//DATA ARRAY VALUES					
+							$data['ref'] 		= 	$client_ref;
+							$data['handler'] 	=	$handler_email;
+							$data['email'] 		=	$client_email;
+							$data['firstname'] 	=	ucwords($client_fname);
+							$data['lastname'] 	=	ucwords($client_lname);
+							$data['tkn'] 		=	md5( uniqid(rand(), true) );
+							$data['sent']		=	time();
+							
+							//FILES CREATED	
+							$new_doc 	= 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
+							$new_html 	= 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/sign.php', $php_temp);
+							$new_data 	= 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));	
+							
+							pre($data);
+							
+							include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
+							
+							if (sendClientEmail($data)) { 								
+								imap_delete($inbox, $overview[0]->msgno);
+							} else {
+								$raw_data 	= 	file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt');
+								$data 		= 	unserialize($raw_data);
+								$data['sent'] = NULL;
+								$new_data 	= 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));
+								imap_clearflag_full($inbox, $overview[0]->msgno, "\\Seen", ST_UID);	
+							}
 						
-					foreach ($attachments as $key => $attachment) {
-				        
-				        $name = $attachment['name'];
-				        $contents = $attachment['attachment'];
-					    
-					    if (getFileExtension($name) == "doc") {
-						    $doc_dir = $client_ref;
-						    $doc_ext = getFileExtension($name);
-							$doc_name = $client_ref.'-letter.'. $doc_ext;
-							
-							//Add the data from the email subject line to an array
-							$data = array(
-						    'ref' => $client_ref,
-						    'handler'	=> $handler_email,
-							'email' => $client_email,
-							'firstname' => ucwords($client_name),
-							'tkn'	=> md5( uniqid(rand(), true) )
-							);
-							
-						    //Check if the directory exists if not create it and add data files
-						    if ( is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir) ) {
+							$unsigned_logs[] = $data;
+							file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
+						}								
+						
+				} else { // If Folder already exists delete email
+					imap_delete($inbox, $overview[0]->msgno);
+					imap_close($inbox);	
+				}
+									
+					
+				} else { // If no attachments delete email
+					imap_delete($inbox, $overview[0]->msgno);
+					imap_close($inbox);	
+				}
 
-								$php_temp = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temps/letter-tmp.php');  
-						        $new_doc = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
-						        $new_html = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'.'sign.php', $php_temp);    
-						        $new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));  
-						        $result = "OK";
-	
-					        } else {
-						        
-						     	$dir = mkdir($client_ref, 0755);
-						     	
-						     	if ($dir == 1) {
-								$php_temp = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temps/letter-tmp.php');  
-						        $new_doc = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
-						        $new_html = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'.'sign.php', $php_temp);
-						        $new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));
-						        $result = "OK";
-								}					        }
-					        
-					       // echo '<pre>';print_r($result);echo '</pre>';
-  							
-							if ($result == "OK") {
-
-								include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
-
-								if (sendClientEmail($data)) {
-									$data['sent'] = time();
-									imap_setflag_full($inbox, $id, "\\Seen \\Flagged", ST_UID);
-								} else {
-									$data['sent'] = NULL;
-																
-								}// If client email sent
-								
-								$unsigned_logs[] = $data;
-								file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
-
-							} // If result OK
-							
-					    } // if file is word doc
-					    
-				    } //Foreach attachment 
-				    
-				}// If seen message = 0
-				
 			} // foreach overview	
 					
 		} // For every email
-		
-		} // Check if Emails are Unread
 
 	} //if ther are emails
 	
