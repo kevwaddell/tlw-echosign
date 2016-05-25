@@ -32,12 +32,6 @@ $sent = 0;
 		foreach($sendTo as $k => $s){
 		//pre($s);
 		$mail = mail($s['handler'], 'Testing - '. $s['ref'], $s['message'], $headers);
-		
-			if ($mail) {
-			$sent = 1;
-			pre($sent);
-			}
-	
 		}
 		
 			
