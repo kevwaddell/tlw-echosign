@@ -40,10 +40,10 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 			$body = file_get_contents(SITEROOT.'/temps/handler-email-notify.php?cref='.$s['ref']);
 			$mail->AddAddress($s['handler']);	
 			$mail->MsgHTML($body);
-			if ($mail->Send()) {
-			echo "Mail Sent for ref". $s['ref'] ."</br>";
+			if (!$mail->Send()) {
+			echo "Mail was not sent for: ". $s['ref']."</br>";	
 			} else {
-			echo "Mail was not sent for". $s['ref']."</br>";	
+			echo "Mail Sent for ref: ". $s['ref'] ."</br>";	
 			}
 			$mail->clearAddresses();
 			$mail->clearAttachments();
