@@ -53,8 +53,8 @@ if ( isset($_GET['cref']) ) {
 					<?php if (isset($_GET['sent']) && $_GET['sent'] == 0) { ?>
 					<?php
 						$error_type = "";
-						
-						switch ($_GET['error') {
+	
+						switch ($_GET['error']) {
 						case "email": $error_type = "Email not sending";
 						break;
 						case "nodir": $error_type = "Client folder does not exist" ;
