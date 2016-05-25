@@ -38,7 +38,7 @@ $cref = $data['ref'];
 			<h2 align="center" style="color: #ca156e;">TLW Solicitors Client Agreement has not been signed yet</h2>
 			<p align="center">Client name: <?php echo $name; ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Client ref: <?php echo $cref; ?></p>
 			<p align="center">Please go to the following link to resend the notification email.</p>
-			<p align="center"><a href="<?php echo SITEROOT; ?>/sendmail/?cref=<?php echo $cref; ?>">View document</a></p>
+			<p align="center"><a href="<?php echo SITEROOT; ?>/sendmail/?cref=<?php echo $cref; ?>" style="display: inline-block; padding: 10px; background-color: #ACD15C; text-transform: uppercase; color: white; font-weight: bold;">Send Now</a></p>
 			<p align="center">If you have any problems viewing the link above.</p>
 			<p align="center"><strong>Please notify the website administrator <a href="mailto: webmaster@tlwsolicitors.co.uk" style="color: #ca156e;">webmaster@tlwsolicitors.co.uk</a> or call EXT: 210</strong></p>
 		</div>
