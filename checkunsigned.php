@@ -21,7 +21,7 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 			$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$ul['ref'].'/data.txt');	
 			$data = unserialize($raw_data);	
 
-				if ( sendHandlerEmail($data) ) {
+				if ( sendHandlerEmail($data, $data['ref']) ) {
 				$data['sent'] = time();
 				$new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$data['ref'].'/data.txt', serialize($data));	
 				pre("Handler email sent.");
