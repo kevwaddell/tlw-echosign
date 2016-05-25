@@ -3,7 +3,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/global-settings.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
-include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-handler-email.php');
 $log_date = date('Y-m-d', time());
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log')) {
@@ -15,24 +15,18 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 	//pre($unsigned_logs);
 		
 		foreach ($unsigned_logs as $k => $ul) {
-		$datePlus2Days = strtotime("+2 days", $ul['sent']);
-		
-		//pre(gmdate('jS F, Y, g:ia', $ul['sent']));
+		$datePlus2Days = strtotime("+12 hours", $ul['sent']);
 		
 			if ($datePlus2Days < $now) {
 			$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$ul['ref'].'/data.txt');	
 			$data = unserialize($raw_data);	
-			$old_tkn = $data['tkn'];
-			$new_tkn = md5( uniqid(rand(), true) );
-			$unsigned_logs[$k]['old_tkn'] = $old_tkn;
-			$unsigned_logs[$k]['tkn'] = $new_tkn;
-			$data['tkn'] = $new_tkn;
-			$data['old_tkn'] = $old_tkn;
-			
-				if ( sendClientEmail($data) ) {
-				$unsigned_logs[$k]['sent'] = time();
-				$new_logs = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));	
+
+				if ( sendHandlerEmail($data) ) {
+				$data['sent'] = time();
 				$new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$data['ref'].'/data.txt', serialize($data));	
+				pre("Handler email sent.");
+				} else {
+				pre("Error sending Handler email!");	
 				}
 				
 			} //if 2 days gone
