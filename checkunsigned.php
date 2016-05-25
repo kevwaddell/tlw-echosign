@@ -2,13 +2,13 @@
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/global-settings.php');
-include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
 $log_date = date('Y-m-d', time());
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log')) {
 $unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');
 $unsigned_logs = unserialize($unsigned_logs_raw);	
-	
+$sent = 0;
+
 	if (!empty($unsigned_logs)) {
 	$now = time();
 	$sendTo = array();
@@ -21,33 +21,25 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 			$data = unserialize($raw_data);	
 			$sendTo[$k]['ref'] = $ul['ref'];
 			$sendTo[$k]['handler'] = $ul['handler'];
+			$sendTo[$k]['message']= file_get_contents(SITEROOT.'/temps/handler-email-notify.php?cref='.$ul['ref']);
 			} //if 2 days gone
 		
 		} // foreach unsigned log
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= 'From: TLW Esign <webmaster@tlwsolicitors.co.uk>' . "\r\n";
 		
-		$mail = new PHPMailer();
-	
-		//SMTP settings
-		$mail->isSMTP();
-		include_once($_SERVER['DOCUMENT_ROOT'].'/inc/tlw-smtp.php');		
+		foreach($sendTo as $k => $s){
+		//pre($s);
+		$mail = mail($s['handler'], 'Testing - '. $s['ref'], $s['message'], $headers);
 		
-		//Sending options	
-		//$mail->SMTPDebug = 2;
-		$mail->SetFrom(TLW_SOURCE_EMAIL, TLW_SOURCE_NAME);
-		$mail->Subject = "TLW Solicitors Client Agreement has not been signed - ".rand()." - Testing";
-		
-		foreach($sendTo as $s){
-			$body = file_get_contents(SITEROOT.'/temps/handler-email-notify.php?cref='.$s['ref']);
-			$mail->AddAddress($s['handler']);	
-			$mail->MsgHTML($body);
-			if (!$mail->Send()) {
-			echo "Mail was not sent for: ". $s['ref']."</br>";	
-			} else {
-			echo "Mail Sent for ref: ". $s['ref'] ."</br>";	
+			if ($mail) {
+			$sent = 1;
+			pre($sent);
 			}
-			$mail->clearAddresses();
-			$mail->clearAttachments();
+	
 		}
+		
 			
 	} else {
 	exit;	
