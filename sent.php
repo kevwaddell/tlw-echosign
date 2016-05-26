@@ -47,7 +47,7 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 	$signed_data[] = array(
 		'ref' => $data['ref'], 
 		'tkn' => $data['tkn'], 
-		'sby' => $data['fullname'], 
+		'sby' => $data['firstname']." ".$data['lastname'], 
 		'sdate' =>  $data['signed'], 
 		'rdate' => strtotime('+1 month', time()) 
 	);

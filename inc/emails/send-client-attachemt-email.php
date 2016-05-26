@@ -17,11 +17,7 @@ function sendClientPDFEmail() {
 	
 	$pdfmail->AddReplyTo(TLW_REPLY_EMAIL, TLW_REPLY_NAME);
 	$pdfmail->SetFrom(TLW_SOURCE_EMAIL, TLW_SOURCE_NAME);
-	if (!$data['fullname']) {
-	$pdfmail->AddAddress($data['email']);	
-	} else {
-	$pdfmail->AddAddress($data['email'], $data['fullname']);	
-	}
+	$pdfmail->AddAddress($data['email'], $data['firstname']." ".$data['lastname']);	
 	$pdfmail->Subject = "Thank you for signing our agreement";
 	$pdfmail->MsgHTML($body);
 	$pdfmail->AddAttachment($_SERVER['DOCUMENT_ROOT']."/signed/".$data['ref']."/".$data['ref'].".pdf");

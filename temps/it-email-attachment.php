@@ -35,7 +35,7 @@ $remove_date = date('g:ia, jS F, Y', $remove_date_raw);
 		</div>
 		
 		<div class="content" style="padding: 20px 40px; font-size: 16px; min-height: 100px;">
-			<h2><span style="color: #ca156e;"><?php echo $data['fullname']; ?></span> has signed their client agreement.</h2>
+			<h2><span style="color: #ca156e;"><?php echo $data['firstname']; ?> <?php echo $data['lastname']; ?></span> has signed their client agreement.</h2>
 			<p>Client agreement PDF is attached to this email.</p>
 			<p>Details:</p>
 			<ul>
