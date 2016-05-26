@@ -92,16 +92,18 @@ if (isset($_GET['cref']) && $_GET['cref'] != "") {
 				
 				if (zip_files($log_data)){
 					echo "Files zipped successfully!!";	
-					
-					if (isset($_GET['zip']) && $_GET['zip'] == "all") {
-					header("Location: ". $referer ."?zipped=1");	
-					}
+				} else {
+				exit("Files not zipped");	
 				}//if files zipped
 				
 			}//if log data not empty
 			
 		}//foreach log files
-
+		
+		if (isset($_GET['zip']) && $_GET['zip'] == "all") {
+			header("Location: ". $referer ."?zipped=1");	
+		}
+		
 	}//if log files not empty
 	
 }//check if single zip is required 
