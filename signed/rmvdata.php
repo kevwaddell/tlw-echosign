@@ -2,9 +2,11 @@
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 
+if (in_array('HTTP_REFERER', $_SERVER)) {
 $referer_raw = $_SERVER['HTTP_REFERER'];
 $referer_parse = parse_url($referer_raw);
-$referer = $referer_parse['scheme']."://".$referer_parse['host'].$referer_parse['path'];
+$referer = $referer_parse['scheme']."://".$referer_parse['host'].$referer_parse['path'];	
+}
 $now = time();
 	
 if (isset($_GET['cref']) && isset($_GET['log'])) {
