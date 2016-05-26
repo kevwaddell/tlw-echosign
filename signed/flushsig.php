@@ -62,12 +62,14 @@ function zip_files($data) {
 	
 	return true;
 }
-$referer_raw = $_SERVER['HTTP_REFERER'];
+
+if (in_array('HTTP_REFERER', $_SERVER)) {
+$referer_raw = $_SERVER['HTTP_REFERER'];	
+$referer_parse = parse_url($referer_raw);
+$referer = $referer_parse['scheme']."://".$referer_parse['host'].$referer_parse['path'];
+}
 
 if (isset($_GET['cref']) && $_GET['cref'] != "") {	
-	$referer_parse = parse_url($referer_raw);
-	$referer = $referer_parse['scheme']."://".$referer_parse['host'].$referer_parse['path'];
-	
 	$cref = $_GET['cref'];
 	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$cref.'/data.txt');
 	$data = unserialize($raw_data);
@@ -91,8 +93,6 @@ if (isset($_GET['cref']) && $_GET['cref'] != "") {
 					echo "Files zipped successfully!!";	
 					
 					if (isset($_GET['zip']) && $_GET['zip'] == "all") {
-					$referer_parse = parse_url($referer_raw);
-					$referer = $referer_parse['scheme']."://".$referer_parse['host'].$referer_parse['path'];
 					header("Location: ". $referer ."?zipped=1");	
 					}
 				}//if files zipped
