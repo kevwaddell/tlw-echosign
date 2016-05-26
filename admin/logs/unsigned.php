@@ -16,10 +16,12 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 $unsigned_data = false;
 $log_date = date('Y-m-d', time());
 $log_path = "/logs/";
-$archive_log_path = "/logs/archives/email-logs-archive/";
+$archive_log_path = "/logs/archives/unsent-logs-archive/";
 
 $log_files = glob($_SERVER['DOCUMENT_ROOT'] . "/admin".$log_path."unsigned-*.log");
 $archive_log_files = glob($_SERVER['DOCUMENT_ROOT'] . "/admin".$archive_log_path."unsigned-*.log");
+
+//pre($archive_log_files);
 
 if (!empty($archive_log_files)) {
 $log_files = array_merge($log_files, $archive_log_files);
@@ -95,9 +97,6 @@ $unsigned_data = unserialize($raw_unsigned_data);
 						</div>		
 					<?php } ?>
 					
-					<?php if ($unsigned_data) { 
-					//echo '<pre>';print_r($unsigned_data);echo '</pre>';
-					?>
 					<div class="well well-lg table-responsive">
 						
 						<?php if (count($log_files) > 1) { ?>
@@ -121,7 +120,8 @@ $unsigned_data = unserialize($raw_unsigned_data);
 								</form>
 							</div>
 						<?php } ?>
-
+						
+						<?php if ($unsigned_data) { ?>
 						<h3 class="text-center">Document details</h3>
 						<table class="table table-bordered">
 							<thead>
@@ -146,15 +146,21 @@ $unsigned_data = unserialize($raw_unsigned_data);
 										<?php } ?>
 									</td>
 									<td class="text-center" style="vertical-align: middle;">
-									<a href="<?php echo SITEROOT; ?>/sendmail/?cref=<?php echo $data['ref']; ?>" title="Re-send email" class="btn btn-<?php echo ($data['sent']) ? 'success ':'danger '; ?>btn-block">Re-send email</a>	
+										<?php if (is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$data['ref'])) { ?>
+											<a href="<?php echo SITEROOT; ?>/sendmail/?cref=<?php echo $data['ref']; ?>" title="Re-send email" class="btn btn-<?php echo ($data['sent']) ? 'success ':'danger '; ?>btn-block">Re-send email</a>		
+										<?php } else { ?>
+											<strong class="text-success">Document is signed <i class="glyphicon glyphicon-ok pull-right"></i></strong>
+										<?php } ?>
+										
 									</td>
 								</tr>
 								<?php } ?>	
 								
 							</tbody>
 						</table>
+						<?php } else { ?>
 					</div>
-					<?php } else { ?>
+
 					<div class="alert alert-info text-center">
 						<h3>Nothing to sign</h3>
 						<p>There are no unsigned documents at the moment.</p>
