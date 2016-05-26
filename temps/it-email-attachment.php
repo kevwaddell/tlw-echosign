@@ -40,8 +40,9 @@ $remove_date = date('g:ia, jS F, Y', $remove_date_raw);
 			<p>Details:</p>
 			<ul>
 				<li><strong>Client Ref:</strong>  <?php echo $data['ref']; ?></li>
-				<li><strong>Client name:</strong>  <?php echo $data['fullname']; ?></li>
+				<li><strong>Client name:</strong>  <?php echo $data['firstname']; ?> <?php echo $data['lastname']; ?></li>
 				<li><strong>Client email:</strong>  <a href="mailto:<?php echo $data['email']; ?>"><?php echo $data['email']; ?></a></li>
+				<li><strong>Case handler email:</strong>  <a href="mailto:<?php echo $data['handler']; ?>"><?php echo $data['handler']; ?></a></li>
 				<li><strong>Date/time signed:</strong>  <?php echo $signed_date; ?></li>
 				<li><strong>Private token:</strong>  <?php echo $data['tkn']; ?></li>
 			</ul>

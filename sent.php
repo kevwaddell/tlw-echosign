@@ -49,7 +49,7 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 		'tkn' => $data['tkn'], 
 		'sby' => $data['fullname'], 
 		'sdate' =>  $data['signed'], 
-		'rdate' => strtotime('+1 day', time()) 
+		'rdate' => strtotime('+1 month', time()) 
 	);
 	
 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log', serialize($signed_data));
