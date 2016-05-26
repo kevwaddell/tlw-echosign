@@ -14,7 +14,7 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 	$sendTo = array();
 		
 		foreach ($unsigned_logs as $k => $ul) {
-		$datePlus2Days = strtotime("+12 hours", $ul['sent']);
+		$datePlus2Days = strtotime("+2 days", $ul['sent']);
 		
 		//pre(date('jS m Y - G:i', $datePlus2Days));
 		
