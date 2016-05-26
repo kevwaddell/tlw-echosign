@@ -27,11 +27,10 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 		<div class="container">
 			<div class="row">
 				<div class="col-md-10 col-md-offset-1">
-					<div class="well well-lg">
-						<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Zipped file actions</h3>
+					<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Zipped file actions</h3>
 						<a href="<?php echo SITEROOT; ?>/signed/flushsig/?zip=all" class="btn btn-info btn-block btn-lg">Zip all signed folders <i class="glyphicon glyphicon-folder-close pull-right"></i></a>
 						<a href="<?php echo SITEROOT; ?>/signed/rmvzip/?rmv=all" class="btn btn-danger btn-block btn-lg">Delete all zipped files <i class="glyphicon glyphicon-trash pull-right"></i></a>
-					</div>						
+						
 				</div>
 			</div>
 		</div>
