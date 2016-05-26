@@ -12,7 +12,7 @@ $cref = $data['ref'];
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	<title>TLW Client Agreement has not ben signed</title>
+	<title>TLW Client Agreement has not been signed</title>
 </head>
 <body style="background-color: #908e8e; padding: 20px; font-family: Arial, sans-serif;">
 	
