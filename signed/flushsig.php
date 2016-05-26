@@ -59,10 +59,12 @@ function zip_files($data) {
 		}
 	
 	}// End foreach $data
+	
+	return true;
 }
+$referer_raw = $_SERVER['HTTP_REFERER'];
 
-if (isset($_GET['cref']) && $_GET['cref'] != "") {
-	$referer_raw = $_SERVER['HTTP_REFERER'];	
+if (isset($_GET['cref']) && $_GET['cref'] != "") {	
 	$referer_parse = parse_url($referer_raw);
 	$referer = $referer_parse['scheme']."://".$referer_parse['host'].$referer_parse['path'];
 	
@@ -78,15 +80,28 @@ if (isset($_GET['cref']) && $_GET['cref'] != "") {
 } else {
 
 	if(!empty($log_files)) {
+		
 		foreach($log_files as $k => $lf) {
 		$log_raw_data = file_get_contents($lf);		
 		$log_data = unserialize($log_raw_data);
+			
 			if (!empty($log_data)) {
-			zip_files($log_data);
-			}
-		}
-		
-		echo "Files zipped successfully!!";
-	}
-}
+				
+				if (zip_files($log_data)){
+					echo "Files zipped successfully!!";	
+					
+					if (isset($_GET['zip']) && $_GET['zip'] == "all") {
+					$referer_parse = parse_url($referer_raw);
+					$referer = $referer_parse['scheme']."://".$referer_parse['host'].$referer_parse['path'];
+					header("Location: ". $referer ."?zipped=1");	
+					}
+				}//if files zipped
+				
+			}//if log data not empty
+			
+		}//foreach log files
+
+	}//if log files not empty
+	
+}//check if single zip is required 
 ?>
