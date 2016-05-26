@@ -75,18 +75,18 @@ if (isset($_GET['cref']) && $_GET['cref'] != "") {
 	} else {
 		header("Location: ". $referer ."?cref=".$cref."&zipped=0");	
 	}	
-}
-
-if(!empty($log_files)) {
-	foreach($log_files as $k => $lf) {
-	$log_raw_data = file_get_contents($lf);		
-	$log_data = unserialize($log_raw_data);
-		if (!empty($log_data)) {
-		zip_files($log_data);
-		}
-	}
 } else {
-exit;	
-}
 
+	if(!empty($log_files)) {
+		foreach($log_files as $k => $lf) {
+		$log_raw_data = file_get_contents($lf);		
+		$log_data = unserialize($log_raw_data);
+			if (!empty($log_data)) {
+			zip_files($log_data);
+			}
+		}
+		
+		echo "Files zipped successfully!!";
+	}
+}
 ?>
