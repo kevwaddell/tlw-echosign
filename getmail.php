@@ -53,58 +53,55 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$prev_log_da
 
 if ($inbox){
 
-	//echo "<br> --> connection successful....<br>";
+	echo "<br> --> connection successful....<br>";
 	
 	/* grab emails */
-	$emails = imap_search($inbox,'ALL', SE_UID);
+	$emails = imap_search($inbox,'UNSEEN', SE_UID);
 	
-	//pre($emails);
+	$check = imap_mailboxmsginfo($inbox);
+	$email_logs = array();
+	$unsigned_logs = array();
+	$signed_logs = array();
+
+	echo "Total Messages: " . $check->Nmsgs . "<br />\n";
+	echo "Unread Messages: " . $check->Unread . "<br />\n";
+	echo "Deleted Messages: " . $check->Deleted . "<br />\n";
 	
+	/*
+	Check if log files exist and if not create 
+	one for the current date with empty array.	
+	*/
+			
+	if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log')) {
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log', serialize($unsigned_logs));
+	} else {
+		$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log'); 
+		$email_logs = unserialize($email_logs_raw);
+	}
+	
+	// Check if Unsigned logs for current date extists
+	if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log')) {
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
+	} else {
+		$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');
+		$unsigned_logs = unserialize($unsigned_logs_raw);	
+	}	
+	
+	// Check if signed logs for current date extists
+	if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log')) {
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log', serialize($signed_logs));	; 
+	}
+	
+	// Check if Emails are Unread
+	$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
+	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log', serialize($email_logs));
+
 	//$emails = false;
 	
 	if($emails) {
 		
 		rsort($emails);
-		$id = $emails[0];
-	
-		$check = imap_mailboxmsginfo($inbox);
-		$email_logs = array();
-		$unsigned_logs = array();
-		$signed_logs = array();
-		
-		//echo "Total Messages: " . $check->Nmsgs . "<br />\n";
-		//echo "Unread Messages: " . $check->Unread . "<br />\n";
-		//echo "Deleted Messages: " . $check->Deleted . "<br />\n";
-		
-		/*
-		Check if log files exist and if not create 
-		one for the current date with empty array.	
-		*/
-				
-		if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log')) {
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log', serialize($unsigned_logs));
-		} else {
-			$email_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log'); 
-			$email_logs = unserialize($email_logs_raw);
-		}
-		
-		// Check if Unsigned logs for current date extists
-		if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log')) {
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
-		} else {
-			$unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');
-			$unsigned_logs = unserialize($unsigned_logs_raw);	
-		}	
-		
-		// Check if signed logs for current date extists
-		if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log')) {
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log', serialize($signed_logs));	; 
-		}
-		
-		// Check if Emails are Unread
-		$email_logs[] = array('check-date' => time(), 'Nmsgs' => $check->Nmsgs, 'Unread' => $check->Unread, 'Deleted' => $check->Deleted );
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log', serialize($email_logs));
-		
+		$id = $emails[0];	
 		/* for every email... */
 		
 		/* get information specific to this email */
@@ -220,7 +217,7 @@ if ($inbox){
 						$new_html 	= 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/sign.php', $php_temp);
 						$new_data 	= 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));	
 						
-						pre($data);
+						//pre($data);
 						
 						include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
 						
