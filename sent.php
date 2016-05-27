@@ -44,6 +44,11 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 			$data = unserialize($raw_data);	
 		}
 
+	} else {
+		if (is_dir( $_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'] )) {
+		$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'].'/data.txt');
+		$data = unserialize($raw_data);	
+		}
 	}
 	
 	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log') ) {
