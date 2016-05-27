@@ -44,8 +44,8 @@ $signed_date = gmdate('g:ia, jS F, Y', $data['signed']);
 				<li><strong>Date/time signed:</strong>  <?php echo $signed_date; ?></li>
 			</ul>
 			
-			<p style="color: #ca156e;"><strong>The attached PDF will be added to the Proclaim system automatically.</strong><br />
-				The attached PDF is for reference only.
+			<p style="color: #ca156e;"><strong>The attached PDF will be added to the Proclaim system automatically.<br />
+				The attached PDF is for reference only.</strong>
 			</p>
 			
 		</div>
