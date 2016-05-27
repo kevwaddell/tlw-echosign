@@ -12,6 +12,13 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/global-settings.php');
 <title>TLW Solicitors | Secure Sign</title>
 <link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+	function close_window() {
+		if (confirm("Close Window?")) {
+		close();
+  		}
+	}
+</script>
 <?php 
 $log_date = date('Y-m-d', time());
 
