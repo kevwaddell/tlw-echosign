@@ -6,7 +6,6 @@ $cref = $_GET['cref'];
 $raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$cref.'/data.txt');
 $data = unserialize($raw_data);	
 $signed_date = gmdate('g:ia, jS F, Y', $data['signed']);
-$remove_date = date('g:ia, jS F, Y', strtotime( '+ 1 month', $data['signed']));
 ?>
 <html>
 <head>
@@ -34,6 +33,7 @@ $remove_date = date('g:ia, jS F, Y', strtotime( '+ 1 month', $data['signed']));
 		</div>
 		
 		<div class="content" style="padding: 20px 40px; font-size: 16px; min-height: 100px;">
+			
 			<h2><span style="color: #ca156e;"><?php echo $data['firstname']; ?> <?php echo $data['lastname']; ?></span> has signed their client agreement.</h2>
 			<p>Client agreement PDF is attached to this email.</p>
 			<p>Details:</p>
@@ -41,16 +41,8 @@ $remove_date = date('g:ia, jS F, Y', strtotime( '+ 1 month', $data['signed']));
 				<li><strong>Client Ref:</strong>  <?php echo $data['ref']; ?></li>
 				<li><strong>Client name:</strong>  <?php echo $data['firstname']; ?> <?php echo $data['lastname']; ?></li>
 				<li><strong>Client email:</strong>  <a href="mailto:<?php echo $data['email']; ?>"><?php echo $data['email']; ?></a></li>
-				<li><strong>Case handler email:</strong>  <a href="mailto:<?php echo $data['handler']; ?>"><?php echo $data['handler']; ?></a></li>
 				<li><strong>Date/time signed:</strong>  <?php echo $signed_date; ?></li>
-				<li><strong>Private token:</strong>  <?php echo $data['tkn']; ?></li>
 			</ul>
-			
-			<p>The clients data will be be removed from the web server automatically at:<br />
-			<strong><?php echo $remove_date; ?></strong></p>
-			
-			<p>Or click on the link below and remove the data now.<br />
-			<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/">Remove data now !!!</a></p>
 			
 		</div>
 		

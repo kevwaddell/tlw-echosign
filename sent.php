@@ -5,6 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/global-settings.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-IT-attachment-email.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-attachemt-email.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-handler-attachment-email.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/gs-function.php');
 ?>
 <!DOCTYPE html>
@@ -29,6 +30,7 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 			$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['cref'].'/data.txt');
 			$data = unserialize($raw_data);	
 			sendITEmail();	
+			sendHandlerEmail();
 			sendClientPDFEmail();
 		} else {
 			$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'].'/data.txt');
