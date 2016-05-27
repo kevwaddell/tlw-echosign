@@ -97,7 +97,7 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 						<h4><?php echo $data['email']; ?></h4><br>
 					
 						<a href="<?php echo SITEROOT; ?>/signed/<?php echo $data['ref']; ?>/<?php echo $data['ref']; ?>.pdf" target="_blank" class="btn btn-success btn-lg btn-block caps"><i class="glyphicon glyphicon-save pull-left"></i>Download Agreement</a>
-						<a href="javascript:close_window();" class="btn btn-primary btn-lg btn-block caps"><i class="glyphicon glyphicon glyphicon-circle-arrow-left pull-left"></i>Finish process</a>
+						<a href="<?php echo SITEROOT; ?>/" onclick="close_window();return false;" class="btn btn-primary btn-lg btn-block caps"><i class="glyphicon glyphicon glyphicon-circle-arrow-left pull-left"></i>Finish process</a>
 					</div>
 					<?php } ?>
 					<?php if (isset($_GET['sent']) && $_GET['sent'] == 0) { ?>
@@ -109,7 +109,7 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 						<button id="try-again" class="btn btn-danger btn-lg btn-block"><i class="glyphicon glyphicon-repeat pull-left"></i> Try again</button>
 						<input name="cref" type="hidden" value="<?php echo $data['ref']; ?>">
 						</form>
-						<p><a href="<?php echo SITEROOT; ?>/" class="btn btn-default btn-block"><i class="glyphicon glyphicon-remove pull-left"></i> Cancel</a></p>
+						<p><a href="<?php echo SITEROOT; ?>/" onclick="close_window();return false;" class="btn btn-default btn-block"><i class="glyphicon glyphicon-remove pull-left"></i> Cancel</a></p>
 					</div>
 					<?php } ?>
 						
