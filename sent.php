@@ -62,10 +62,11 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 		
 			if ($ud['ref'] == $_GET['cref']) {
 			unset($unsigned_data[$k]);
-			file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_data));
 			}	
 			
 		}
+		
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_data));
 	}
 	
 //echo '<pre>';print_r($data);echo '</pre>';
