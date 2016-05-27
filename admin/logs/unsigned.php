@@ -133,7 +133,7 @@ $unsigned_data = unserialize($raw_unsigned_data);
 							<td class="text-center" style="vertical-align: middle;"><?php echo $data['tkn']; ?></td>
 							<td class="text-center" style="vertical-align: middle;">
 								<?php if ($data['sent']) { ?>
-								<?php echo gmdate('jS F, Y @ g:ia', $data['sent']); ?>
+								<?php echo date('jS F, Y @ g:ia', $data['sent']); ?>
 								<?php } else { ?>
 								<strong class="text-danger caps">Notification email not sent</strong>
 								<?php } ?>

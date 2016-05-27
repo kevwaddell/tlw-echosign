@@ -118,7 +118,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'email-logs-'.$log_
 						
 						<?php foreach ($email_data as $data) { ?>
 						<tr>
-							<td><?php echo gmdate('jS F, Y, g:ia', $data['check-date']); ?></td>
+							<td><?php echo date('jS F, Y, g:ia', $data['check-date']); ?></td>
 							<td><?php echo $data['Nmsgs']; ?></td>
 							<td><?php echo $data['Unread']; ?></td>
 							<td><?php echo $data['Deleted']; ?></td>

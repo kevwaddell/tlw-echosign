@@ -52,9 +52,21 @@ if (isset($_POST['change_logs'])) {
 }
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_date.'.log')) {
-$raw_sent_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_date.'.log');	
-$sent_data = unserialize($raw_sent_data);	
-}	
+	$raw_sent_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_date.'.log');	
+	$sent_data = unserialize($raw_sent_data);	
+	$log_changes = false;
+	foreach($sent_data as $k => $sd) {
+		if ($sd['sdate'] == "") {
+		 unset($sent_data[$k]);
+		 $log_changes = true;
+		}
+	
+	}
+	
+	if ($log_changes) {
+	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_date.'.log', serialize($sent_data));	
+	}
+}
 ?>
 </head>
 <body>
@@ -178,8 +190,8 @@ $sent_data = unserialize($raw_sent_data);
 								
 								<?php foreach ($sent_data as $data) { ?>
 								<tr>
-									<td style="vertical-align: middle;"><?php echo gmdate('jS F, Y, g:ia', $data['sdate']); ?></td>
-									<td style="vertical-align: middle;"><?php echo gmdate('jS F, Y, g:ia', $data['rdate']); ?></td>
+									<td style="vertical-align: middle;"><?php echo date('jS F, Y, g:ia', $data['sdate']); ?></td>
+									<td style="vertical-align: middle;"><?php echo date('jS F, Y, g:ia', $data['rdate']); ?></td>
 									<td class="text-center" style="vertical-align: middle;"><?php echo $data['ref']; ?></td>
 									<td class="text-center" style="vertical-align: middle;">
 										<?php if (file_exists($_SERVER['DOCUMENT_ROOT']."/signed/".$data['tkn']."@".$data['ref'].".zip")) { ?>
