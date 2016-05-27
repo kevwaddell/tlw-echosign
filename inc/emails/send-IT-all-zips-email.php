@@ -10,6 +10,7 @@ function sendAllZipsEmail($zips) {
 	
 	$mail->SetFrom(TLW_SOURCE_EMAIL, TLW_SOURCE_NAME);
 	$mail->AddAddress(TLW_IT_EMAIL, TLW_IT_NAME);	
+	$mail->addCC(TLW_WEBMASTER);
 	$mail->Subject = "TLW Esign data cleanse client ref: ".$ref;
 	$mail->MsgHTML($body);
 	foreach($zips as $z){
