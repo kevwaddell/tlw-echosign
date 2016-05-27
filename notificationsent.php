@@ -46,7 +46,7 @@ if ( isset($_GET['cref']) ) {
 						</p>
 						<p>If the client does not complete the agreement in 2 days another email will be sent to <strong><?php echo $data['handler']; ?></strong> to request another notification email.</p><br>
 
-						<a href="<?php echo SITEROOT; ?>" class="btn btn-primary btn-lg btn-block caps"><i class="glyphicon glyphicon glyphicon-circle-arrow-left pull-left"></i>Continue</a>
+						<a href="javascript:close_window();" class="btn btn-primary btn-lg btn-block caps"><i class="glyphicon glyphicon glyphicon-circle-arrow-left pull-left"></i>Continue</a>
 					</div>
 					<?php } ?>
 					
@@ -71,7 +71,7 @@ if ( isset($_GET['cref']) ) {
 						Email: <a href="mailto:webmaster@tlwsolicitors.co.uk">webmaster@tlwsolicitors.co.uk</a><br> 
 						Ext: 210.</p><br>
 
-						<a href="<?php echo SITEROOT; ?>/" class="btn btn-default btn-block"><i class="glyphicon glyphicon-remove pull-left"></i> Cancel</a>
+						<a href="javascript:close_window();" class="btn btn-default btn-block"><i class="glyphicon glyphicon-remove pull-left"></i> Cancel</a>
 					</div>
 					<?php } ?>
 						

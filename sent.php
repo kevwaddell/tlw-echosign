@@ -97,7 +97,7 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 						<h4><?php echo $data['email']; ?></h4><br>
 					
 						<a href="<?php echo SITEROOT; ?>/signed/<?php echo $data['ref']; ?>/<?php echo $data['ref']; ?>.pdf" target="_blank" class="btn btn-success btn-lg btn-block caps"><i class="glyphicon glyphicon-save pull-left"></i>Download Agreement</a>
-						<a href="<?php echo SITEROOT; ?>" class="btn btn-primary btn-lg btn-block caps"><i class="glyphicon glyphicon glyphicon-circle-arrow-left pull-left"></i>Finish process</a>
+						<a href="javascript:close_window();" class="btn btn-primary btn-lg btn-block caps"><i class="glyphicon glyphicon glyphicon-circle-arrow-left pull-left"></i>Finish process</a>
 					</div>
 					<?php } ?>
 					<?php if (isset($_GET['sent']) && $_GET['sent'] == 0) { ?>
