@@ -13,6 +13,8 @@ $smtp_log = "smtp_local_settings.log";
 $smtp_log = "smtp_online_settings.log";
 }
 
+DEFINE('TLW_WEBMASTER', "webmaster@tlwsolicitors.co.uk");
+
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log)) {
 $settings_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/inc/'.$settings_log); 
 	
