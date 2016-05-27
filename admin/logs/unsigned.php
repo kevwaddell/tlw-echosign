@@ -21,8 +21,6 @@ $archive_log_path = "/logs/archives/unsent-logs-archive/";
 $log_files = glob($_SERVER['DOCUMENT_ROOT'] . "/admin".$log_path."unsigned-*.log");
 $archive_log_files = glob($_SERVER['DOCUMENT_ROOT'] . "/admin".$archive_log_path."unsigned-*.log");
 
-//pre($archive_log_files);
-
 if (!empty($archive_log_files)) {
 $log_files = array_merge($log_files, $archive_log_files);
 }
@@ -92,31 +90,31 @@ $unsigned_data = unserialize($raw_unsigned_data);
 				</div>		
 			<?php } ?>
 			
-			<div class="well well-lg table-responsive">
-				
-				<?php if (count($log_files) > 1) { ?>
-					<div class="filter-form">
-						<form method="post" action="">
-							<div class="row">
-								<div class="col-sm-6">
-									<div class="form-group">
-										<select name="log_date" class="form-control">
-											<option value="0">Select a log date</option>
-											<?php foreach ($dates as $date) { ?>
-											<option value="<?php echo $date; ?>"<?php echo($date == $log_date) ? ' selected="selected"':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
-											<?php } ?>
-										</select>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<input type="submit" name="change_logs" value="View Logs" class="btn btn-default btn-block">
+			<?php if (count($log_files) > 1) { ?>
+				<div class="filter-form">
+					<form method="post" action="">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<select name="log_date" class="form-control">
+										<option value="0">Select a log date</option>
+										<?php foreach ($dates as $date) { ?>
+										<option value="<?php echo $date; ?>"<?php echo($date == $log_date) ? ' selected="selected"':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
+										<?php } ?>
+									</select>
 								</div>
 							</div>
-						</form>
-					</div>
-				<?php } ?>
-				
-				<?php if ($unsigned_data) { ?>
+							<div class="col-sm-6">
+								<input type="submit" name="change_logs" value="View Logs" class="btn btn-default btn-block">
+							</div>
+						</div>
+					</form>
+				</div>
+			<?php } ?>
+
+			<?php if ($unsigned_data) { ?>
+			<div class="well well-lg table-responsive">
+
 				<h3 class="text-center">Document details</h3>
 				<table class="table table-bordered">
 					<thead>
@@ -129,7 +127,7 @@ $unsigned_data = unserialize($raw_unsigned_data);
 					</thead>
 					<tbody>
 						
-						<?php foreach ($unsigned_data as $data) { ?>
+				<?php foreach ($unsigned_data as $data) { ?>
 						<tr>
 							<td style="vertical-align: middle;"><?php echo $data['ref']; ?></td>
 							<td class="text-center" style="vertical-align: middle;"><?php echo $data['tkn']; ?></td>
@@ -153,15 +151,16 @@ $unsigned_data = unserialize($raw_unsigned_data);
 						
 					</tbody>
 				</table>
-				<?php } else { ?>
-			</div>
 
-			<div class="alert alert-info text-center">
-				<h3>Nothing to sign</h3>
-				<p>There are no unsigned documents at the moment.</p>
-			</div>
+			</div><!-- .well -->	
 			<?php } ?>
-					
+			
+			<?php if (empty($unsigned_data)) { ?>
+				<div class="alert alert-info text-center">
+					<h3>Nothing to sign</h3>
+					<p>There are no unsigned documents at the moment.</p>
+				</div>
+			<?php } ?>
 		</div><!-- .container -->
 			
 	</main>
