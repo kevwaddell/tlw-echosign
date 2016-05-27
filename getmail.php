@@ -223,6 +223,7 @@ if ($inbox){
 						
 						if (sendClientEmail($data)) { 								
 							imap_delete($inbox, $overview[0]->msgno);
+							echo "Email sent successfully!";
 						} else {
 							$raw_data 	= 	file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt');
 							$data 		= 	unserialize($raw_data);
