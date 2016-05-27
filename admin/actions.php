@@ -75,63 +75,60 @@ $sent_logs = glob($_SERVER['DOCUMENT_ROOT']."/admin/logs/archives/sent-logs-arch
 	<main class="main-content">
 		
 		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
-					<?php if (isset($_GET['zipped']) && $_GET['zipped'] == 1) { ?>
-					<div class="alert alert-success text-center alert-dismissible" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<p>All signed folders have been converted to zip files successfully.</p>
-					</div>			
-					<?php } ?>
-					<?php if (isset($_GET['zips-deleted']) && $_GET['zips-deleted'] == 1) { ?>
-					<div class="alert alert-success text-center alert-dismissible" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<p>All signed converted zip files have been removed and sent to <a href="mailto:<?php echo TLW_IT_EMAIL; ?>"><?php echo TLW_IT_EMAIL; ?></a>.</p>
-					</div>			
-					<?php } ?>
-					
-					<?php if (isset($_GET['email-logs-rmvd']) && $_GET['email-logs-rmvd'] == 1) { ?>
-					<div class="alert alert-success text-center alert-dismissible" role="alert">
-						<p>All email logs for <strong><?php echo date('M Y', $rmv_date); ?></strong> have been archived and removed.</p><br>
-						<a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btn btn-success btn-block">Continue</a>
-					</div>			
-					<?php } ?>
-					
-					<?php if (isset($_GET['email-logs-rmvd']) && $_GET['email-logs-rmvd'] == 0) { ?>
-					<div class="alert alert-danger text-center alert-dismissible" role="alert">
-						<p>There are no logs to remove for <strong><?php echo date('M Y', $rmv_date); ?></strong>.</p><br>
-						<a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btn btn-danger btn-block">Continue</a>
-					</div>			
-					<?php } ?>
-					
-					<?php if (isset($_GET['sent-logs-rmvd']) && $_GET['sent-logs-rmvd'] == 1) { ?>
-					<div class="alert alert-success text-center alert-dismissible" role="alert">
-						<p>All sent data logs for <strong><?php echo date('M Y', $rmv_date); ?></strong> have been archived and removed.</p><br>
-						<a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btn btn-success btn-block">Continue</a>
-					</div>			
-					<?php } ?>
-					
-					<?php if (isset($_GET['sent-logs-rmvd']) && $_GET['sent-logs-rmvd'] == 0) { ?>
-					<div class="alert alert-danger text-center alert-dismissible" role="alert">
-						<p>There are no sent data logs to remove for <strong><?php echo date('M Y', $rmv_date); ?></strong>.</p><br>
-						<a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btn btn-danger btn-block">Continue</a>
-					</div>			
-					<?php } ?>
-					
-					<div class="well well-lg">
-					<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Zipped files</h3>
-						<a href="<?php echo SITEROOT; ?>/signed/flushsig/?zip=all" class="btn btn-info btn-block btn-lg">Zip all signed folders <i class="glyphicon glyphicon-folder-close pull-right"></i></a>
-						<a href="<?php echo SITEROOT; ?>/signed/rmvzip/?rmv=all" class="btn btn-danger btn-block btn-lg">Delete all zipped files <i class="glyphicon glyphicon-trash pull-right"></i></a>
-					</div>	
-					<div class="well well-lg">
-						<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Log Archives</h3>
-						<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-email-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-danger btn-block btn-lg">Remove email logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon-remove pull-right"></i></a>
-						<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-sent-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-danger btn-block btn-lg">Remove sent logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon-remove pull-right"></i></a>
-						<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-insigned-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-danger btn-block btn-lg">Remove unsigned logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon-remove pull-right"></i></a>
-					</div>
-				</div>
+			<?php if (isset($_GET['zipped']) && $_GET['zipped'] == 1) { ?>
+			<div class="alert alert-success text-center alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<p>All signed folders have been converted to zip files successfully.</p>
+			</div>			
+			<?php } ?>
+			<?php if (isset($_GET['zips-deleted']) && $_GET['zips-deleted'] == 1) { ?>
+			<div class="alert alert-success text-center alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<p>All signed converted zip files have been removed and sent to <a href="mailto:<?php echo TLW_IT_EMAIL; ?>"><?php echo TLW_IT_EMAIL; ?></a>.</p>
+			</div>			
+			<?php } ?>
+			
+			<?php if (isset($_GET['email-logs-rmvd']) && $_GET['email-logs-rmvd'] == 1) { ?>
+			<div class="alert alert-success text-center alert-dismissible" role="alert">
+				<p>All email logs for <strong><?php echo date('M Y', $rmv_date); ?></strong> have been archived and removed.</p><br>
+				<a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btn btn-success btn-block">Continue</a>
+			</div>			
+			<?php } ?>
+			
+			<?php if (isset($_GET['email-logs-rmvd']) && $_GET['email-logs-rmvd'] == 0) { ?>
+			<div class="alert alert-danger text-center alert-dismissible" role="alert">
+				<p>There are no logs to remove for <strong><?php echo date('M Y', $rmv_date); ?></strong>.</p><br>
+				<a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btn btn-danger btn-block">Continue</a>
+			</div>			
+			<?php } ?>
+			
+			<?php if (isset($_GET['sent-logs-rmvd']) && $_GET['sent-logs-rmvd'] == 1) { ?>
+			<div class="alert alert-success text-center alert-dismissible" role="alert">
+				<p>All sent data logs for <strong><?php echo date('M Y', $rmv_date); ?></strong> have been archived and removed.</p><br>
+				<a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btn btn-success btn-block">Continue</a>
+			</div>			
+			<?php } ?>
+			
+			<?php if (isset($_GET['sent-logs-rmvd']) && $_GET['sent-logs-rmvd'] == 0) { ?>
+			<div class="alert alert-danger text-center alert-dismissible" role="alert">
+				<p>There are no sent data logs to remove for <strong><?php echo date('M Y', $rmv_date); ?></strong>.</p><br>
+				<a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btn btn-danger btn-block">Continue</a>
+			</div>			
+			<?php } ?>
+			
+			<div class="well well-lg">
+			<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Zipped files</h3>
+				<a href="<?php echo SITEROOT; ?>/signed/flushsig/?zip=all" class="btn btn-info btn-block btn-lg">Zip all signed folders <i class="glyphicon glyphicon-folder-close pull-right"></i></a>
+				<a href="<?php echo SITEROOT; ?>/signed/rmvzip/?rmv=all" class="btn btn-danger btn-block btn-lg">Delete all zipped files <i class="glyphicon glyphicon-trash pull-right"></i></a>
+			</div>	
+			<div class="well well-lg">
+				<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Log Archives</h3>
+				<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-email-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-danger btn-block btn-lg">Remove email logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon-remove pull-right"></i></a>
+				<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-sent-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-danger btn-block btn-lg">Remove sent logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon-remove pull-right"></i></a>
+				<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-insigned-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-danger btn-block btn-lg">Remove unsigned logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon-remove pull-right"></i></a>
 			</div>
-		</div>
+			
+		</div><!-- Container -->
 			
 	</main>
 

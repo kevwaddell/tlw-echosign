@@ -65,14 +65,10 @@ $sent_data = unserialize($raw_sent_data);
 		
 	<section class="messages">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
-					<div class="well well-lg text-center bg-gray no-border">
-						<?php //echo realpath('sent-data.php'); ?>
-						<h2>Signed client documents</h2>
-						<p class="lead">The lists below details the dates and client references of documents that have been signed.</p>
-					</div>
-				</div>
+			<div class="well well-lg text-center bg-gray no-border">
+				<?php //echo realpath('sent-data.php'); ?>
+				<h2>Signed client documents</h2>
+				<p class="lead">The lists below details the dates and client references of documents that have been signed.</p>
 			</div>
 		</div>
 	</section>
@@ -80,8 +76,6 @@ $sent_data = unserialize($raw_sent_data);
 	<main class="main-content">
 		
 		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
 					
 					<?php if (isset($_GET['dwnld']) && $_GET['dwnld'] == 1) { ?>
 						<div class="alert alert-success text-center alert-dismissible" role="alert">
@@ -215,10 +209,7 @@ $sent_data = unserialize($raw_sent_data);
 						<p>There is no data available for signed client documents.</p>
 					</div>
 					<?php } ?>
-					
-				</div>
-			</div>
-		</div>
+		</div><!-- .container -->
 			
 	</main>
 

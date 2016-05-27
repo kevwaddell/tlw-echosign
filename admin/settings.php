@@ -193,93 +193,90 @@ if ( isset($_POST['update_smtp_settings']) ) {
 	<main class="main-content">
 		
 		<div class="container">
-			<div class="row">
-				<div class="col-sm-10 col-sm-offset-1">
-					<div class="well well-lg">
-						<form method="post" action="">
-							<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Email Settings</h3>				<div class="row">
-								<div class="col-md-6">
-									<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['src_email'])) ? ' has-error':'' ?>">
-										<label for="src_email"><span>*</span>Source email:</label>
-										<input type="text" name="src_email" class="form-control input-lg text-center" placeholder="source@email.com" value="<?php echo $src_email; ?>">
-										<span id="helpBlock" class="help-block">The email address of the inbox that will collect the documents to be processed.</span>
-									</div>
-									<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['reply_email'])) ? ' has-error':'' ?>">
-										<label for="reply_email"><span>*</span>Reply email:</label>
-										<input type="text" name="reply_email" class="form-control input-lg text-center" placeholder="replyto@email.com" value="<?php echo $reply_email; ?>">
-										<span id="helpBlock" class="help-block">The Reply email address that will be set in the confirmation emails to the clients.</span>
-									</div>
-									<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['it_admin_email'])) ? ' has-error':'' ?>">
-										<label for="it_admin_email"><span>*</span>IT email:</label>
-										<input type="text" name="it_admin_email" class="form-control input-lg text-center" placeholder="IT@email.com" value="<?php echo $it_admin_email; ?>">
-										<span id="helpBlock" class="help-block">The IT Administrator email address where archived zipped client files will be sent to.</span>
-									</div>
-								</div>
-								
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="src_name">Source name:</label>
-										<input type="text" name="src_name" class="form-control input-lg text-center" placeholder="TLW Solicitors Esign" value="<?php echo $src_name; ?>">
-										<span id="helpBlock" class="help-block">The name of the source that will show when a confirmation email is sent.</span>
-									</div>
-									<div class="form-group">
-										<label for="reply_name">Reply name:</label>
-										<input type="text" name="reply_name" class="form-control input-lg text-center" placeholder="TLW Solicitors" value="<?php echo $reply_name; ?>">
-										<span id="helpBlock" class="help-block">The name of the replier that will show when a confirmation email is sent.</span>
-									</div>
-									<div class="form-group">
-										<label for="it_admin_name">IT member name:</label>
-										<input type="text" name="it_admin_name" class="form-control input-lg text-center" placeholder="Webmaster" value="<?php echo $it_admin_name; ?>">
-										<span id="helpBlock" class="help-block">The name of the IT person that will sent archives and logging emails.</span>
-									</div>
-								</div>
+
+			<div class="well well-lg">
+				<form method="post" action="">
+					<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Email Settings</h3>				<div class="row">
+						<div class="col-md-6">
+							<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['src_email'])) ? ' has-error':'' ?>">
+								<label for="src_email"><span>*</span>Source email:</label>
+								<input type="text" name="src_email" class="form-control input-lg text-center" placeholder="source@email.com" value="<?php echo $src_email; ?>">
+								<span id="helpBlock" class="help-block">The email address of the inbox that will collect the documents to be processed.</span>
 							</div>
-							
-							<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['import_email'])) ? ' has-error':'' ?>">
-								<label for="import_email"><span>*</span>Import email:</label>
-								<input type="text" name="import_email" class="form-control input-lg text-center" placeholder="import@email.com" value="<?php echo $import_email; ?>">
-								<span id="helpBlock" class="help-block">The import email address is where the PDF of the signed document will be sent to.</span>
+							<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['reply_email'])) ? ' has-error':'' ?>">
+								<label for="reply_email"><span>*</span>Reply email:</label>
+								<input type="text" name="reply_email" class="form-control input-lg text-center" placeholder="replyto@email.com" value="<?php echo $reply_email; ?>">
+								<span id="helpBlock" class="help-block">The Reply email address that will be set in the confirmation emails to the clients.</span>
 							</div>
-							
-							<input type="submit" name="update_email_settings" value="Update" class="btn btn-success btn-lg btn-block caps">
-							
-						</form>
+							<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['it_admin_email'])) ? ' has-error':'' ?>">
+								<label for="it_admin_email"><span>*</span>IT email:</label>
+								<input type="text" name="it_admin_email" class="form-control input-lg text-center" placeholder="IT@email.com" value="<?php echo $it_admin_email; ?>">
+								<span id="helpBlock" class="help-block">The IT Administrator email address where archived zipped client files will be sent to.</span>
+							</div>
 						</div>
 						
-						<div class="well well-lg">
-						<form method="post" action="">
-							<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">SMTP Settings</h3>
-							<div class="col-md-6">
-								<div class="form-group required<?php echo(!empty($smtp_errors) && isset($smtp_errors['smtp_host'])) ? ' has-error':'' ?>">
-									<label for="smtp_host"><span>*</span>Host:</label>
-									<input type="text" name="smtp_host" class="form-control input-lg text-center" placeholder="smtp.host.com" value="<?php echo $smtp_host; ?>">
-									<span id="helpBlock" class="help-block">The host addret of the SMPT server.</span>
-								</div>
-								<div class="form-group required<?php echo(!empty($smtp_errors) && isset($smtp_errors['smtp_port'])) ? ' has-error':'' ?>">
-									<label for="smtp_port"><span>*</span>Port:</label>
-									<input type="text" name="smtp_port" class="form-control input-lg text-center" placeholder="e.g 25" value="<?php echo $smtp_port; ?>">
-									<span id="helpBlock" class="help-block">SMTP Port e.g 25.</span>
-								</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="src_name">Source name:</label>
+								<input type="text" name="src_name" class="form-control input-lg text-center" placeholder="TLW Solicitors Esign" value="<?php echo $src_name; ?>">
+								<span id="helpBlock" class="help-block">The name of the source that will show when a confirmation email is sent.</span>
 							</div>
-							
-							<div class="col-md-6">
-								<div class="form-group required<?php echo(!empty($smtp_errors) && isset($smtp_errors['smtp_user'])) ? ' has-error':'' ?>">
-									<label for="smtp_user"><span>*</span>Username:</label>
-									<input type="text" name="smtp_user" class="form-control input-lg text-center" placeholder="SMTP Username" value="<?php echo $smtp_user; ?>">
-									<span id="helpBlock" class="help-block">The Username for the SMTP Host.</span>
-								</div>
-								<div class="form-group required<?php echo(!empty($smtp_errors) && isset($smtp_errors['smtp_pwd'])) ? ' has-error':'' ?>">
-									<label for="smtp_pwd"><span>*</span>Password:</label>
-									<input type="password" name="smtp_pwd" class="form-control input-lg text-center" value="">
-									<span id="helpBlock" class="help-block">The Password for the SMTP Host</span>
-								</div>
+							<div class="form-group">
+								<label for="reply_name">Reply name:</label>
+								<input type="text" name="reply_name" class="form-control input-lg text-center" placeholder="TLW Solicitors" value="<?php echo $reply_name; ?>">
+								<span id="helpBlock" class="help-block">The name of the replier that will show when a confirmation email is sent.</span>
 							</div>
-							<input type="submit" name="update_smtp_settings" value="Update" class="btn btn-success btn-lg btn-block caps">
-						</form>
+							<div class="form-group">
+								<label for="it_admin_name">IT member name:</label>
+								<input type="text" name="it_admin_name" class="form-control input-lg text-center" placeholder="Webmaster" value="<?php echo $it_admin_name; ?>">
+								<span id="helpBlock" class="help-block">The name of the IT person that will sent archives and logging emails.</span>
+							</div>
 						</div>
+					</div>
 					
-				</div>
+					<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['import_email'])) ? ' has-error':'' ?>">
+						<label for="import_email"><span>*</span>Import email:</label>
+						<input type="text" name="import_email" class="form-control input-lg text-center" placeholder="import@email.com" value="<?php echo $import_email; ?>">
+						<span id="helpBlock" class="help-block">The import email address is where the PDF of the signed document will be sent to.</span>
+					</div>
+					
+					<input type="submit" name="update_email_settings" value="Update" class="btn btn-success btn-lg btn-block caps">
+					
+				</form>
 			</div>
+			
+			<div class="well well-lg">
+				<form method="post" action="">
+					<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">SMTP Settings</h3>
+					<div class="col-md-6">
+						<div class="form-group required<?php echo(!empty($smtp_errors) && isset($smtp_errors['smtp_host'])) ? ' has-error':'' ?>">
+							<label for="smtp_host"><span>*</span>Host:</label>
+							<input type="text" name="smtp_host" class="form-control input-lg text-center" placeholder="smtp.host.com" value="<?php echo $smtp_host; ?>">
+							<span id="helpBlock" class="help-block">The host addret of the SMPT server.</span>
+						</div>
+						<div class="form-group required<?php echo(!empty($smtp_errors) && isset($smtp_errors['smtp_port'])) ? ' has-error':'' ?>">
+							<label for="smtp_port"><span>*</span>Port:</label>
+							<input type="text" name="smtp_port" class="form-control input-lg text-center" placeholder="e.g 25" value="<?php echo $smtp_port; ?>">
+							<span id="helpBlock" class="help-block">SMTP Port e.g 25.</span>
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="form-group required<?php echo(!empty($smtp_errors) && isset($smtp_errors['smtp_user'])) ? ' has-error':'' ?>">
+							<label for="smtp_user"><span>*</span>Username:</label>
+							<input type="text" name="smtp_user" class="form-control input-lg text-center" placeholder="SMTP Username" value="<?php echo $smtp_user; ?>">
+							<span id="helpBlock" class="help-block">The Username for the SMTP Host.</span>
+						</div>
+						<div class="form-group required<?php echo(!empty($smtp_errors) && isset($smtp_errors['smtp_pwd'])) ? ' has-error':'' ?>">
+							<label for="smtp_pwd"><span>*</span>Password:</label>
+							<input type="password" name="smtp_pwd" class="form-control input-lg text-center" value="">
+							<span id="helpBlock" class="help-block">The Password for the SMTP Host</span>
+						</div>
+					</div>
+					<input type="submit" name="update_smtp_settings" value="Update" class="btn btn-success btn-lg btn-block caps">
+				</form>
+			</div>
+					
 		</div>
 			
 	</main>

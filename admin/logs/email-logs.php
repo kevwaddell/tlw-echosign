@@ -67,14 +67,9 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'email-logs-'.$log_
 	
 	<section class="messages">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
-					<div class="well well-lg text-center bg-gray no-border">
-						<h2>Email success and error logs</h2>
-						<p class="lead">The lists below details the inbound emails by date and any IMAP errors when fetching emails.</p>
-					</div>
-						
-				</div>
+			<div class="well well-lg text-center bg-gray no-border">
+				<h2>Email success and error logs</h2>
+				<p class="lead">The lists below details the inbound emails by date and any IMAP errors when fetching emails.</p>
 			</div>
 		</div>
 	</section>
@@ -82,69 +77,65 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'email-logs-'.$log_
 	<main class="main-content">
 		
 		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
 				
-				<?php if (count($log_files) > 1) { ?>
-						<div class="filter-form">
-							<form method="post" action="">
-								<div class="row">
-									<div class="col-sm-6">
-										<div class="form-group">
-											<select name="log_date" class="form-control">
-												<option value="0">Select a log date</option>
-												<?php foreach ($dates as $date) { ?>
-												<option value="<?php echo $date; ?>"<?php echo($date == $log_date) ? ' selected="selected"':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
-												<?php } ?>
-											</select>
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<input type="submit" name="change_logs" value="View Logs" class="btn btn-default btn-block">
-									</div>
+			<?php if (count($log_files) > 1) { ?>
+				<div class="filter-form">
+					<form method="post" action="">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<select name="log_date" class="form-control">
+										<option value="0">Select a log date</option>
+										<?php foreach ($dates as $date) { ?>
+										<option value="<?php echo $date; ?>"<?php echo($date == $log_date) ? ' selected="selected"':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
+										<?php } ?>
+									</select>
 								</div>
-							</form>
+							</div>
+							<div class="col-sm-6">
+								<input type="submit" name="change_logs" value="View Logs" class="btn btn-default btn-block">
+							</div>
 						</div>
-					<?php } ?>
-					
-					<?php if ($email_data) { ?>
-
-					<div class="well well-lg table-responsive">
-							
-					<h3 class="text-center">Successful inbound emails</h3>
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>Date/time</th>
-									<th>Total messages</th>
-									<th>Unread messages</th>
-									<th>Deleted messages</th>
-								</tr>
-							</thead>
-							<tbody>
-								
-								<?php foreach ($email_data as $data) { ?>
-								<tr>
-									<td><?php echo gmdate('jS F, Y, g:ia', $data['check-date']); ?></td>
-									<td><?php echo $data['Nmsgs']; ?></td>
-									<td><?php echo $data['Unread']; ?></td>
-									<td><?php echo $data['Deleted']; ?></td>
-								</tr>
-								<?php } ?>	
-								
-							</tbody>
-						</table>
-					</div>
-					
-					<?php } else { ?>
-					<div class="alert alert-info text-center">
-						<h3>No email logs available</h3>
-						<p>There is no logs available for inbound emails at the moment.</p>
-					</div>
-					<?php } ?>
-					
+					</form>
 				</div>
+			<?php } ?>
+			
+			<?php if ($email_data) { ?>
+
+			<div class="well well-lg table-responsive">
+					
+			<h3 class="text-center">Successful inbound emails</h3>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Date/time</th>
+							<th>Total messages</th>
+							<th>Unread messages</th>
+							<th>Deleted messages</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+						<?php foreach ($email_data as $data) { ?>
+						<tr>
+							<td><?php echo gmdate('jS F, Y, g:ia', $data['check-date']); ?></td>
+							<td><?php echo $data['Nmsgs']; ?></td>
+							<td><?php echo $data['Unread']; ?></td>
+							<td><?php echo $data['Deleted']; ?></td>
+						</tr>
+						<?php } ?>	
+						
+					</tbody>
+				</table>
 			</div>
+			
+			<?php } else { ?>
+			<div class="alert alert-info text-center">
+				<h3>No email logs available</h3>
+				<p>There is no logs available for inbound emails at the moment.</p>
+			</div>
+			<?php } ?>
+
 		</div>
 			
 	</main>

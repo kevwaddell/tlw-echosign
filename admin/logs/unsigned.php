@@ -66,13 +66,9 @@ $unsigned_data = unserialize($raw_unsigned_data);
 		
 	<section class="messages">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
-					<div class="well well-lg text-center bg-gray no-border">
-						<h2>Unsigned documents</h2>
-						<p class="lead">If a document has not been signed by a client.<br>Use the 'Re-send email' button to send the client a notification email.</p>
-					</div>
-				</div>
+			<div class="well well-lg text-center bg-gray no-border">
+				<h2>Unsigned documents</h2>
+				<p class="lead">If a document has not been signed by a client.<br>Use the 'Re-send email' button to send the client a notification email.</p>
 			</div>
 		</div>
 	</section>
@@ -80,96 +76,93 @@ $unsigned_data = unserialize($raw_unsigned_data);
 	<main class="main-content">
 		
 		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
-					<?php if (isset($_GET['sent']) && $_GET['sent'] == 1) { ?>
-						<div class="alert alert-success text-center alert-dismissible" role="alert">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<p>Notification Email for client ref <strong><?php echo $_GET['cref']; ?></strong> has been re-sent successfully.</p>
-						</div>		
-					<?php } ?>
-					
-					<?php if (isset($_GET['sent']) && $_GET['sent'] == 0) { ?>
-						<div class="alert alert-danger text-center alert-dismissible" role="alert">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<p>Notification Email for client ref <strong><?php echo $_GET['cref']; ?></strong> has not been sent.</p>
-							<p>Please try again. If the problem persists contact the <a href="mailto:webmaster@tlwsolicitors.co.uk">Website Administrator</a>.</p>
-						</div>		
-					<?php } ?>
-					
-					<div class="well well-lg table-responsive">
-						
-						<?php if (count($log_files) > 1) { ?>
-							<div class="filter-form">
-								<form method="post" action="">
-									<div class="row">
-										<div class="col-sm-6">
-											<div class="form-group">
-												<select name="log_date" class="form-control">
-													<option value="0">Select a log date</option>
-													<?php foreach ($dates as $date) { ?>
-													<option value="<?php echo $date; ?>"<?php echo($date == $log_date) ? ' selected="selected"':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
-													<?php } ?>
-												</select>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<input type="submit" name="change_logs" value="View Logs" class="btn btn-default btn-block">
-										</div>
-									</div>
-								</form>
-							</div>
-						<?php } ?>
-						
-						<?php if ($unsigned_data) { ?>
-						<h3 class="text-center">Document details</h3>
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>Client ref</th>
-									<th class="text-center">Token</th>
-									<th class="text-center">Sent date</th>
-									<th class="text-center">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								
-								<?php foreach ($unsigned_data as $data) { ?>
-								<tr>
-									<td style="vertical-align: middle;"><?php echo $data['ref']; ?></td>
-									<td class="text-center" style="vertical-align: middle;"><?php echo $data['tkn']; ?></td>
-									<td class="text-center" style="vertical-align: middle;">
-										<?php if ($data['sent']) { ?>
-										<?php echo gmdate('jS F, Y @ g:ia', $data['sent']); ?>
-										<?php } else { ?>
-										<strong class="text-danger caps">Notification email not sent</strong>
-										<?php } ?>
-									</td>
-									<td class="text-center" style="vertical-align: middle;">
-										<?php if (is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$data['ref'])) { ?>
-											<a href="<?php echo SITEROOT; ?>/sendmail/?cref=<?php echo $data['ref']; ?>" title="Re-send email" class="btn btn-<?php echo ($data['sent']) ? 'success ':'danger '; ?>btn-block">Re-send email</a>		
-										<?php } else { ?>
-											<strong class="text-success">Document is signed <i class="glyphicon glyphicon-ok pull-right"></i></strong>
-										<?php } ?>
-										
-									</td>
-								</tr>
-								<?php } ?>	
-								
-							</tbody>
-						</table>
-						<?php } else { ?>
-					</div>
 
-					<div class="alert alert-info text-center">
-						<h3>Nothing to sign</h3>
-						<p>There are no unsigned documents at the moment.</p>
+			<?php if (isset($_GET['sent']) && $_GET['sent'] == 1) { ?>
+				<div class="alert alert-success text-center alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<p>Notification Email for client ref <strong><?php echo $_GET['cref']; ?></strong> has been re-sent successfully.</p>
+				</div>		
+			<?php } ?>
+			
+			<?php if (isset($_GET['sent']) && $_GET['sent'] == 0) { ?>
+				<div class="alert alert-danger text-center alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<p>Notification Email for client ref <strong><?php echo $_GET['cref']; ?></strong> has not been sent.</p>
+					<p>Please try again. If the problem persists contact the <a href="mailto:webmaster@tlwsolicitors.co.uk">Website Administrator</a>.</p>
+				</div>		
+			<?php } ?>
+			
+			<div class="well well-lg table-responsive">
+				
+				<?php if (count($log_files) > 1) { ?>
+					<div class="filter-form">
+						<form method="post" action="">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<select name="log_date" class="form-control">
+											<option value="0">Select a log date</option>
+											<?php foreach ($dates as $date) { ?>
+											<option value="<?php echo $date; ?>"<?php echo($date == $log_date) ? ' selected="selected"':'' ?>><?php echo date("jS F, Y", strtotime($date)); ?></option>
+											<?php } ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<input type="submit" name="change_logs" value="View Logs" class="btn btn-default btn-block">
+								</div>
+							</div>
+						</form>
 					</div>
-					<?php } ?>
-					
-				</div>
+				<?php } ?>
+				
+				<?php if ($unsigned_data) { ?>
+				<h3 class="text-center">Document details</h3>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Client ref</th>
+							<th class="text-center">Token</th>
+							<th class="text-center">Sent date</th>
+							<th class="text-center">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+						<?php foreach ($unsigned_data as $data) { ?>
+						<tr>
+							<td style="vertical-align: middle;"><?php echo $data['ref']; ?></td>
+							<td class="text-center" style="vertical-align: middle;"><?php echo $data['tkn']; ?></td>
+							<td class="text-center" style="vertical-align: middle;">
+								<?php if ($data['sent']) { ?>
+								<?php echo gmdate('jS F, Y @ g:ia', $data['sent']); ?>
+								<?php } else { ?>
+								<strong class="text-danger caps">Notification email not sent</strong>
+								<?php } ?>
+							</td>
+							<td class="text-center" style="vertical-align: middle;">
+								<?php if (is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$data['ref'])) { ?>
+									<a href="<?php echo SITEROOT; ?>/sendmail/?cref=<?php echo $data['ref']; ?>" title="Re-send email" class="btn btn-<?php echo ($data['sent']) ? 'success ':'danger '; ?>btn-block">Re-send email</a>		
+								<?php } else { ?>
+									<strong class="text-success">Document is signed <i class="glyphicon glyphicon-ok pull-right"></i></strong>
+								<?php } ?>
+								
+							</td>
+						</tr>
+						<?php } ?>	
+						
+					</tbody>
+				</table>
+				<?php } else { ?>
 			</div>
-		</div>
+
+			<div class="alert alert-info text-center">
+				<h3>Nothing to sign</h3>
+				<p>There are no unsigned documents at the moment.</p>
+			</div>
+			<?php } ?>
+					
+		</div><!-- .container -->
 			
 	</main>
 
