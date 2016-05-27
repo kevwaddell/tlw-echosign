@@ -67,7 +67,7 @@ if ($inbox){
 	echo "Unread Messages: " . $check->Unread . "\n";
 	echo "Deleted Messages: " . $check->Deleted . "\n";
 	
-	if ($check->Deleted > 0 ) {
+	if ( (time() > strtotime("Today 9pm")) && $check->Deleted > 0 ) {
 	imap_expunge($inbox);	
 	}
 	
