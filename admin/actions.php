@@ -119,12 +119,12 @@ $sent_logs = glob($_SERVER['DOCUMENT_ROOT']."/admin/logs/archives/sent-logs-arch
 					<?php } ?>
 					
 					<div class="well well-lg">
-					<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Zipped file actions</h3>
+					<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Zipped files</h3>
 						<a href="<?php echo SITEROOT; ?>/signed/flushsig/?zip=all" class="btn btn-info btn-block btn-lg">Zip all signed folders <i class="glyphicon glyphicon-folder-close pull-right"></i></a>
 						<a href="<?php echo SITEROOT; ?>/signed/rmvzip/?rmv=all" class="btn btn-danger btn-block btn-lg">Delete all zipped files <i class="glyphicon glyphicon-trash pull-right"></i></a>
 					</div>	
 					<div class="well well-lg">
-						<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Archived Logs actions</h3>
+						<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Log Archives</h3>
 						<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-email-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-danger btn-block btn-lg">Remove email logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon-remove pull-right"></i></a>
 						<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-sent-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-danger btn-block btn-lg">Remove sent logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon-remove pull-right"></i></a>
 						<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-insigned-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-danger btn-block btn-lg">Remove unsigned logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon-remove pull-right"></i></a>
