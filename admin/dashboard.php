@@ -26,8 +26,15 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 		
 		<div class="container">
 			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
-										
+				<div class="col-md-6">
+					<div class="well wel-lg">
+						
+					</div>					
+				</div>
+				<div class="col-md-6">
+					<div class="well wel-lg">
+						
+					</div>					
 				</div>
 			</div>
 		</div>
