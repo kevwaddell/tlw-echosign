@@ -13,6 +13,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 <link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <?php
+$select_errors = false;
 $imap_error_logs = false;
 $email_data = false;
 $log_date = date('Y-m-d', time());
@@ -42,10 +43,10 @@ rsort($dates);
 }
 
 if (isset($_POST['change_logs'])) {
-	$errors = false;
+
 	
 	if ($_POST['log_date'] == 0) {
-		$errors = true;
+		$select_errors = true;
 	} else {
 		
 		$change_logs_date = $_POST['log_date'];
@@ -66,7 +67,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'email-logs-'.$log_
 
 ?>
 
-<?php if ($errors) { ?>
+<?php if ($select_errors) { ?>
 	<script>alert("Please choose a date.");</script>		
 <?php } ?>
 </head>
