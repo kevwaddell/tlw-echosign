@@ -42,14 +42,21 @@ rsort($dates);
 }
 
 if (isset($_POST['change_logs'])) {
-
-	$change_logs_date = $_POST['log_date'];
+	$errors = false;
 	
-	if ($change_logs_date != $log_date) {
-	$log_path = $archive_log_path;	
+	if ($_POST['log_date'] == 0) {
+		$errors = true;
+	} else {
+		
+		$change_logs_date = $_POST['log_date'];
+	
+		if ($change_logs_date != $log_date) {
+		$log_path = $archive_log_path;	
+		}
+	
+		$log_date = $change_logs_date;
 	}
 	
-	$log_date = $change_logs_date;
 }
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'email-logs-'.$log_date.'.log')) {
@@ -58,6 +65,10 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'email-logs-'.$log_
 }	
 
 ?>
+
+<?php if ($errors) { ?>
+	<script>alert("Please choose a date.")</script>		
+<?php } ?>
 </head>
 <body>
 	
