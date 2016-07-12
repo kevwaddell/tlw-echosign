@@ -1,10 +1,4 @@
 <?php
-if (isset($_GET['esigntest'])) {
-	if (!is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$_GET['esigntest']) ) {
-	mkdir($_GET[''], 0755);	
-	}	
-}
-sleep(10);
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/global-settings.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
