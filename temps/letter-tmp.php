@@ -51,7 +51,7 @@ $doc = parseWord($file);
 				</div>
 				
 				<div class="tlw-signature">
-					<p>Signed: <img src="<?php echo SITEROOT; ?>/assets/img/TLW_signature.png" style="vertical-align: bottom;" alt="TLW_signature" width="300"></p>
+					<p>Signed: <img src="<?php echo SITEROOT; ?>/assets/img/TLW_signature.png" style="vertical-align: bottom;" alt="TLW_signature" width="250"></p>
 				</div>
 				<?php if ( isset($_POST['output']) ) { ?>
 				<div class="client-signature">
@@ -64,7 +64,7 @@ $doc = parseWord($file);
 					imagepng($img, 'signature.png');
 					imagedestroy($img);
 					?>
-					<p>Your signature: <img src="<?php echo SITEROOT; ?>/<?php echo $data['ref']; ?>/signature.png" style="vertical-align: bottom;" alt="signature" width="300"></p><?php } else { ?>
+					<p>Your signature: <img src="<?php echo SITEROOT; ?>/<?php echo $data['ref']; ?>/signature.png" style="vertical-align: bottom;" alt="signature" width="250"></p><?php } else { ?>
 					<p class="signature">Your signature: <span><?php echo ($_POST['name']); ?></span></p>
 				<?php } ?>
 				</div>

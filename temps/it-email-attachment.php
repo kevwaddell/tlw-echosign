@@ -30,7 +30,7 @@ $remove_date = date('g:ia, jS F, Y', strtotime( '+ 1 month', $data['signed']));
 		</div>
 		
 		<div class="header" style="border-bottom: 1px solid #908e8e; margin: 0px 40px; text-align: center;">
-			<img src="<?php echo SITEROOT; ?>/assets/img/tlw-logo-wide.gif" alt="TLW Solicitors" />		
+			<img src="<?php echo SITEROOT; ?>/assets/img/tlw-logo-wide.gif" style="max-width: 250px;" alt="TLW Solicitors" />		
 		</div>
 		
 		<div class="content" style="padding: 20px 40px; font-size: 16px; min-height: 100px;">
