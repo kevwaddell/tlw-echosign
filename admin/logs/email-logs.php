@@ -67,7 +67,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'email-logs-'.$log_
 ?>
 
 <?php if ($errors) { ?>
-	<script>alert("Please choose a date.")</script>		
+	<script>alert("Please choose a date.");</script>		
 <?php } ?>
 </head>
 <body>
