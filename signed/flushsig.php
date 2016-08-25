@@ -4,8 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php'); 
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-IT-zip-email.php');
 $now = time();
-$log_date = date('Y-m-d', $now);
-$log_files = glob($_SERVER['DOCUMENT_ROOT']."/admin/logs/sent-data-*.log");
+$signed_folders = glob($_SERVER['DOCUMENT_ROOT']."/signed/*");
 	
 function zip_files($data) {
 	global $now;
@@ -16,10 +15,14 @@ function zip_files($data) {
 	$signed = $data['signed'];
 	
 	if ( is_dir($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref) ){
-	$raw_client_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref.'/data.txt');	
-	$client_data = unserialize($raw_client_data);
+			
+		if ( file_exists($_SERVER['DOCUMENT_ROOT'].'/signed/'.$tkn."@".$ref.".zip") ) {
+		unlink($_SERVER['DOCUMENT_ROOT'].'/signed/'.$tkn."@".$ref.".zip");	
+		}
+			
+		$raw_client_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref.'/data.txt');	
+		$client_data = unserialize($raw_client_data);
 	
-		
 		$zip = new ZipArchive();
 		$files = scandir($ref);
 		$iterator = new FilesystemIterator($ref);
@@ -55,7 +58,7 @@ function zip_files($data) {
 	
 }
 
-if ($_SERVER['HTTP_REFERER']) {
+if ( isset($_SERVER['HTTP_REFERER']) ) {
 $referer_raw = $_SERVER['HTTP_REFERER'];
 $referer_parse = parse_url($referer_raw);
 $referer = $referer_parse['scheme']."://".$referer_parse['host'].$referer_parse['path'];
@@ -64,64 +67,93 @@ $referer = $scheme.$host;
 }
 
 //pre($referer);
-
-if (isset($_GET['cref']) && $_GET['cref'] != "") {	
-
-	$cref = $_GET['cref'];
-	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$cref.'/data.txt');
-	$data = unserialize($raw_data);
-	$redirect = $referer."?cref=".$cref;
+if ( isset($_SERVER['HTTP_REFERER']) ) {
 	
-	if (zip_files($data)) {
-		$redirect .= "&zipped=1";
-	} else {
-		$redirect .= "&zipped=0";	
-	}	
+	if (isset($_GET['cref']) && $_GET['cref'] != "") {	
 	
-	header("Location: ". $redirect);	
+		$cref = $_GET['cref'];
+		$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$cref.'/data.txt');
+		$data = unserialize($raw_data);
+		$redirect = $referer."?cref=".$cref;
+		
+		if (zip_files($data)) {
+			$redirect .= "&zipped=1";
+		} else {
+			$redirect .= "&zipped=0";	
+		}	
+		
+		header("Location: ". $redirect);	
+		
+	} 
 	
-} else {
-
-	if(!empty($log_files)) {
-	//pre($log_files);	
-	$zip_error = true;
-	
-		foreach($log_files as $k => $lf) {
-		$log_raw_data = file_get_contents($lf);		
-		$log_data = unserialize($log_raw_data);
+	if (isset($_GET['zip']) && $_GET['zip'] == "all") {
 			
-			if (!empty($log_data)) {
+	$redirect = $referer;
+	$no_signed_folders = true;
+	
+		if ( !empty($signed_folders) ) {
+			
+		    foreach ($signed_folders as $f) {
+			//pre(filetype($f));	
+			
+			if (filetype($f) == "dir") {
+			$raw_data = file_get_contents($f.'/data.txt');	
+			$data = unserialize($raw_data);
+			$no_signed_folders = false;
 				
-				foreach ($log_data as $ld) {
-				$data = array('ref' => $ld['ref'], 'tkn' => $ld['tkn'], 'signed' => $ld['sdate']);
-					if ( zip_files($data) ){
-					$zip_error = false;	
-					} else {
-					$zip_error = true;	
-					}
-				}
-							
-			}//if log data not empty
+				if ( zip_files($data) ){
+				$zip_error = false;
+				} else {
+				$zip_error = true;
+				}//check if folder zipped or not
+
+			}//check if is a dir
 			
-		}//foreach log files
-		
-		if (isset($_GET['zip']) && $_GET['zip'] == "all") {
-		
-		$redirect = $referer;
-			
-			if ($zip_error) {
-			$redirect .= "?zipped=0";
-			} else {
-			$redirect .= "?zipped=1";	
-			}
-			
-		pre($redirect);
-			
-		header("Location: ". $redirect);
-			
+			}//loop through all files and folders in dir
 		}
 		
-	}//if log files not empty
+		if ($no_signed_folders && $zip_error) {
+		$redirect .= "?zipped=0";
+		} else {
+		$redirect .= "?zipped=1";	
+		}
+		
+	//pre($redirect);
+		
+	header("Location: ". $redirect);
+		
+	}
+
+} else {
 	
-}//check if single zip is required 
+	//pre($signed_folders);
+	$no_signed_folders = true;
+	
+	if ( !empty($signed_folders) ) {
+		
+		foreach ($signed_folders as $f) {
+		//pre(filetype($f));	
+			
+			if (filetype($f) == "dir") {
+			$raw_data = file_get_contents($f.'/data.txt');	
+			$data = unserialize($raw_data);
+			$no_signed_folders = false;
+				
+				if ( zip_files($data) ){
+				echo "Zip file created: <strong>".$data['tkn']."@".$data['ref'].".zip</strong>";
+				} else {
+				echo "Error creating zip file for REF : <strong>".$data['ref']."</strong>";	
+				}//check if folder zipped or not
+
+			}//check if is a dir
+			
+		}//loop through all files and folders in dir
+		
+		if ($no_signed_folders) {
+		echo "No folders to zip.";	
+		}
+		
+	} // Check if there a signed 
+	
+}//check if sent from a http referer 
 ?>
