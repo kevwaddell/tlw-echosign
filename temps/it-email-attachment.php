@@ -6,7 +6,7 @@ $cref = $_GET['cref'];
 $raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$cref.'/data.txt');
 $data = unserialize($raw_data);	
 $signed_date = gmdate('g:ia, jS F, Y', $data['signed']);
-$remove_date = date('g:ia, jS F, Y', strtotime( '+ 1 month', $data['signed']));
+$remove_date = date('g:ia, jS F, Y', strtotime( '+ 1 day', $data['signed']));
 ?>
 <html>
 <head>
