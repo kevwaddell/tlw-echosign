@@ -250,10 +250,14 @@ if ($inbox){
 			}
 
 		} // foreach overview	
-
+		
+		echo "Emails have been processed.\n";
+		
+	} else {
+		
+		echo "No new emails to process.\n";	
+		
 	} //if ther are emails
-	
-	echo "No new emails to process.\n";
 	
 	$imap_error_logs[] = imap_errors();	
 	$imap_alert_logs[] = imap_alerts();
