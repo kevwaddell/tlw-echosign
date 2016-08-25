@@ -112,7 +112,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_d
 					<?php if (isset($_GET['deleted']) && $_GET['deleted'] == 1) { ?>
 						<div class="alert alert-success text-center alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<p class="lead">All data for client ref <strong><?php echo $_GET['cref']; ?></strong> has been removed.</p>
+							<p class="lead">All files for client ref <strong><?php echo $_GET['cref']; ?></strong> has been removed.</p>
 							<p>A back-up copy of the data has been sent to <strong>webmaster@tlwsolicitors.co.uk</strong></p>
 							<p style="margin-top: 10px;">
 								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-success"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
@@ -123,7 +123,28 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_d
 					<?php if (isset($_GET['deleted']) && $_GET['deleted'] == 0) { ?>
 						<div class="alert alert-danger text-center alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<p class="lead">Data for client ref <strong><?php echo $_GET['cref']; ?></strong> cannot be removed.</p>
+							<p class="lead">Data files client ref <strong><?php echo $_GET['cref']; ?></strong> cannot be removed.</p>
+							<p>Please contact <strong><a href="mailto:webmaster@tlwsolicitors.co.uk">webmaster@tlwsolicitors.co.uk</a></strong> to remove this data.</p>
+							<p style="margin-top: 10px;">
+								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
+							</p>
+						</div>		
+					<?php } ?>
+					
+					<?php if (isset($_GET['data-deleted']) && $_GET['data-deleted'] == 1) { ?>
+						<div class="alert alert-success text-center alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<p class="lead">All data for client ref <strong><?php echo $_GET['cref']; ?></strong> has been removed.</p>
+							<p style="margin-top: 10px;">
+								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-success"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
+							</p>
+						</div>		
+					<?php } ?>
+					
+					<?php if (isset($_GET['data-deleted']) && $_GET['data-deleted'] == 0) { ?>
+						<div class="alert alert-danger text-center alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<p class="lead">All data for client ref <strong><?php echo $_GET['cref']; ?></strong> cannot be removed.</p>
 							<p>Please contact <strong><a href="mailto:webmaster@tlwsolicitors.co.uk">webmaster@tlwsolicitors.co.uk</a></strong> to remove this data.</p>
 							<p style="margin-top: 10px;">
 								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
