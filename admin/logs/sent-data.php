@@ -205,7 +205,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_d
 											<a href="<?php echo SITEROOT; ?>/signed/<?php echo $data['ref']; ?>/<?php echo $data['ref']; ?>.pdf#view=FitH" target="_blank" title="View Document" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i><span class="sr-only">View Document</span></a>
 											</div>
 										<?php } else { ?>
-											<a href="<?php echo SITEROOT; ?>/signed/rmvdata/?cref=<?php echo $data['ref']; ?>&log=<?php echo $log_date; ?>" title="Delete" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i><span class="sr-only">Delete</span></a>
+											<a href="<?php echo SITEROOT; ?>/signed/rmvdata/?cref=<?php echo $data['ref']; ?>&log=<?php echo $log_date; ?>" title="Delete" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i><span class="sr-only">Delete data</span></a>
 										<?php } ?>
 										
 										</td>
