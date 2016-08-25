@@ -25,7 +25,7 @@ if ( isset($_SERVER['HTTP_REFERER']) ) {
 		foreach ($data as $k => $d) {
 			
 			if ($d['ref'] == $cref) {
-			unset($data[$k])	
+			unset($data[$k]);
 			}
 		}
 		
