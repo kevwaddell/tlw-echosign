@@ -132,6 +132,18 @@ $unsigned_data = unserialize($raw_unsigned_data);
 						<a href="<?php echo SITEROOT; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-repeat pull-left"></i>Please try again</a>
 						<?php } ?>
 						
+						<?php if ( isset($_GET['signed']) ) { 
+						$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$_GET['signed'].'/data.txt');
+						$data = unserialize($raw_data);	
+						?>
+						<div class="alert alert-success text-center">
+							<h3>Thank you <?php echo $data['firstname']; ?> for signing your agreement</h3>
+							<p>Please contact us on <strong>0800 169 5925</strong> if you have any queries.</p>
+							<a href="<?php echo SITEROOT; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-refresh pull-left"></i>Continue</a>
+						</div>
+						<a href="<?php echo SITEROOT; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-refresh pull-left"></i>Continue</a>
+						<?php } ?>
+						
 						<?php if (!empty($messages)) { ?>
 						<div class="alert alert-success text-center">
 							<h3>Your agreement has already been signed</h3>
