@@ -14,14 +14,6 @@ function zip_files($data) {
 	$ref = $data['ref'];
 	$tkn = $data['tkn'];
 	$signed = $data['signed'];
-			
-	if ( file_exists($_SERVER['DOCUMENT_ROOT']."/signed/".$tkn."@".$ref.".zip") && ($signed < $now) ) {
-		
-		if (sendZipEmail($d)) {
-		unlink($_SERVER['DOCUMENT_ROOT']."/signed/".$tkn."@".$ref.".zip");	
-		}
-		
-	}
 	
 	if ( is_dir($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref) ){
 	$raw_client_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref.'/data.txt');	
@@ -54,10 +46,13 @@ function zip_files($data) {
 		}
 		
 		rmdir($_SERVER['DOCUMENT_ROOT'].'/signed/'.$ref);
+		
+		return true;
 
+	} else {
+		return false;	
 	}
 	
-	return true;
 }
 
 if ($_SERVER['HTTP_REFERER']) {
@@ -88,25 +83,42 @@ if (isset($_GET['cref']) && $_GET['cref'] != "") {
 } else {
 
 	if(!empty($log_files)) {
-		
+	//pre($log_files);	
+	$zip_error = true;
+	
 		foreach($log_files as $k => $lf) {
 		$log_raw_data = file_get_contents($lf);		
 		$log_data = unserialize($log_raw_data);
 			
 			if (!empty($log_data)) {
 				
-				if (zip_files($log_data)){
-					echo "Files zipped successfully!!";	
-				} else {
-				exit("Files not zipped");	
-				}//if files zipped
-				
+				foreach ($log_data as $ld) {
+				$data = array('ref' => $ld['ref'], 'tkn' => $ld['tkn'], 'signed' => $ld['sdate']);
+					if ( zip_files($data) ){
+					$zip_error = false;	
+					} else {
+					$zip_error = true;	
+					}
+				}
+							
 			}//if log data not empty
 			
 		}//foreach log files
 		
 		if (isset($_GET['zip']) && $_GET['zip'] == "all") {
-			header("Location: ". $referer ."?zipped=1");	
+		
+		$redirect = $referer;
+			
+			if ($zip_error) {
+			$redirect .= "?zipped=0";
+			} else {
+			$redirect .= "?zipped=1";	
+			}
+			
+		pre($redirect);
+			
+		header("Location: ". $redirect);
+			
 		}
 		
 	}//if log files not empty

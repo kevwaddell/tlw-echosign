@@ -5,10 +5,12 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/classes/PHPMailer/PHPMailerAutoload.php
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-IT-zip-email.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-IT-all-zips-email.php');
 
-if ( in_array("HTTP_REFERER", $_SERVER) ){
+if ( $_SERVER['HTTP_REFERER'] ){
 $referer_raw = $_SERVER['HTTP_REFERER'];
 $referer_parse = parse_url($referer_raw);
 $referer = $referer_parse['scheme']."://".$referer_parse['host'].$referer_parse['path'];
+} else {
+$referer = $scheme.$host;
 }
 
 $now = time();
@@ -20,6 +22,7 @@ if (isset($_GET['tkn']) && isset($_GET['cref'])) {
 
 $tkn = $_GET['tkn'];
 $ref = $_GET['cref'];
+$redirect = $referer."?cref=".$ref;
 
 $d = array('ref' => $ref, 'tkn' => $tkn);
 
@@ -28,27 +31,34 @@ $d = array('ref' => $ref, 'tkn' => $tkn);
 		if ( sendZipEmail($d) ) {
 			
 			if ( unlink($_SERVER['DOCUMENT_ROOT'].'/signed/'.$tkn."@".$ref.".zip") ) {
-			header("Location: ". $referer ."?cref=".$ref."&deleted=1");		
+			$redirect .= "&deleted=1";		
 			}	
 			
 		}
 		
 	} else {
-	header("Location: ". $referer ."?cref=".$ref."&deleted=0");
+	$redirect .= "&deleted=0";	
 	}
+	
+	header("Location: ". $redirect);
 	
 } else {
 		
 	if (isset($_GET['rmv']) && $_GET['rmv'] == "all" && !empty($zip_files)) {
-
+	$redirect = $referer;
+	
 		if (sendAllZipsEmail($zip_files)) {
 
 			foreach($zip_files as $k => $zf){
 			unlink($zf);
 			}	
 			
-			header("Location: ". $referer. "?deleted=1" );	
+			$redirect .= "?zips-deleted=1";	
+		} else {
+			$redirect .= "?zips-deleted=0";	
 		}
+		
+		header("Location: ". $redirect );	
 		
 	} else {
 	header("Location: ". SITEROOT );	

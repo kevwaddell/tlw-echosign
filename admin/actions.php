@@ -81,6 +81,12 @@ $sent_logs = glob($_SERVER['DOCUMENT_ROOT']."/admin/logs/archives/sent-logs-arch
 				<p>All signed folders have been converted to zip files successfully.</p>
 			</div>			
 			<?php } ?>
+			<?php if (isset($_GET['zipped']) && $_GET['zipped'] == 0) { ?>
+			<div class="alert alert-danger text-center alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<p>No files were zipped. There may be a process error.</p>
+			</div>			
+			<?php } ?>
 			<?php if (isset($_GET['zips-deleted']) && $_GET['zips-deleted'] == 1) { ?>
 			<div class="alert alert-success text-center alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
