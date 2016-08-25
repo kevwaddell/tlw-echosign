@@ -25,19 +25,19 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 	$tkn = $_GET['tkn'];
 	$ref = $_GET['cref'];
 	$redirect = $referer."?cref=".$ref;
+	$zip = $tkn."@".$ref.".zip";
 	
 	$d = array('ref' => $ref, 'tkn' => $tkn);
 	
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/signed/'.$tkn."@".$ref.".zip")) {
+		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/signed/'.$zip)) {
 			
 			if ( sendZipEmail($d) ) {
+			
+			unlink($_SERVER['DOCUMENT_ROOT'].'/signed/'.$zip);
 				
-				if ( unlink($_SERVER['DOCUMENT_ROOT'].'/signed/'.$tkn."@".$ref.".zip") ) {
-				$redirect .= "&deleted=1";		
-				} else {
-				$redirect .= "&deleted=0";	
-				}	
-				
+			$redirect .= "&deleted=1";
+			} else {
+			$redirect .= "&deleted=0";	
 			}
 			
 		}
