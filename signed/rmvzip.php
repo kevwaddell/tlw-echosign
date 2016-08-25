@@ -32,14 +32,11 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/signed/'.$zip)) {
 			
 			if ( sendZipEmail($d) ) {
-			
 			unlink($_SERVER['DOCUMENT_ROOT'].'/signed/'.$zip);
 				
 			$redirect .= "&deleted=1";
-			
 			} else {
 			$redirect .= "&deleted=0";	
-			
 			}
 			
 		}
