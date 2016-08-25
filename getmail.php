@@ -53,7 +53,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$prev_log_da
 
 if ($inbox){
 
-	echo "connection successful....\n";
+	echo "connection successful....<br /><br />\n";
 	
 	/* grab emails */
 	$emails = imap_search($inbox,'UNSEEN', SE_UID);
@@ -63,9 +63,9 @@ if ($inbox){
 	$unsigned_logs = array();
 	$signed_logs = array();
 
-	echo "Total Messages: " . $check->Nmsgs . "\n";
-	echo "Unread Messages: " . $check->Unread . "\n";
-	echo "Deleted Messages: " . $check->Deleted . "\n";
+	echo "Total Messages: " . $check->Nmsgs . "<br />\n";
+	echo "Unread Messages: " . $check->Unread . "<br />\n";
+	echo "Deleted Messages: " . $check->Deleted . "<br />\n";
 	
 	if ( (time() > strtotime("Today 9pm")) && $check->Deleted > 0 ) {
 	imap_expunge($inbox);	
