@@ -36,8 +36,10 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 			unlink($_SERVER['DOCUMENT_ROOT'].'/signed/'.$zip);
 				
 			$redirect .= "&deleted=1";
+			
 			} else {
 			$redirect .= "&deleted=0";	
+			
 			}
 			
 		}
