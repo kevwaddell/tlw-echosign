@@ -84,7 +84,7 @@ $sent_logs = glob($_SERVER['DOCUMENT_ROOT']."/admin/logs/archives/sent-logs-arch
 			<?php if (isset($_GET['zipped']) && $_GET['zipped'] == 0) { ?>
 			<div class="alert alert-danger text-center alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<p>No files were zipped. There may be a process error.</p>
+				<p>No folders were zipped.</p>
 			</div>			
 			<?php } ?>
 			<?php if (isset($_GET['zips-deleted']) && $_GET['zips-deleted'] == 1) { ?>
@@ -93,7 +93,12 @@ $sent_logs = glob($_SERVER['DOCUMENT_ROOT']."/admin/logs/archives/sent-logs-arch
 				<p>All signed converted zip files have been removed and sent to <a href="mailto:<?php echo TLW_IT_EMAIL; ?>"><?php echo TLW_IT_EMAIL; ?></a>.</p>
 			</div>			
 			<?php } ?>
-			
+			<?php if (isset($_GET['zips-deleted']) && $_GET['zips-deleted'] == 0) { ?>
+			<div class="alert alert-danger text-center alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<p>No zip files were deleted.</p>
+			</div>			
+			<?php } ?>
 			<?php if (isset($_GET['email-logs-rmvd']) && $_GET['email-logs-rmvd'] == 1) { ?>
 			<div class="alert alert-success text-center alert-dismissible" role="alert">
 				<p>All email logs for <strong><?php echo date('M Y', $rmv_date); ?></strong> have been archived and removed.</p><br>

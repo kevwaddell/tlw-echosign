@@ -42,27 +42,31 @@ $d = array('ref' => $ref, 'tkn' => $tkn);
 	
 	header("Location: ". $redirect);
 	
-} else {
-		
-	if (isset($_GET['rmv']) && $_GET['rmv'] == "all" && !empty($zip_files)) {
-	$redirect = $referer;
-	
-		if (sendAllZipsEmail($zip_files)) {
+} 
 
-			foreach($zip_files as $k => $zf){
-			unlink($zf);
-			}	
-			
-			$redirect .= "?zips-deleted=1";	
-		} else {
-			$redirect .= "?zips-deleted=0";	
-		}
+if (isset($_GET['rmv']) && $_GET['rmv'] == "all" && !empty($zip_files)) {
+$redirect = $referer;
+
+	if (sendAllZipsEmail($zip_files)) {
+
+		foreach($zip_files as $k => $zf){
+		unlink($zf);
+		}	
 		
-		header("Location: ". $redirect );	
-		
+		$redirect .= "?zips-deleted=1";	
 	} else {
-	header("Location: ". SITEROOT );	
-	}	
+		$redirect .= "?zips-deleted=0";	
+	}
+	
+	header("Location: ". $redirect );	
+	
+}
+
+if (!isset($_GET['rmv']) || !isset($_GET['tkn'])) {
+	foreach($zip_files as $k => $zf){
+	unlink($zf);
+	echo $zf. " zip file removed.";
+	}		
 }	
 	
 ?>
