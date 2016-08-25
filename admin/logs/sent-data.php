@@ -94,7 +94,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_d
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<p class="lead">The document data you requested for client ref <strong><?php echo $_GET['cref']; ?></strong> is ready do download</p>
 							<p style="margin-top: 10px;">
-								<a href="<?php echo SITEROOT; ?>/signed/<?php echo $_GET['tkn']; ?>@<?php echo $_GET['cref']; ?>.zip" class="btn btn-success btn-lg" target="_blank;"><i class="glyphicon glyphicon-share"></i> Download Zip</a>&nbsp;&nbsp;&nbsp;<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-default btn-lg" target="_blank;"><i class="glyphicon glyphicon-remove"></i> Cancel</a>
+								<a href="<?php echo SITEROOT; ?>/signed/<?php echo $_GET['tkn']; ?>@<?php echo $_GET['cref']; ?>.zip" class="btn btn-success btn-lg" target="_blank"><i class="glyphicon glyphicon-share"></i> Download Zip</a>&nbsp;&nbsp;&nbsp;<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-remove"></i> Cancel</a>
 								</p>
 						</div>		
 					<?php } ?>
@@ -104,7 +104,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_d
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<p class="lead">Sorry the document data you requested for<br>client ref <strong><?php echo $_GET['cref']; ?></strong> is no longer available to download</p>
 							<p style="margin-top: 10px;">
-								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-success" target="_blank;"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
+								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-success"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
 							</p>
 						</div>		
 					<?php } ?>
@@ -115,7 +115,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_d
 							<p class="lead">All data for client ref <strong><?php echo $_GET['cref']; ?></strong> has been removed.</p>
 							<p>A back-up copy of the data has been sent to <strong>webmaster@tlwsolicitors.co.uk</strong></p>
 							<p style="margin-top: 10px;">
-								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-success" target="_blank;"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
+								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-success"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
 							</p>
 						</div>		
 					<?php } ?>
@@ -126,7 +126,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_d
 							<p class="lead">Data for client ref <strong><?php echo $_GET['cref']; ?></strong> cannot be removed.</p>
 							<p>Please contact <strong><a href="mailto:webmaster@tlwsolicitors.co.uk">webmaster@tlwsolicitors.co.uk</a></strong> to remove this data.</p>
 							<p style="margin-top: 10px;">
-								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-danger" target="_blank;"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
+								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
 							</p>
 						</div>		
 					<?php } ?>
@@ -136,7 +136,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_d
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<p class="lead">All data for client ref <strong><?php echo $_GET['cref']; ?></strong> has been zipped sucessfully.</p>
 							<p style="margin-top: 10px;">
-								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-success" target="_blank;"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
+								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-success"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
 							</p>
 						</div>		
 					<?php } ?>
@@ -146,7 +146,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'sent-data-'.$log_d
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<p class="lead">Data for client ref <strong><?php echo $_GET['cref']; ?></strong> could not be zipped.</p>
 							<p style="margin-top: 10px;">
-								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-danger" target="_blank;"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
+								<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> Continue</a>
 							</p>
 						</div>		
 					<?php } ?>
