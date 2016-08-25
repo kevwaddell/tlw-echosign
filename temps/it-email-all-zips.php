@@ -29,7 +29,7 @@ $remove_date = date('g:ia, jS F, Y');
 		
 		<div class="content" style="padding: 20px 40px; font-size: 16px; min-height: 100px;">
 			
-			<h2>TLW Esign website has performed a data cleanse.</h2>
+			<h2>TLW Esign website has performed a file cleanse.</h2>
 			<p>All signed zipped files have been removed at <strong><?php echo $remove_date; ?></strong>.</p>
 			<p>The removed zip files are attached to this email.</p>
 			
