@@ -34,12 +34,12 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 				
 				if ( unlink($_SERVER['DOCUMENT_ROOT'].'/signed/'.$tkn."@".$ref.".zip") ) {
 				$redirect .= "&deleted=1";		
+				} else {
+				$redirect .= "&deleted=0";	
 				}	
 				
 			}
 			
-		} else {
-		$redirect .= "&deleted=0";	
 		}
 		
 		header("Location: ". $redirect);
