@@ -11,7 +11,6 @@ function sendProclaimEmail() {
 	
 	$mail->SetFrom(TLW_SOURCE_EMAIL, TLW_SOURCE_NAME);
 	$mail->AddAddress(TLW_IMPORT_EMAIL);	
-	$mail->addCC(TLW_WEBMASTER);
 	$mail->Subject = $data['ref'];
 	$mail->MsgHTML($body);
 	$mail->AddAttachment($_SERVER['DOCUMENT_ROOT']."/".$data['ref']."/".$data['ref'].".pdf");
