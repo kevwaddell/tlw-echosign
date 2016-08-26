@@ -61,10 +61,13 @@ function parseWord($userDoc) {
 		continue;
 	    }
 	    
-	    if (trim(strtolower($line)) == "content") {    
+	   if (trim(strtolower($line)) == "content") {   
+		$start = true;  
+		if ($addressStart) {
 		$outtext .= "</div>";
 		$addressStart = false;
-		$addressEnd = true;
+		$addressEnd = true;	
+		}
 		continue;
 	    }
 	    
