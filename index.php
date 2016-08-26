@@ -138,9 +138,9 @@ $unsigned_data = unserialize($raw_unsigned_data);
 						?>
 						<div class="alert alert-success text-center">
 							<h3>Thank you <?php echo $data['firstname']; ?> for signing your agreement</h3>
-							<p>Please contact us on <strong>0800 169 5925</strong> if you have any queries.</p>
+							<p>Please contact us on <strong>0800 169 5925</strong> if you have any queries.</p><br />
+							<a href="<?php echo SITEROOT; ?>/" class="btn btn-success btn-lg btn-block caps">Continue</a>
 						</div>
-						<a href="<?php echo SITEROOT; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-refresh pull-left"></i>Continue</a>
 						<?php } ?>
 						
 						<?php if (!empty($messages)) { ?>
@@ -156,7 +156,7 @@ $unsigned_data = unserialize($raw_unsigned_data);
 						<?php if ($unsigned) { ?>
 						<div class="alert alert-success text-center">
 							<h3>Welcome <?php echo $fname; ?></h3>
-							<p>Your agreement is ready to be signed.</p><br>
+							<p>Your agreement is ready to be signed.</p><br />
 							<a href="<?php echo SITEROOT; ?>/<?php echo $ref; ?>/sign/?tkn=<?php echo $tkn; ?>" class="btn btn-success btn-lg btn-block caps">View Aggreement</a>
 						</div>
 						<a href="<?php echo SITEROOT; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-remove-sign pull-left"></i>Cancel</a>
