@@ -104,11 +104,11 @@ $doc = parseWord($file);
 				?>
 				<form method="post" action="<?php echo SITEROOT; ?>/sendsig/">
 			    	<button id="confirm-sig" type="submit" class="btn btn-success btn-lg btn-block caps">Confirm and send<i class="glyphicon glyphicon-ok pull-left"></i> </button>
-					<a href="" class="btn btn-danger btn-lg btn-block caps">Re-sign<i class="glyphicon glyphicon-refresh pull-left"></i></a>
+					<a href="" class="btn btn-danger btn-lg btn-block caps"><i class="glyphicon glyphicon-refresh pull-left"></i>Re-sign</a>
 					<input type="hidden" value="<?php echo $data['ref']; ?>" name="cref">
 				</form>
 				<?php } else { ?>
-				<button type="button" class="btn btn-primary btn-block btn-lg caps" data-toggle="modal" data-target="#sigFormModal">Click here to sign&nbsp;&nbsp;<i class="glyphicon glyphicon-pencil pull-left"></i></button>
+				<button type="button" class="btn btn-primary btn-block btn-lg caps" data-toggle="modal" data-target="#sigFormModal"><i class="glyphicon glyphicon-pencil pull-left"></i>Click here to sign</button>
 				<?php } ?>
 				
 								
