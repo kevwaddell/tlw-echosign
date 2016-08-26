@@ -139,7 +139,6 @@ $unsigned_data = unserialize($raw_unsigned_data);
 						<div class="alert alert-success text-center">
 							<h3>Thank you <?php echo $data['firstname']; ?> for signing your agreement</h3>
 							<p>Please contact us on <strong>0800 169 5925</strong> if you have any queries.</p>
-							<a href="<?php echo SITEROOT; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-refresh pull-left"></i>Continue</a>
 						</div>
 						<a href="<?php echo SITEROOT; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-refresh pull-left"></i>Continue</a>
 						<?php } ?>
@@ -166,7 +165,7 @@ $unsigned_data = unserialize($raw_unsigned_data);
 						<?php if (!isset($_POST['cref'])) { ?>
 						<form method="post" action="">
 							<div class="form-group">
-								<input type="text" name="cref" class="form-control input-lg text-center" placeholder="Enter your reference" maxlength="6">
+								<input type="text" name="cref" class="form-control input-lg text-center" placeholder="Enter your reference" maxlength="10">
 								<input type="hidden" name="date" value="<?php echo $log_date; ?>">
 							</div>
 							<button class="btn btn-default btn-lg btn-block caps"><i class="glyphicon glyphicon-search pull-left"></i>Find</button>
