@@ -509,6 +509,14 @@ padding: 8px;
 		margin-bottom: 20px;	
 	}
 	
+	.letter-intro {
+		font-size: 1.3em;
+		font-weight: bold;
+		padding-bottom: 20px;
+		margin-bottom: 30px;
+		border-bottom: 1px solid gray;	
+	}
+	
 	.letter-address p {
 	margin-bottom: 0px;	
 	}

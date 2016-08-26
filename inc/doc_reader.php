@@ -28,6 +28,7 @@ function parseWord($userDoc) {
     $lineTotal = count($lines);
     $lineCounter = 0;
     $start = false;
+    $intro = false;
     $addressStart = false;
     $addressEnd = false;
     $endKey = $lineTotal;
@@ -35,17 +36,27 @@ function parseWord($userDoc) {
     
     $outtext = "";
     
-    //echo '<pre>';print_r($lines);echo '</pre>';
+    //return pre($lines);
     
     foreach($lines as $key => $str) {
 	    $line = $str;
 		$line = cleanEncoding($line);
 	    $line = preg_replace( '/[\x00-\x1F\x80-\xFF]/', "", $line );
-		
+	    
+	    if (trim(strtolower($line)) == "intro") {
+		$start = true;  
+		$intro = true;
+		$outtext .= "<div class=\"letter-intro\">";
+		continue;
+	    }
+
 	    if (trim(strtolower($line)) == "address") {
 		$start = true;  
 		$addressKey = $key;  
 		$addressStart = true;
+		if ($intro) {
+		$outtext .= "</div>";	
+		}
 		$outtext .= "<div class=\"letter-address\">";
 		continue;
 	    }
@@ -69,5 +80,7 @@ function parseWord($userDoc) {
     }
     
     return cleanEncoding($outtext);
+    
+    //return pre($lines);
 } 
 ?>
