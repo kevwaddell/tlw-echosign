@@ -215,23 +215,26 @@ if ($inbox){
 					$data['sent']		=	$date_sent;
 						
 					$dir = mkdir($client_ref, 0755);
+					
+					if ($dir == 1) {
+					//FILES CREATED	
+					$new_doc = 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
+					$new_html = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/sign.php', $php_temp);
+					$new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));		
+					}
 
 					//pre($data);
 					
 					include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
 					
-					if ($dir == 1 && sendClientEmail($data)) { 	
-						//FILES CREATED	
-						$new_doc 	= 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
-						$new_html 	= 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/sign.php', $php_temp);
-						$new_data 	= 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));	
-						
+					if ($new_doc && $new_html && $new_data && sendClientEmail($data)) { 	
+			
 						$unsigned_logs[] = $data;
 						file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));		
 													
 						imap_delete($inbox, $overview[0]->msgno);
 						
-						echo "Client email was sent and files added to folder successfully!";
+						echo "Client email was sent and files added to folder successfully!<br />\n";
 						
 					} else {
 						
