@@ -241,7 +241,11 @@ if ($inbox){
 					}								
 					
 			} else { // If Folder already exists delete email
+				
+				echo "A folder for client ".$client_ref." already exists.";
+				
 				imap_delete($inbox, $overview[0]->msgno);
+				
 			}
 								
 				
