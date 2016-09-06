@@ -53,7 +53,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$prev_log_da
 
 if ($inbox){
 
-	echo "connection successful....<br />\n";
+	echo "Inbox connection successful....<br />\n";
 	echo date('l jS, F Y @ G:i')."<br /><br />\n";
 	
 	/* grab emails */
