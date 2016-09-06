@@ -10,15 +10,26 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/global-settings.php');
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <title>TLW Solicitors | Secure Sign</title>
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="shortcut icon" href="/favicon.ico">
 <link rel="stylesheet" href="<?php echo SITEROOT; ?>/assets/css/global-css.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script>
-	function close_window() {
-		if (confirm("Close Window?")) {
-		close();
-  		}
-	}
-</script>
 <?php 
 $log_date = date('Y-m-d', time());
 
@@ -53,7 +64,7 @@ if ( isset($_GET['cref']) ) {
 						</p>
 						<p>If the client does not complete the agreement in 2 days another email will be sent to <strong><?php echo $data['handler']; ?></strong> to request another notification email.</p><br>
 
-						<a href="<?php echo SITEROOT; ?>/" onclick="close_window();return false;" class="btn btn-primary btn-lg btn-block caps"><i class="glyphicon glyphicon glyphicon-circle-arrow-left pull-left"></i>Continue</a>
+						<a href="<?php echo SITEROOT; ?>/" class="btn btn-primary btn-lg btn-block caps"><i class="glyphicon glyphicon glyphicon-circle-arrow-left pull-left"></i>Continue</a>
 					</div>
 					<?php } ?>
 					
@@ -78,7 +89,7 @@ if ( isset($_GET['cref']) ) {
 						Email: <a href="mailto:webmaster@tlwsolicitors.co.uk">webmaster@tlwsolicitors.co.uk</a><br> 
 						Ext: 210.</p><br>
 
-						<a href="<?php echo SITEROOT; ?>/" onclick="close_window();return false;" class="btn btn-default btn-block"><i class="glyphicon glyphicon-remove pull-left"></i> Cancel</a>
+						<a href="<?php echo SITEROOT; ?>/" class="btn btn-default btn-block"><i class="glyphicon glyphicon-remove pull-left"></i>Cancel</a>
 					</div>
 					<?php } ?>
 						

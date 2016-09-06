@@ -30,7 +30,7 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 		//pre($sendTo);
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-		$headers .= 'From: TLW Esign <webmaster@tlwsolicitors.co.uk>' . "\r\n";
+		$headers .= 'From:'. TLW_SOURCE_NAME .'<'. TLW_SOURCE_EMAIL .'>' . "\r\n";
 		$subject  = 'TLW Client Agreement has not been signed';
 		$i = 0;
 

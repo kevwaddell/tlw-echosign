@@ -200,45 +200,44 @@ if ($inbox){
 				$doc_dir 	= 	$client_ref;
 				$doc_ext 	= 	getFileExtension($name);
 				$doc_name 	= 	$client_ref.'-letter.'. $doc_ext;
+				$date_sent = time();
 
 				
 				if ( !is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir)  ) {	
-
-					$dir = mkdir($client_ref, 0755);
-				
-					if ($dir == 1) {
-						//DATA ARRAY VALUES					
-						$data['ref'] 		= 	$client_ref;
-						$data['handler'] 	=	$handler_email;
-						$data['email'] 		=	$client_email;
-						$data['firstname'] 	=	ucwords($client_fname);
-						$data['lastname'] 	=	ucwords($client_lname);
-						$data['tkn'] 		=	md5( uniqid(rand(), true) );
-						$data['sent']		=	time();
+					//DATA ARRAY VALUES					
+					$data['ref'] 		= 	$client_ref;
+					$data['handler'] 	=	$handler_email;
+					$data['email'] 		=	$client_email;
+					$data['firstname'] 	=	ucwords($client_fname);
+					$data['lastname'] 	=	ucwords($client_lname);
+					$data['tkn'] 		=	md5( uniqid(rand(), true) );
+					$data['sent']		=	$date_sent;
 						
+					$dir = mkdir($client_ref, 0755);
+
+					//pre($data);
+					
+					include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
+					
+					if ($dir == 1 && sendClientEmail($data)) { 	
 						//FILES CREATED	
 						$new_doc 	= 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
 						$new_html 	= 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/sign.php', $php_temp);
 						$new_data 	= 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));	
 						
-						//pre($data);
-						
-						include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
-						
-						if (sendClientEmail($data)) { 								
-							imap_delete($inbox, $overview[0]->msgno);
-							echo "Email sent successfully!";
-						} else {
-							$raw_data 	= 	file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt');
-							$data 		= 	unserialize($raw_data);
-							$data['sent'] = NULL;
-							$new_data 	= 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));
-							imap_clearflag_full($inbox, $overview[0]->msgno, "\\Seen", ST_UID);	
-						}
-					
 						$unsigned_logs[] = $data;
-						file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));
-					}								
+						file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));		
+													
+						imap_delete($inbox, $overview[0]->msgno);
+						
+						echo "Client email was sent and files added to folder successfully!";
+						
+					} else {
+						
+						echo "Could not create client folder and send client email!";
+						
+						imap_clearflag_full($inbox, $overview[0]->msgno, "\\Seen", ST_UID);	
+					}						
 					
 			} else { // If Folder already exists delete email
 				
@@ -249,9 +248,11 @@ if ($inbox){
 			}
 								
 				
-			} else { // If no attachments delete email
-				imap_delete($inbox, $overview[0]->msgno);
-			}
+		} else { // If no attachments delete email
+				
+			echo "There was no files attached to the email!";
+			imap_delete($inbox, $overview[0]->msgno);
+		}
 
 		} // foreach overview	
 		

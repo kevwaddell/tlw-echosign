@@ -40,7 +40,7 @@ $cref = $data['ref'];
 			<p align="center">Please click on the link below to resend the notification email.</p>
 			<p align="center"><a href="<?php echo SITEROOT; ?>/sendmail/?cref=<?php echo $cref; ?>" style="display: inline-block; padding: 10px; background-color: #ACD15C; text-transform: uppercase; color: white; font-weight: bold; text-decoration: none;">Re-send notification email</a></p>
 			<p align="center">If you have any problems viewing the link above.</p>
-			<p align="center"><strong>Please notify the website administratoron: <br /><a href="mailto: webmaster@tlwsolicitors.co.uk" style="color: #ca156e;">webmaster@tlwsolicitors.co.uk</a> or call EXT: 210</strong></p>
+			<p align="center"><strong>Please notify the website administrator: <br /><a href="mailto: webmaster@tlwsolicitors.co.uk" style="color: #ca156e;">webmaster@tlwsolicitors.co.uk</a> or call EXT: 210</strong></p>
 		</div>
 		
 		<div class="footer" style="background-color: #666; padding: 20px; color: white; font-size: 12px; text-align: center;">
