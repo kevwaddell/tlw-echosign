@@ -16,7 +16,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 
 $log_date = date('Y-m-d', time());
 $email_data = array();
-$sent_data = array();
+$signed_data = array();
 $unsigned_data = array();
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.log')) {
@@ -25,13 +25,13 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$log_date.'.
 }
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/signed-'.$log_date.'.log')) {
-	$raw_sent_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/signed-'.$log_date.'.log');	
-	$sent_data = unserialize($raw_sent_data);	
+	$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/signed-'.$log_date.'.log');	
+	$signed_data = unserialize($raw_signed_data);	
 }
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log')) {
-$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');	
-$unsigned_data = unserialize($raw_unsigned_data);	
+	$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');	
+	$unsigned_data = unserialize($raw_unsigned_data);	
 }	
 
 ?>
@@ -67,10 +67,16 @@ $unsigned_data = unserialize($raw_unsigned_data);
 						<div class="panel-heading"><h3 class="panel-title">Today's signature logs<i class="glyphicon glyphicon-pencil pull-right"></i></h3></div>
 						<div class="panel-body" style="min-height: 300px;">
 						   <h4>Signed documents</h4>
-						   <?php if (empty($sent_data)) { ?>
+						   <?php if (empty($signed_data)) { ?>
 						   	<p>There are no signed documents today.</p>
 						   <?php } else { ?>
-						   	<p>There are <strong><?php echo count($sent_data); ?></strong> signed documents today.</p>
+						   		
+						   		<?php if (count($signed_data) > 1) { ?>
+						   			<p>There have been <strong><?php echo count($signed_data); ?></strong> signed documents today.</p>	
+						   		<?php } else { ?>	
+						   			<p>There is <strong>1</strong> signed document today.</p>
+						   		<?php } ?>
+						   	
 						   	<a href="<?php echo SITEROOT; ?><?php echo '/admin/logs/signed-'.$log_date.'.log'; ?>" target="_blank" class="btn btn-lg btn-default btn-block">View signed logs <i class="glyphicon glyphicon-download pull-right"></i></a>	
 						   <?php } ?>
 						   <hr>
@@ -78,7 +84,13 @@ $unsigned_data = unserialize($raw_unsigned_data);
 						   <?php if (empty($unsigned_data)) { ?>
 						   	<p>There are no unsigned documents today.</p>
 						   <?php } else { ?>
-						   	<p>There are <strong><?php echo count($unsigned_data); ?></strong> unsigned documents today.</p>
+						   
+						   		<?php if (count($unsigned_data) > 1) { ?>
+						   			<p>There are <strong><?php echo count($unsigned_data); ?></strong> unsigned documents today.</p>	
+						   		<?php } else { ?>	
+						   			<p>There is <strong>1</strong> unsigned document today.</p>
+						   		<?php } ?>
+
 						   	<a href="<?php echo SITEROOT; ?><?php echo '/admin/logs/unsigned-'.$log_date.'.log'; ?>" target="_blank" class="btn btn-lg btn-default btn-block">View unsigned logs <i class="glyphicon glyphicon-download"></i></a>	
 						   <?php } ?>
 					   
