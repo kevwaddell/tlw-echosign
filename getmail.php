@@ -213,6 +213,7 @@ if ($inbox){
 					$data['lastname'] 	=	ucwords($client_lname);
 					$data['tkn'] 		=	md5( uniqid(rand(), true) );
 					$data['sent']		=	$date_sent;
+					$files_added = false;
 						
 					$dir = mkdir($client_ref, 0755);
 					
@@ -220,14 +221,17 @@ if ($inbox){
 					//FILES CREATED	
 					$new_doc = 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/'. $doc_name, $contents); 
 					$new_html = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/sign.php', $php_temp);
-					$new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));		
+					$new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir .'/data.txt', serialize($data));	
+						if ($new_doc && $new_html && $new_data) {
+						$files_added = true;	
+						}	
 					}
 
 					//pre($data);
 					
 					include_once($_SERVER['DOCUMENT_ROOT'].'/inc/emails/send-client-email.php');
 					
-					if ($new_doc && $new_html && $new_data && sendClientEmail($data)) { 	
+					if ($files_added && sendClientEmail($data)) { 	
 			
 						$unsigned_logs[] = $data;
 						file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log', serialize($unsigned_logs));		
