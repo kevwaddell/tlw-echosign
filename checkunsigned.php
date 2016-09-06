@@ -3,7 +3,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/global-settings.php');
 $log_date = date('Y-m-d', time());
-$yesterday_log = date('Y-m-d', strtotime($log_date." -1 day") );
+
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log')) {
 
 $unsigned_logs_raw = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');
@@ -23,7 +23,7 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 			$data = unserialize($raw_data);	
 			$sendTo[$k]['ref'] = $ul['ref'];
 			$sendTo[$k]['handler'] = $ul['handler'];
-			$sendTo[$k]['message']= file_get_contents(SITEROOT.'/temps/handler-email-notify.php?cref='.$ul['ref']);
+			$sendTo[$k]['message'] = file_get_contents(SITEROOT.'/temps/handler-email-notify.php?cref='.$ul['ref']);
 			} //if 2 days gone
 		
 		} // foreach unsigned log
@@ -33,13 +33,30 @@ $unsigned_logs = unserialize($unsigned_logs_raw);
 		$headers .= 'From:'. TLW_SOURCE_NAME .'<'. TLW_SOURCE_EMAIL .'>' . "\r\n";
 		$subject  = 'TLW Client Agreement has not been signed';
 		$i = 0;
-
-		while($i < count($sendTo)){
-			$mail = mail($sendTo[$i]['handler'], $subject, $sendTo[$i]['message'], $headers);
-			$i++;
-		}
 		
-		exit;	
+		if (empty($sendTo)) {
+			echo "There are no unsigned emails to send.<br>\n";
+		} else {
+			
+			while($i < count($sendTo)){
+				$mail = mail($sendTo[$i]['handler'], $subject, $sendTo[$i]['message'], $headers);
+				$i++;
+				
+				if ($mail) {
+				echo "Email". $i ." sent successfuly.<br>\n";
+				} else {
+				echo "Email". $i ." was not sent.<br>\n";	
+				}
+			}
+			
+		}
+
+		
+	
+	} else {
+		echo "There are no unsigned emails to send.<br>\n";
 	}
+} else {
+	echo "There is no log file for today.<br>\n";
 }
 ?>

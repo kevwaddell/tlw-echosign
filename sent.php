@@ -44,8 +44,8 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 		}
 	}
 	
-	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log') ) {
-		$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log');	
+	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/signed-'.$log_date.'.log') ) {
+		$raw_signed_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/signed-'.$log_date.'.log');	
 		$signed_data = unserialize($raw_signed_data);	
 	} else {
 		$signed_data = array();		
@@ -58,7 +58,7 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 		'sdate' =>  $data['signed']
 	);
 	
-	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log', serialize($signed_data));
+	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/signed-'.$log_date.'.log', serialize($signed_data));
 	
 	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log')) {
 		$raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');

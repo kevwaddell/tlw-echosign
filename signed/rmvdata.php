@@ -19,7 +19,7 @@ if ( isset($_SERVER['HTTP_REFERER']) ) {
 	$cref = $_GET['cref'];
 	$redirect = $referer ."?cref=".$ref;
 	
-	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log');	
+	$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/signed-'.$log_date.'.log');	
 	$data = unserialize($raw_data);	
 		
 		foreach ($data as $k => $d) {
@@ -29,7 +29,7 @@ if ( isset($_SERVER['HTTP_REFERER']) ) {
 			}
 		}
 		
-	$new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log', serialize($data));		
+	$new_data = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/signed-'.$log_date.'.log', serialize($data));		
 		
 		if ($new_data) {
 		$redirect .= "&data-deleted=1";	

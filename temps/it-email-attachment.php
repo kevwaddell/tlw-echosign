@@ -50,7 +50,7 @@ $remove_date = date('g:ia, jS F, Y', strtotime( '+ 1 day', $data['signed']));
 			<strong><?php echo $remove_date; ?></strong></p>
 			
 			<p>Or click on the link below and remove the data now.<br />
-			<a href="<?php echo SITEROOT; ?>/admin/logs/sent-data/">Remove data now !!!</a></p>
+			<a href="<?php echo SITEROOT; ?>/admin/logs/signed/">Remove data now !!!</a></p>
 			
 		</div>
 		

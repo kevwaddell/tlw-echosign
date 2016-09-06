@@ -39,9 +39,9 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$prev_log_date
 	}
 }
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$prev_log_date.'.log')) {
-	$prev_signed_src = $_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$prev_log_date.'.log';
-	$prev_signed_dest = $_SERVER['DOCUMENT_ROOT'].'/admin/logs/archives/sent-logs-archive/sent-data-'.$prev_log_date.'.log';	
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/signed-'.$prev_log_date.'.log')) {
+	$prev_signed_src = $_SERVER['DOCUMENT_ROOT'].'/admin/logs/signed-'.$prev_log_date.'.log';
+	$prev_signed_dest = $_SERVER['DOCUMENT_ROOT'].'/admin/logs/archives/sent-logs-archive/signed-'.$prev_log_date.'.log';	
 	rename($prev_signed_src, $prev_signed_dest);
 }
 
@@ -93,8 +93,8 @@ if ($inbox){
 	}	
 	
 	// Check if signed logs for current date extists
-	if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log')) {
-		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/sent-data-'.$log_date.'.log', serialize($signed_logs));	; 
+	if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/signed-'.$log_date.'.log')) {
+		file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/signed-'.$log_date.'.log', serialize($signed_logs));	; 
 	}
 	
 	// Check if Emails are Unread

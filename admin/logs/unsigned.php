@@ -49,7 +49,7 @@ if (isset($_POST['change_logs'])) {
 	$log_date = $change_logs_date;
 }
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/'.$log_path.'unsigned-'.$log_date.'.log')) {
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'unsigned-'.$log_date.'.log')) {
 $raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin'.$log_path.'unsigned-'.$log_date.'.log');	
 $unsigned_data = unserialize($raw_unsigned_data);	
 //echo '<pre class="debug">';print_r($unsigned_data);echo '</pre>';
