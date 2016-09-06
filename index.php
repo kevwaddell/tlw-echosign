@@ -43,12 +43,14 @@ $cref = $_POST['cref'];
 $log_date = $_POST['date'];
 $errors = array();
 $messages = array();
+$unsigned_data = array();
+
 $raw_unsigned_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.log');
 $unsigned_data = unserialize($raw_unsigned_data);	
 //pre($unsigned_data);
 
 
-	if ($unsigned_data) {
+	if (!empty($unsigned_data)) {
 
 		foreach ($unsigned_data as $ud) {
 		
@@ -105,14 +107,13 @@ $unsigned_data = unserialize($raw_unsigned_data);
 			<div class="bar bg-blue"></div>
 		</div>
 		<div class="jumbotron text-center">
-
-		<div class="container">
-			<h1>TLW Solicitors</h1>
-			<h2 class="caps txt-gray lite">Online Document signing</h2>
-			<p class="lead">Using the form below enter your 6 digit cleint reference number.<br>
-			<small>(e.g 365425)</small>
-			</p>
-		</div>
+			<div class="container">
+				<h1>TLW Solicitors</h1>
+				<h2 class="caps txt-gray lite">Online Document signing</h2>
+				<p class="lead">Using the form below enter your 6 digit cleint reference number.<br>
+				<small>(e.g 365425)</small>
+				</p>
+			</div>
 		</div>
 	</header>
 
@@ -162,7 +163,7 @@ $unsigned_data = unserialize($raw_unsigned_data);
 						<a href="<?php echo SITEROOT; ?>" class="btn btn-default btn btn-block caps"><i class="glyphicon glyphicon-remove-sign pull-left"></i>Cancel</a>
 						<?php } ?>
 						
-						<?php if (!isset($_POST['cref'])) { ?>
+						<?php if (!isset($_POST['cref']) || !isset($_GET['signed']) ) { ?>
 						<form method="post" action="">
 							<div class="form-group">
 								<input type="text" name="cref" class="form-control input-lg text-center" placeholder="Enter your reference" maxlength="10">

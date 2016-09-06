@@ -8,7 +8,7 @@ p {
 }
 
 hr {
-	height: 1px; 
+	height: 1pt; 
 	text-align: center; 
 	color: #999999; 
 	margin-top: 8pt; 
@@ -16,13 +16,13 @@ hr {
 }
 
 #main-header {
-	border-bottom: 1px solid #CCCCCC;
-	padding-bottom: 10px;
+	border-bottom: 1pt solid #CCCCCC;
+	padding-bottom: 10pt;
 }
 
 #main-footer {
-	border-top: 1px solid #CCCCCC;
-	padding-top: 20px;
+	border-top: 1pt solid #CCCCCC;
+	padding-top: 20pt;
 }
 
 .letter-text {
@@ -43,37 +43,24 @@ hr {
 .letter-intro {
 	font-size: 16.5pt;
 	font-weight: bold;
-	padding-bottom: 20px;
+	padding-bottom: 20pt;
 	margin-bottom: 22.5pt;
 	border-bottom: 1px solid #CCCCCC;	
 }
 
-.client-signature, .tlw-signature {
-padding-top: 40px;	
-font-size: 12pt;
-line-height: 16pt;	
-}
-
-.tlw-signature {
-padding-bottom: 5px;
-border-bottom: 2px dotted #000;	
-width: 380px;		
-}
-
 .client-signature {
-margin-bottom: 20pt;
-border-bottom: 2px dotted #000;	
-width: 380px;		
+margin-top: 20pt;			
+overflow: auto;	
+width: 300pt;
+background-color: #030303;
 }
 
-.client-signature p span {
-font-family: "Journal",Georgia,Times,serif;	
-font-size: 40pt;	
-line-height: 30pt;
-color: #133352;
+.client-signature .signature-img {
+border: 5pt dashed #ffa700;
 }
 
 .signature-details {
+margin-top: 20pt;
 font-size: 12pt;
 line-height: 16pt;		
 }

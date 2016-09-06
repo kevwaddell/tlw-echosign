@@ -13,7 +13,6 @@
 				<button class="btn btn-default step-2-btn" data-toggle="modal" data-target="#step2Modal"><span class="hidden-xs">Step </span>2</button>
 				<button class="btn btn-default step-3-btn" data-toggle="modal" data-target="#step3Modal"><span class="hidden-xs">Step </span>3</button>
 				<button class="btn btn-default step-4-btn" data-toggle="modal" data-target="#step4Modal"><span class="hidden-xs">Step </span>4</button>
-				<button class="btn btn-default step-5-btn" data-toggle="modal" data-target="#step5Modal"><span class="hidden-xs">Step </span>5</button>
 			</div>
 		</div>
 

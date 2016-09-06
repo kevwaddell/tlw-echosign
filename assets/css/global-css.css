@@ -97,12 +97,16 @@ color: #CC015A;
 color: #7A103F;	
 }
 
+.btn-lg {
+font-size: 12px;	
+}
+
 .btn i {
-line-height: 1.428;	
+line-height: 1.428em;	
 }
 
 .btn-lg i {
-line-height: 1.33333;	
+line-height: 1.2em;	
 }
 
 .messages {
@@ -222,7 +226,7 @@ font-weight: 300;
 }
 
 .jumbotron p {
-font-size: 0.85em;	
+font-size: 1.0em;	
 }
 
 .fp-well {
@@ -296,10 +300,6 @@ font-weight: bold;
 margin-bottom: 20px;	
 }
 
-.letter-address p {
-margin-bottom: 0px;	
-}
-
 .main-content {
 padding-bottom: 20px;	
 }
@@ -310,6 +310,7 @@ height: 300px;
 overflow: auto;
 border: 1px solid #ccc;
 padding: 15px;
+-webkit-overflow-scrolling: touch;
 }
 
 .letter-logo-wide {
@@ -344,61 +345,62 @@ background-color: #ffffff;
 padding: 20px;
 }
 
-.tlw-signature {
-padding-top: 20px;
-padding-bottom: 20px;	
+#generate-sig-form {
+margin-top: 20px;	
 }
 
-.tlw-signature p {
-font-size: 0.8em;
-margin: 0px;	
+.letter-message {
+font-size: 1.0em;		
+font-weight: bold;
 }
 
-.tlw-signature img {
-border-bottom: 2px dotted #000;	
+.name-details {
+font-size: 1.2em;
+padding-bottom: 10px;
+font-weight: bold;	
+color: #444;
+margin-bottom: 10px;
 }
 
-.tlw-signature p.signed {
-font-family: "Journal",Georgia,Times,serif;	
-font-size: 4em;
-line-height: 1em;
-color: #145394;
+button#change-name {
+margin-top: 10px;	
+}
+	
+#change-name-well {
+margin-top: 20px;	
+margin-bottom: 0px;
+background-color: #CCC;
+}
+
+.client-signature {
+margin-bottom: 30px;	
+overflow: auto;
+}
+
+.signature-img {
+background-color: black;
 }
 
 .client-signature img {
-border-bottom: 2px dotted #000;
+border: 10px dashed orange;
+width: 100%;
+height: auto;
 }
 
 .client-signature p {
 font-size: 0.8em;	
 }
 
-.client-signature p span {
-padding-left: 10px;
-padding-right: 10px;
-display: block;
-font-family: "Journal",Georgia,Times,serif;	
-font-size: 4em;	
-line-height: 1em;
-color: #133352;
-border-bottom: 2px dotted #000;
-}
-
 .signature-details {
+padding-top: 20px;
 padding-bottom: 20px;
-margin-bottom: 20px;
-border-bottom: 1px solid #ccc;	
-}
-
-.signature-details p {
-margin-bottom: 0px;	
+margin-top: 20px;
+border-top: 1px solid #ccc;	
 font-size: 0.8em;
 }
 
-	
-.sig-area {
-width: 294px;
-margin: auto; 	
+form#sendsig {
+margin-bottom: 10px;	
 }
 
 .no-border {
@@ -504,6 +506,17 @@ padding: 8px;
 	font-size: 1.2em;	
 	}
 	
+	.btn-lg {
+	font-size: 16px;	
+	}
+	
+	.btn i {
+	line-height: 1.428em;	
+	}
+	
+	.btn-lg i {
+	line-height: 1.2em;	
+	}
 	.letter-address {	
 		font-weight: bold;
 		margin-bottom: 20px;	
@@ -531,10 +544,22 @@ padding: 8px;
 	border: none;
 	padding: 0px;
 	}
-
 	
-	.letter-logo-wide {
-
+	#generate-sig-form {
+	margin-top: 40px;	
+	}
+	
+	.letter-message {
+	font-size: 1.2em;	
+	}
+	
+	.letter-message, .name-details {
+	font-weight: bold;	
+	}
+	
+	.name-details {
+	font-size: 2.6em;	
+	padding-bottom: 20px;	
 	}
 	
 	.letter-logo {
@@ -554,29 +579,24 @@ padding: 8px;
 	padding: 60px;
 	}
 	
-	.tlw-signature {
-	padding-bottom: 30px;	
-	}
-	
-	.tlw-signature p {
-	font-size: 1.2em;	
-	}
-	
 	.client-signature p {
 	font-size: 1.2em;	
 	}
 	
-	.client-signature p span {
-	display: inline-block;
+	.signature-img {
+	float: left;
+	}
+	
+	.client-signature img {
+	width: auto	
 	}
 	
 	.signature-details {
-	padding-bottom: 30px;
-	margin-bottom: 30px;
+	font-size: 1.2em;	
 	}
 	
-	.signature-details p {
-	font-size: 1.2em;	
+	input#name {
+	font-size: 1.3em;	
 	}
 
 	.navbar-brand {
@@ -587,7 +607,7 @@ padding: 8px;
 	}
 	
 	.modal-body p.lead {
-	font-size: 1em;	
+	font-size: 1.4em;	
 	}
 	
 	.modal-footer, .modal-header {

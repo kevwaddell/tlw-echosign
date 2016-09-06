@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
 		
-		<p class="text-center lead">Please make sure you <strong class="caps">read</strong> our client agreement carefully so you fully understand your claim and what your case entails before you sign this document.</p>
+		<p class="text-center lead">Please make sure you <strong class="caps">read</strong> our client agreement carefully so you fully understand your claim and what your case entails before you submit this document.</p>
 
       </div>
       <div class="modal-footer bg-dkgray">

@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
 
-		<p class="text-center lead">Once you have read the agreement click on the<br><strong class="caps">'Click here to Sign'</strong><br>button at the bottom of the document, this will bring up the signature box where you can either write or type your signature.</p>
+		<p class="text-center lead">Once you have read the agreement click on the<br><strong class="caps">'Generate Signature'</strong><br>button at the bottom of the document, this will create a signature for you.</p>
 
       </div>
       <div class="modal-footer bg-dkgray">
