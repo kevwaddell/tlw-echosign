@@ -54,7 +54,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/email-logs-'.$prev_log_da
 if ($inbox){
 
 	echo "connection successful....<br />\n";
-	echo date('l jS, F Y')."<br /><br />\n";
+	echo date('l jS, F Y @ G:i - GMT P')."<br /><br />\n";
 	
 	/* grab emails */
 	$emails = imap_search($inbox,'UNSEEN', SE_UID);
