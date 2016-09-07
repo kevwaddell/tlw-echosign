@@ -112,10 +112,12 @@ if ( isset($_SERVER['HTTP_REFERER']) ) {
 			}//loop through all files and folders in dir
 		}
 		
-		if ($no_signed_folders && $zip_error) {
+		if ($no_signed_folders) {
 		$redirect .= "?zipped=0";
-		} else {
+		} elseif ($zip_error) {
 		$redirect .= "?zipped=1";	
+		} else {
+		$redirect .= "?zipped=2";	
 		}
 		
 	//pre($redirect);

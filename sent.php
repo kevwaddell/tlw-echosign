@@ -55,7 +55,8 @@ if ( isset($_GET['sent']) && $_GET['sent'] == 1 ) {
 		'ref' => $data['ref'], 
 		'tkn' => $data['tkn'], 
 		'sby' => $data['firstname']." ".$data['lastname'], 
-		'sdate' =>  $data['signed']
+		'sdate' =>  $data['signed'],
+		'rdate' =>  date('g:ia, jS F, Y', strtotime( '+ 1 day', $data['signed']))
 	);
 	
 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/admin/logs/signed-'.$log_date.'.log', serialize($signed_data));

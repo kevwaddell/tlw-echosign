@@ -45,6 +45,43 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.lo
 	<main class="main-content">
 		
 		<div class="container">
+			
+			<?php if (isset($_GET['zipped']) && $_GET['zipped'] == 2) { ?>
+			<div class="alert alert-success text-center alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<p>All signed folders have been converted to zip files successfully.</p>
+			</div>			
+			<?php } ?>
+			<?php if (isset($_GET['zipped']) && $_GET['zipped'] == 1) { ?>
+			<div class="alert alert-danger text-center alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<p>There was an error archiving the folders.</p>
+			</div>			
+			<?php } ?>
+			<?php if (isset($_GET['zipped']) && $_GET['zipped'] == 0) { ?>
+			<div class="alert alert-danger text-center alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<p>There are no folders archive.</p>
+			</div>			
+			<?php } ?>
+			<?php if (isset($_GET['zips-deleted']) && $_GET['zips-deleted'] == 1) { ?>
+			<div class="alert alert-success text-center alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<p>All signed converted archive files have been removed and sent to <a href="mailto:<?php echo TLW_IT_EMAIL; ?>"><?php echo TLW_IT_EMAIL; ?></a>.</p>
+			</div>			
+			<?php } ?>
+			<?php if (isset($_GET['zips-deleted']) && $_GET['zips-deleted'] == 2) { ?>
+			<div class="alert alert-danger text-center alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<p>There was a problem removing the archive files.</p>
+			</div>			
+			<?php } ?>	
+			<?php if (isset($_GET['zips-deleted']) && $_GET['zips-deleted'] == 0) { ?>
+			<div class="alert alert-danger text-center alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<p>There are no archived files to be deleted.</p>
+			</div>			
+			<?php } ?>			
 			<div class="row">
 				<div class="col-md-6">
 					
@@ -101,16 +138,24 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.lo
 			</div>
 			
 			<div class="panel panel-default">
-				<div class="panel-heading"><h3 class="panel-title">Quick Links<i class="glyphicon glyphicon-chain pull-right"></i></h3></div>
+				<div class="panel-heading"><h3 class="panel-title">Quick Links<i class="glyphicon glyphicon-link pull-right"></i></h3></div>
 				<div class="panel-body">
-					<div class="row">
+					<div class="row" style="margin-bottom: 20px;">
 						<div class="col-xs-6">
 							<a href="<?php echo SITEROOT; ?>/getmail/" class="btn btn-success btn-lg btn-block" target="_blank">Get mail<i class="glyphicon glyphicon-menu-right pull-right"></i></a>
 						</div>
 						<div class="col-xs-6">
 							<a href="<?php echo SITEROOT; ?>/checkunsigned/" class="btn btn-success btn-lg btn-block" target="_blank">Check unsigned emails<i class="glyphicon glyphicon-menu-right pull-right"></i></a>
 						</div>
-					</div>		   
+					</div>	
+					<div class="row">
+						<div class="col-xs-6">
+							<a href="<?php echo SITEROOT; ?>/signed/flushsig/?zip=all" class="btn btn-success btn-lg btn-block">Archive all signed documents<i class="glyphicon glyphicon-menu-right pull-right"></i></a>
+						</div>
+						<div class="col-xs-6">
+							<a href="<?php echo SITEROOT; ?>/signed/rmvzip/?rmv=all" class="btn btn-success btn-lg btn-block">Delete all Archived documents<i class="glyphicon glyphicon-menu-right pull-right"></i></a>
+						</div>
+					</div>	   
 			  	</div>
 			</div>	
 		</div>

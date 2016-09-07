@@ -46,24 +46,33 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 		
 	} 
 	
-	if (isset($_GET['rmv']) && $_GET['rmv'] == "all" && !empty($zip_files)) {
+	if (isset($_GET['rmv']) && $_GET['rmv'] == "all" ) {
 	$redirect = $referer;
 	
-	//pre(glob($_SERVER['DOCUMENT_ROOT']."/signed/*.zip"));
-	
-		if (sendAllZipsEmail($zip_files)) {
-	
-			foreach($zip_files as $k => $zf){
-			unlink($zf);
-			}	
+		if (!empty($zip_files)) {
+		
+		//pre(glob($_SERVER['DOCUMENT_ROOT']."/signed/*.zip"));
+		
+			if (sendAllZipsEmail($zip_files)) {
+		
+				foreach($zip_files as $k => $zf){
+				unlink($zf);
+				}	
+				
+				$redirect .= "?zips-deleted=1";	
+			} else {
+				$redirect .= "?zips-deleted=2";	
+			}
 			
-			$redirect .= "?zips-deleted=1";	
+			header("Location: ". $redirect );	
+			
 		} else {
-			$redirect .= "?zips-deleted=0";	
+		$redirect .= "?zips-deleted=0";	
+		header("Location: ". $redirect );
 		}
 		
-		header("Location: ". $redirect );	
-		
+	} else {
+	header("Location: ". $redirect );
 	}
 	
 } else {

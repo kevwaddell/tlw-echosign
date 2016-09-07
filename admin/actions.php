@@ -75,30 +75,42 @@ $sent_logs = glob($_SERVER['DOCUMENT_ROOT']."/admin/logs/archives/sent-logs-arch
 	<main class="main-content">
 		
 		<div class="container">
-			<?php if (isset($_GET['zipped']) && $_GET['zipped'] == 1) { ?>
+			<?php if (isset($_GET['zipped']) && $_GET['zipped'] == 2) { ?>
 			<div class="alert alert-success text-center alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<p>All signed folders have been converted to zip files successfully.</p>
 			</div>			
 			<?php } ?>
+			<?php if (isset($_GET['zipped']) && $_GET['zipped'] == 1) { ?>
+			<div class="alert alert-danger text-center alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<p>There was an error archiving the folders.</p>
+			</div>			
+			<?php } ?>
 			<?php if (isset($_GET['zipped']) && $_GET['zipped'] == 0) { ?>
 			<div class="alert alert-danger text-center alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<p>No folders were zipped.</p>
+				<p>There are no folders archive.</p>
 			</div>			
 			<?php } ?>
 			<?php if (isset($_GET['zips-deleted']) && $_GET['zips-deleted'] == 1) { ?>
 			<div class="alert alert-success text-center alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<p>All signed converted zip files have been removed and sent to <a href="mailto:<?php echo TLW_IT_EMAIL; ?>"><?php echo TLW_IT_EMAIL; ?></a>.</p>
+				<p>All signed converted archive files have been removed and sent to <a href="mailto:<?php echo TLW_IT_EMAIL; ?>"><?php echo TLW_IT_EMAIL; ?></a>.</p>
 			</div>			
 			<?php } ?>
+			<?php if (isset($_GET['zips-deleted']) && $_GET['zips-deleted'] == 2) { ?>
+			<div class="alert alert-danger text-center alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<p>There was a problem removing the archive files.</p>
+			</div>			
+			<?php } ?>	
 			<?php if (isset($_GET['zips-deleted']) && $_GET['zips-deleted'] == 0) { ?>
 			<div class="alert alert-danger text-center alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<p>No zip files were deleted.</p>
+				<p>There are no archived files to be deleted.</p>
 			</div>			
-			<?php } ?>
+			<?php } ?>		
 			<?php if (isset($_GET['email-logs-rmvd']) && $_GET['email-logs-rmvd'] == 1) { ?>
 			<div class="alert alert-success text-center alert-dismissible" role="alert">
 				<p>All email logs for <strong><?php echo date('M Y', $rmv_date); ?></strong> have been archived and removed.</p><br>
