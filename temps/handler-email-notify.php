@@ -2,11 +2,11 @@
 include_once($_SERVER['DOCUMENT_ROOT'].'/inc/current_pg_function.php');
 
 if ( isset($_GET['cref']) ) {
-$cref = $_GET['cref'];	
-$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$cref.'/data.txt');
+$raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/'.$_GET['cref'].'/data.txt');
 $data = unserialize($raw_data);	
 $name = $data['firstname']." ".$data['lastname'];
 $cref = $data['ref'];
+$doc_title = $data['doc_title'];
 }
 ?>
 <html>
@@ -35,7 +35,7 @@ $cref = $data['ref'];
 		</div>
 		
 		<div class="content" style="padding: 20px 40px; font-size: 16px; line-height: 20px; min-height: 100px;">
-			<h2 align="center" style="color: #ca156e;">TLW Solicitors Client Agreement has not been signed</h2>
+			<h2 align="center" style="color: #ca156e;">TLW Solicitors <strong><?php echo $doc_title; ?></strong> has not been signed</h2>
 			<p align="center bold">Client name: <?php echo $name; ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Client ref: <?php echo $cref; ?></p>
 			<p align="center">Please click on the link below to resend the notification email.</p>
 			<p align="center"><a href="<?php echo SITEROOT; ?>/sendmail/?cref=<?php echo $cref; ?>" style="display: inline-block; padding: 10px; background-color: #ACD15C; text-transform: uppercase; color: white; font-weight: bold; text-decoration: none;">Re-send notification email</a></p>

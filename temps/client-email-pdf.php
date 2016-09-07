@@ -6,6 +6,7 @@ $cref = $_GET['cref'];
 $raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$cref.'/data.txt');
 $data = unserialize($raw_data);	
 $name = " <span style=\"color:#666\">".$data['firstname']."</span> ";
+$doc_title = $data['doc_title'];
 } else {
 $name = " ";	
 }
@@ -13,7 +14,7 @@ $name = " ";
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	<title>TLW Client Agreement</title>
+	<title>TLW Solicitors | Esign</title>
 </head>
 <body style="background-color: #908e8e; padding: 20px; font-family: Arial, sans-serif;">
 	
@@ -36,9 +37,9 @@ $name = " ";
 		</div>
 		
 		<div class="content" style="padding: 20px 40px; font-size: 16px; line-height: 20px; min-height: 100px;">
-			<h2 align="center" style="color: #ca156e;">Thank you<?php echo $name; ?>for signing our client agreement</h2>
-			<p align="center">Your <strong style="color: #ca156e;">TLW Solicitors Client Agreement</strong> is attached to this email as a PDF.</p>
-			<p align="center">Don't hesitate to contact us if you have any questions about the agreement.</p>
+			<h2 align="center" style="color: #ca156e;">Thank you<?php echo $name; ?>for signing our document</h2>
+			<p align="center">Your TLW Solicitors <strong style="color: #ca156e;"><?php echo $doc_title; ?></strong> document is attached to this email as a PDF.</p>
+			<p align="center">Don't hesitate to contact us if you have any questions about this document.</p>
 			<p align="center"><strong>Email us on <a href="mailto: info@tlwsolicitors.co.uk" style="color: #ca156e;">info@tlwsolicitors.co.uk</a> or call us on 0191 293 1500</strong></p>
 		</div>
 		

@@ -6,6 +6,7 @@ $cref = $_GET['cref'];
 $raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$cref.'/data.txt');
 $data = unserialize($raw_data);	
 $signed_date = gmdate('g:ia, jS F, Y', $data['signed']);
+$doc_title = $data['doc_title'];
 ?>
 <html>
 <head>
@@ -34,8 +35,8 @@ $signed_date = gmdate('g:ia, jS F, Y', $data['signed']);
 		
 		<div class="content" style="padding: 20px 40px; font-size: 16px; min-height: 100px;">
 			
-			<h2><span style="color: #ca156e;"><?php echo $data['firstname']; ?> <?php echo $data['lastname']; ?></span> has signed their client agreement.</h2>
-			<p>Client agreement PDF is attached to this email.</p>
+			<h2><span style="color: #ca156e;"><?php echo $data['firstname']; ?> <?php echo $data['lastname']; ?></span> has signed their <span style="color: #ca156e;"><?php echo $doc_title; ?></span> document</h2>
+			<p>The document is attached to this email as a PDF.</p>
 			<p>Details:</p>
 			<ul>
 				<li><strong>Client Ref:</strong>  <?php echo $data['ref']; ?></li>

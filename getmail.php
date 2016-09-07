@@ -192,6 +192,7 @@ if ($inbox){
 		$client_lname = strtolower($subject_parts[2]);
 		$client_email = $subject_parts[3];
 		$handler_email = $subject_parts[4];
+		$doc_title = $subject_parts[5];
 		$result = null;
 		$data = array();
 		
@@ -205,8 +206,10 @@ if ($inbox){
 
 				
 				if ( !is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$doc_dir)  ) {	
-					//DATA ARRAY VALUES					
+					//DATA ARRAY VALUES	
+					$data['id'] 		= 	str_pad(rand('0','99999999'), 8, "0", STR_PAD_LEFT);			
 					$data['ref'] 		= 	$client_ref;
+					$data['doc_title'] 	= 	ucwords($doc_title);
 					$data['handler'] 	=	$handler_email;
 					$data['email'] 		=	$client_email;
 					$data['firstname'] 	=	ucwords($client_fname);

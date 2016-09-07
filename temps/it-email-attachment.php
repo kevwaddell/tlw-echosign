@@ -34,11 +34,12 @@ $remove_date = date('g:ia, jS F, Y', strtotime( '+ 1 day', $data['signed']));
 		</div>
 		
 		<div class="content" style="padding: 20px 40px; font-size: 16px; min-height: 100px;">
-			<h2><span style="color: #ca156e;"><?php echo $data['firstname']; ?> <?php echo $data['lastname']; ?></span> has signed their client agreement.</h2>
-			<p>Client agreement PDF is attached to this email.</p>
+			<h2><span style="color: #ca156e;"><?php echo $data['firstname']; ?> <?php echo $data['lastname']; ?></span> has signed their <span style="color: #ca156e;"><?php echo $doc_title; ?></span> document</h2>
+			<p>The document is attached to this email as a PDF.</p>
 			<p>Details:</p>
 			<ul>
 				<li><strong>Client Ref:</strong>  <?php echo $data['ref']; ?></li>
+				<li><strong>Signature ID:</strong>  <?php echo $data['id']; ?></li>
 				<li><strong>Client name:</strong>  <?php echo $data['firstname']; ?> <?php echo $data['lastname']; ?></li>
 				<li><strong>Client email:</strong>  <a href="mailto:<?php echo $data['email']; ?>"><?php echo $data['email']; ?></a></li>
 				<li><strong>Case handler email:</strong>  <a href="mailto:<?php echo $data['handler']; ?>"><?php echo $data['handler']; ?></a></li>

@@ -9,6 +9,7 @@ $data = unserialize($raw_data);
 $name = " ".$data['firstname']." ";
 $cref = $data['ref'];
 $token = $data['tkn'];
+$doc_title = $data['doc_title'];
 } else {
 $name = "TLW client";	
 $token = "null";
@@ -17,7 +18,7 @@ $token = "null";
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	<title>TLW Client Agreement</title>
+	<title>TLW Solicitors | Esign</title>
 </head>
 <body style="background-color: #908e8e; padding: 20px; font-family: Arial, sans-serif;">
 	
@@ -41,10 +42,10 @@ $token = "null";
 		
 		<div class="content" style="padding: 20px 40px; font-size: 16px; line-height: 20px; min-height: 100px;">
 			<p>Dear <?php echo $name; ?></p>
-			<h2 align="center" style="color: #ca156e;">Your TLW Solicitors Client Agreement is ready to sign</h2>
+			<h2 align="center" style="color: #ca156e;">Your TLW Solicitors <strong><?php echo $doc_title; ?></strong> is ready to sign</h2>
 			<p align="center">Please go to the following link and follow the instructions.</p>
 			<p align="center"><a href="<?php echo SITEROOT; ?><?php echo (!$cref) ? "/" : "/".$cref."/sign/?tkn=".$token; ?>">View document</a></p>
-			<p align="center">If you have any problems with viewing your client agreement please contact us as soon as possible.</p>
+			<p align="center">If you have any problems with viewing this client document please contact us as soon as possible.</p>
 			<p align="center"><strong>Email us on <a href="mailto: info@tlwsolicitors.co.uk" style="color: #ca156e;">info@tlwsolicitors.co.uk</a> or call us on 0191 293 1500</strong></p>
 		</div>
 		

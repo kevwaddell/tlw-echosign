@@ -12,6 +12,7 @@ $doc = parseWord($file);
 $firstname = $data['firstname']; 
 $lastname = $data['lastname']; 
 $fullname = $firstname. " " .$lastname;
+$doc_title = $data['$doc_title'];
 $changeNameErrors = array();
 $updates = false;
 $changed = false;
@@ -114,6 +115,7 @@ if ( isset($_POST['rgen-files']) &&  $_POST['rgen-files'] !== 0) {
 				<?php } ?>
 				
 				<div class="letter-text clear">
+				<h1 class="text-center text-uppercase"><?php echo $doc_title; ?></h1>
 				<?php echo $doc; ?>
 				</div>
 				
