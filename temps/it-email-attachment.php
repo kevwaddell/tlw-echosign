@@ -7,6 +7,7 @@ $raw_data = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/signed/'.$cref.'/data.
 $data = unserialize($raw_data);	
 $signed_date = gmdate('g:ia, jS F, Y', $data['signed']);
 $remove_date = date('g:ia, jS F, Y', strtotime( '+ 1 day', $data['signed']));
+$doc_title = $data['doc_title'];
 ?>
 <html>
 <head>
