@@ -181,19 +181,13 @@ $unsigned_data = unserialize($raw_unsigned_data);
 
 	<footer class="app-info">
 		<div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-3">
-					<?php if ($_SERVER['REMOTE_ADDR'] === '194.73.123.212' || $_SERVER['REMOTE_ADDR'] === '127.0.0.1') { ?>
-						<a href="/admin/dashboard/" class="btn btn-default pull-left" style="margin-top: -15px; width: 100px;" target="_blank">Admin <i class="glyphicon glyphicon-new-window pull-right"></i></a>		
-					<?php } ?>
-				</div>
-				<div class="col-sm-6">
-					<small>&copy; TLW Solicitors 2016. All rights reserved. <?php echo str_pad(rand('0','99999999'), 8, "0", STR_PAD_LEFT); ?></small>	
-				</div>
-			</div>
-			
+			<small>&copy; TLW Solicitors 2016. All rights reserved. <?php echo str_pad(rand('0','99999999'), 8, "0", STR_PAD_LEFT); ?></small>	
 		</div>
 	</footer>
+	
+	<?php if ($_SERVER['REMOTE_ADDR'] === '194.73.123.212' || $_SERVER['REMOTE_ADDR'] === '127.0.0.1') { ?>
+		<a href="/admin/dashboard/" id="admin-btn" class="btn btn-default pull-left" target="_blank">Admin <i class="glyphicon glyphicon-new-window pull-right"></i></a>		
+	<?php } ?>
 
 </body>
 

@@ -109,6 +109,13 @@ line-height: 1.428em;
 line-height: 1.2em;	
 }
 
+a#admin-btn {
+position: fixed;
+left: 10px;
+bottom: 10px;	
+width: 100px;
+}
+
 .messages {
 margin-top: 10px;	
 }
