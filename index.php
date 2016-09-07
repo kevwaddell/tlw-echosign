@@ -11,6 +11,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/inc/pre-function.php');
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <title>TLW Solicitors | Secure Sign</title>
+<meta name="robots" content="noindex, nofollow">
 <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
 <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
