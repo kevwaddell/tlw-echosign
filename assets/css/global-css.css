@@ -300,6 +300,10 @@ font-weight: bold;
 margin-bottom: 20px;	
 }
 
+.letter-address p {
+margin-bottom: 0px;	
+}
+
 .main-content {
 padding-bottom: 20px;	
 }
@@ -311,6 +315,14 @@ overflow: auto;
 border: 1px solid #ccc;
 padding: 15px;
 -webkit-overflow-scrolling: touch;
+}
+
+.letter-text h1 {
+padding-bottom: 10px;
+border-bottom: 1px solid #ccc;
+margin-bottom: 20px;
+font-size: 24px;	
+color: #CC015A;
 }
 
 .letter-logo-wide {
@@ -530,10 +542,6 @@ padding: 8px;
 		border-bottom: 1px solid gray;	
 	}
 	
-	.letter-address p {
-	margin-bottom: 0px;	
-	}
-	
 	.main-content {
 	padding-bottom: 40px;	
 	}
@@ -543,6 +551,12 @@ padding: 8px;
 	height: auto;	
 	border: none;
 	padding: 0px;
+	}
+	
+	.letter-text h1 {
+	padding-bottom: 20px;
+	margin-bottom: 50px;	
+	font-size: 35px;
 	}
 	
 	#generate-sig-form {

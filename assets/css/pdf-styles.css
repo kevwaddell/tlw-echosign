@@ -30,6 +30,19 @@ hr {
 	line-height: 16pt;	
 }
 
+.letter-text h1 {
+	padding-bottom: 10pt;
+	margin-bottom: 40pt;
+	margin-top: 40pt;
+	color: #CC015A;
+	border-bottom: 1pt solid #ccc;
+	font-size: 30pt;
+	line-height: 30pt;	
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: normal;
+}
+
 .letter-address {	
 	font-weight: bold;
 	margin-bottom: 20pt;
