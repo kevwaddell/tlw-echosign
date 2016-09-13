@@ -182,7 +182,7 @@ $unsigned_data = unserialize($raw_unsigned_data);
 
 	<footer class="app-info">
 		<div class="container-fluid">
-			<small>&copy; TLW Solicitors 2016. All rights reserved. <?php echo str_pad(rand('0','99999999'), 8, "0", STR_PAD_LEFT); ?></small>	
+			<small>&copy; TLW Solicitors 2016. All rights reserved.</small>	
 		</div>
 	</footer>
 	
