@@ -6,7 +6,7 @@
         <h4 class="modal-title"><i class="glyphicon glyphicon-info-sign pull-left"></i>&nbsp; Step 4</h4>
       </div>
       <div class="modal-body">
-	    <p class="text-center lead">If you are happy with your signature click the<br><strong class="caps">'Confirm and send'</strong><br>button at the bottom of the document to confirm our agreement.</p>
+	    <p class="text-center lead">If you are happy with the generated signature click the<br><strong class="caps">'Confirm and send'</strong><br>button at the bottom of the document to confirm our agreement.</p>
 	  	<p class="text-center lead">If you would like to change your signature click on the<br><strong class="caps">'Re-generate signature'</strong><br>button and create your signature again.</p>
       </div>
       <div class="modal-footer bg-dkgray">
