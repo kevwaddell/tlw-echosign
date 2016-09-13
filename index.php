@@ -187,7 +187,7 @@ $unsigned_data = unserialize($raw_unsigned_data);
 	</footer>
 	
 	<?php if ($_SERVER['REMOTE_ADDR'] === '194.73.123.212' || $_SERVER['REMOTE_ADDR'] === '127.0.0.1') { ?>
-		<a href="/admin/dashboard/" id="admin-btn" class="btn btn-default pull-left" target="_blank">Admin <i class="glyphicon glyphicon-new-window pull-right"></i></a>		
+		<a href="/admin/dashboard/" id="admin-btn" class="btn btn-default pull-left hidden-xs" target="_blank">Admin <i class="glyphicon glyphicon-new-window pull-right"></i></a>		
 	<?php } ?>
 
 </body>
