@@ -120,6 +120,7 @@ if ( isset($_POST['rgen-files']) &&  $_POST['rgen-files'] !== 0) {
 				</div>
 				
 				<?php if ( !isset($_POST['fullname']) && empty($changeNameErrors) ) { ?>
+				<button id="scroll-dwn" class="btn btn default btn-block">Continue<i class="glyphicon glyphicon-chevron-down pull-right"></i></button>
 				<div id="generate-sig-form" class="show alert alert-success">
 					<?php if ($changed) { ?>
 					<div class="letter-message well text-success text-center" role="alert">
