@@ -194,9 +194,11 @@ if ( isset($_POST['update_smtp_settings']) ) {
 		
 		<div class="container">
 
-			<div class="well well-lg">
-				<form method="post" action="">
-					<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Email Settings</h3>				<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3 class="panel-title text-center">Email Settings<i class="glyphicon glyphicon-wrench pull-right"></i></h3></div>
+				<div class="panel-body">
+				<form method="post" action="">		
+					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group required<?php echo(!empty($email_errors) && isset($email_errors['src_email'])) ? ' has-error':'' ?>">
 								<label for="src_email"><span>*</span>Source email:</label>
@@ -243,11 +245,13 @@ if ( isset($_POST['update_smtp_settings']) ) {
 					<input type="submit" name="update_email_settings" value="Update" class="btn btn-success btn-lg btn-block caps">
 					
 				</form>
+				</div>
 			</div>
 			
-			<div class="well well-lg">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3 class="panel-title text-center">SMTP Settings<i class="glyphicon glyphicon-wrench pull-right"></i></h3></div>
+				<div class="panel-body">
 				<form method="post" action="">
-					<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">SMTP Settings</h3>
 					<div class="col-md-6">
 						<div class="form-group required<?php echo(!empty($smtp_errors) && isset($smtp_errors['smtp_host'])) ? ' has-error':'' ?>">
 							<label for="smtp_host"><span>*</span>Host:</label>
@@ -275,6 +279,7 @@ if ( isset($_POST['update_smtp_settings']) ) {
 					</div>
 					<input type="submit" name="update_smtp_settings" value="Update" class="btn btn-success btn-lg btn-block caps">
 				</form>
+				</div>
 			</div>
 					
 		</div>

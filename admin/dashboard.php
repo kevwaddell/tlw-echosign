@@ -140,19 +140,19 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/admin/logs/unsigned-'.$log_date.'.lo
 			<div class="panel panel-default">
 				<div class="panel-heading"><h3 class="panel-title">Quick Links<i class="glyphicon glyphicon-link pull-right"></i></h3></div>
 				<div class="panel-body">
-					<div class="row" style="margin-bottom: 20px;">
-						<div class="col-xs-6">
-							<a href="<?php echo SITEROOT; ?>/getmail/" class="btn btn-success btn-lg btn-block" target="_blank">Get mail<i class="glyphicon glyphicon-menu-right pull-right"></i></a>
+					<div class="row">
+						<div class="col-md-6">
+							<a href="<?php echo SITEROOT; ?>/getmail/" class="btn btn-success btn-lg btn-block" style="margin-bottom: 10px;" target="_blank">Get mail<i class="glyphicon glyphicon-menu-right pull-right"></i></a>
 						</div>
-						<div class="col-xs-6">
-							<a href="<?php echo SITEROOT; ?>/checkunsigned/" class="btn btn-success btn-lg btn-block" target="_blank">Check unsigned emails<i class="glyphicon glyphicon-menu-right pull-right"></i></a>
+						<div class="col-md-6">
+							<a href="<?php echo SITEROOT; ?>/checkunsigned/" class="btn btn-success btn-lg btn-block" style="margin-bottom: 10px;" target="_blank">Check unsigned emails<i class="glyphicon glyphicon-menu-right pull-right"></i></a>
 						</div>
 					</div>	
 					<div class="row">
-						<div class="col-xs-6">
-							<a href="<?php echo SITEROOT; ?>/signed/flushsig/?zip=all" class="btn btn-success btn-lg btn-block">Archive all signed documents<i class="glyphicon glyphicon-menu-right pull-right"></i></a>
+						<div class="col-md-6">
+							<a href="<?php echo SITEROOT; ?>/signed/flushsig/?zip=all" style="margin-bottom: 10px;" class="btn btn-success btn-lg btn-block">Archive all signed documents<i class="glyphicon glyphicon-menu-right pull-right"></i></a>
 						</div>
-						<div class="col-xs-6">
+						<div class="col-md-6">
 							<a href="<?php echo SITEROOT; ?>/signed/rmvzip/?rmv=all" class="btn btn-success btn-lg btn-block">Delete all Archived documents<i class="glyphicon glyphicon-menu-right pull-right"></i></a>
 						</div>
 					</div>	   

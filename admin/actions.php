@@ -139,16 +139,21 @@ $sent_logs = glob($_SERVER['DOCUMENT_ROOT']."/admin/logs/archives/sent-logs-arch
 			</div>			
 			<?php } ?>
 			
-			<div class="well well-lg">
-			<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Zipped files</h3>
-				<a href="<?php echo SITEROOT; ?>/signed/flushsig/?zip=all" class="btn btn-info btn-block btn-lg">Zip all signed folders <i class="glyphicon glyphicon glyphicon-compressed pull-right"></i></a>
-				<a href="<?php echo SITEROOT; ?>/signed/rmvzip/?rmv=all" class="btn btn-danger btn-block btn-lg">Delete all zipped files <i class="glyphicon glyphicon-trash pull-right"></i></a>
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3 class="panel-title text-center">Zipped files<i class="glyphicon glyphicon-compressed pull-right"></i></h3></div>
+				<div class="panel-body">
+					<a href="<?php echo SITEROOT; ?>/signed/flushsig/?zip=all" class="btn btn-info btn-block btn-lg">Zip all signed folders <i class="glyphicon glyphicon glyphicon-compressed pull-right"></i></a>
+					<a href="<?php echo SITEROOT; ?>/signed/rmvzip/?rmv=all" class="btn btn-danger btn-block btn-lg">Delete all zipped files <i class="glyphicon glyphicon-trash pull-right"></i></a>
+				</div>
 			</div>	
-			<div class="well well-lg">
-				<h3 class="caps text-center" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid gray;">Log Archives</h3>
-				<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-email-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-info btn-block btn-lg">Zip email logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon glyphicon-compressed pull-right"></i></a>
-				<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-sent-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-info btn-block btn-lg">Zip sent logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon glyphicon-compressed pull-right"></i></a>
-				<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-insigned-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-info btn-block btn-lg">Zip unsigned logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon glyphicon-compressed pull-right"></i></a>
+			
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3 class="panel-title text-center">Log Archives<i class="glyphicon glyphicon-compressed pull-right"></i></h3></div>
+				<div class="panel-body">
+					<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-email-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-info btn-block btn-lg">Zip email logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon glyphicon-compressed pull-right"></i></a>
+					<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-sent-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-info btn-block btn-lg">Zip sent logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon glyphicon-compressed pull-right"></i></a>
+					<a href="<?php echo $_SERVER['REQUEST_URI']; ?>?rmv-insigned-logs=<?php echo date('Y-m', $rmv_date); ?>" class="btn btn-info btn-block btn-lg">Zip unsigned logs for <?php echo date('M Y', $rmv_date); ?><i class="glyphicon glyphicon glyphicon-compressed pull-right"></i></a>
+				</div>
 			</div>
 			
 		</div><!-- Container -->
